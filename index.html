@@ -8,22 +8,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background: #080808; color: #fff; 
-            font-family: 'Inter', sans-serif; 
-            padding: 20px 16px; max-width: 480px; margin: 0 auto; min-height: 100vh;
-        }
-        body::before {
-            content: ""; position: fixed; inset: 0;
-            background: radial-gradient(circle at 0% 0%, rgba(60,60,60,0.25) 0%, transparent 50%),
-                        radial-gradient(circle at 100% 100%, rgba(30,30,30,0.3) 0%, transparent 50%);
-            pointer-events: none; z-index: -1;
-        }
-        .glass-card {
-            background: rgba(18,18,18,0.65); backdrop-filter: blur(18px);
-            border: 1px solid rgba(255,255,255,0.06); border-radius: 24px;
-            padding: 20px; margin: 14px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        }
+        body { background: #080808; color: #fff; font-family: 'Inter', sans-serif; padding: 20px 16px; max-width: 480px; margin: 0 auto; min-height: 100vh; }
+        body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(circle at 0% 0%, rgba(60,60,60,0.25) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(30,30,30,0.3) 0%, transparent 50%); pointer-events: none; z-index: -1; }
+        .glass-card { background: rgba(18,18,18,0.65); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.06); border-radius: 24px; padding: 20px; margin: 14px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
         .screen { display: none; }
         .screen.active { display: block; }
         .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
@@ -35,20 +22,31 @@
         .btn { width: 100%; padding: 14px; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; }
         .btn:active { transform: scale(0.97); }
         .btn-green { background: #00ff88; color: #000; }
-        .btn-elite { background: #FFD700; color: #000; }
+        .btn-gold { background: #FFD700; color: #000; }
+        .btn-outline { background: transparent; border: 2px solid #FFD700; color: #FFD700; }
         .btn-setup { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #fff; }
-        .btn-pay { background: #333; color: #fff; border: 1px solid #555; }
-        .btn-copy { background: #2196F3; color: #fff; }
+        .btn-pay { background: #222; color: #fff; border: 1px solid #444; }
         .plan-title { font-size: 18px; font-weight: 700; }
-        .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; margin: 6px 0 10px; background: rgba(0,255,136,0.1); color: #00ff88; border: 1px solid rgba(0,255,136,0.2); }
-        .badge.gold { background: rgba(255,215,0,0.1); color: #FFD700; border: 1px solid rgba(255,215,0,0.25); }
-        .price { font-size: 30px; font-weight: 800; color: #00ff88; margin: 8px 0; }
-        .price span { font-size: 14px; color: #888; font-weight: 500; }
-        .features { list-style: none; margin: 12px 0; }
-        .features li { padding: 5px 0; font-size: 13px; color: #bbb; }
+        .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; margin: 4px 0 8px; }
+        .badge-green { background: rgba(0,255,136,0.1); color: #00ff88; border: 1px solid rgba(0,255,136,0.2); }
+        .badge-gold { background: rgba(255,215,0,0.1); color: #FFD700; border: 1px solid rgba(255,215,0,0.25); }
+        .period-select { display: flex; gap: 8px; margin: 10px 0; }
+        .period-btn { flex: 1; padding: 10px; border: 1px solid #333; border-radius: 10px; background: #111; color: #fff; text-align: center; cursor: pointer; font-size: 12px; font-weight: 600; }
+        .period-btn.active { border-color: #00ff88; background: rgba(0,255,136,0.1); }
+        .period-btn.gold-active { border-color: #FFD700; background: rgba(255,215,0,0.1); }
+        .price-line { font-size: 22px; font-weight: 800; }
+        .price-line small { font-size: 12px; color: #888; text-decoration: line-through; }
+        .save-badge { background: #00ff88; color: #000; font-size: 10px; padding: 2px 6px; border-radius: 8px; margin-left: 6px; font-weight: 700; }
+        .features { list-style: none; margin: 10px 0; font-size: 12px; }
+        .features li { padding: 3px 0; color: #aaa; }
         .features li::before { content: "✓ "; color: #00ff88; font-weight: 700; }
         .ref-link-box { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 12px; margin: 10px 0; font-size: 12px; color: #00ff88; word-break: break-all; }
+        .btn-copy { background: #2196F3; color: #fff; }
         .footer-note { text-align: center; font-size: 11px; color: #444; margin-top: 20px; }
+        .device-option { display: flex; align-items: center; justify-content: space-between; background: #111; padding: 12px; border-radius: 12px; margin: 8px 0; border: 1px solid #222; }
+        .device-option span { font-size: 14px; }
+        .device-option .price { color: #00ff88; font-weight: 700; }
+        .divider-text { text-align: center; color: #555; font-size: 12px; margin: 15px 0; }
     </style>
 </head>
 <body>
@@ -60,7 +58,6 @@
             🚀 <b style="color:#00ff88;">Добро пожаловать.</b><br><br>
             Ты получил <b style="color:#00ff88;">7 дней пробного периода</b> с антизаглушкой на <b style="color:#00ff88;">2 ГБ</b>.<br><br>
             YouTube, TikTok, Discord — без тормозов.<br><br>
-            Жми кнопку внизу.
         </p>
         <button class="btn btn-green" onclick="showMain()">🚀 Запустить VPN</button>
     </div>
@@ -76,17 +73,43 @@
         <button class="btn btn-setup" onclick="startSetup()">⚙️ Настройка</button>
     </div>
 
+    <!-- ТАРИФ BASE -->
     <div class="glass-card">
+        <div class="plan-title">🛡 BASE</div>
+        <div class="badge badge-green">1 устройство · 7 ГБ антизаглушка</div>
+        <div class="period-select" id="basePeriods">
+            <div class="period-btn active" onclick="selectPeriod('base', 1, 120)">1 мес<br>120₽</div>
+            <div class="period-btn" onclick="selectPeriod('base', 3, 299)">3 мес<br>299₽ <small style="color:#888;text-decoration:line-through;">360₽</small></div>
+            <div class="period-btn" onclick="selectPeriod('base', 6, 540)">6 мес<br>540₽ <small style="color:#888;text-decoration:line-through;">720₽</small></div>
+        </div>
+        <div class="price-line" id="basePrice">120₽</div>
+        <div class="device-option">
+            <span>📱 Доп. устройство</span>
+            <span style="color:#00ff88;font-weight:700;">+50₽/мес</span>
+        </div>
+        <button class="btn btn-outline" onclick="buyPlan('base')">💳 Купить BASE</button>
+    </div>
+
+    <!-- ТАРИФ ELITE -->
+    <div class="glass-card" style="border-color: rgba(255,215,0,0.2);">
         <div class="plan-title">👑 ELITE</div>
-        <div class="badge gold">Полный доступ</div>
-        <div class="price">249₽ <span>/ мес</span></div>
-        <ul class="features"><li>3 устройства</li><li>Антизаглушка 20 GB</li><li>Все серверы</li><li>Приоритетная скорость</li></ul>
-        <button class="btn btn-elite" onclick="buyElite()">💎 Купить ELITE</button>
+        <div class="badge badge-gold">3 устройства · 20 ГБ антизаглушка · Все серверы</div>
+        <div class="period-select" id="elitePeriods">
+            <div class="period-btn gold-active active" onclick="selectPeriod('elite', 1, 249)">1 мес<br>249₽</div>
+            <div class="period-btn" onclick="selectPeriod('elite', 3, 649)">3 мес<br>649₽ <small style="color:#888;text-decoration:line-through;">747₽</small></div>
+            <div class="period-btn" onclick="selectPeriod('elite', 6, 1190)">6 мес<br>1190₽ <small style="color:#888;text-decoration:line-through;">1494₽</small></div>
+        </div>
+        <div class="price-line" id="elitePrice">249₽</div>
+        <div class="device-option">
+            <span>📱 Доп. устройство</span>
+            <span style="color:#FFD700;font-weight:700;">+50₽/мес</span>
+        </div>
+        <button class="btn btn-gold" onclick="buyPlan('elite')">💎 Купить ELITE</button>
     </div>
 
     <div class="glass-card" style="text-align:center;">
-        <h3>👥 Приведи друга</h3>
-        <p style="font-size:12px;color:#888;">Друг оплатит ELITE → ты +30 дней</p>
+        <h3 style="font-size:15px;">👥 Приведи друга</h3>
+        <p style="font-size:12px;color:#888;">Друг оплатит → ты +30 дней</p>
         <div class="ref-link-box" id="refLink">...</div>
         <button class="btn btn-copy" onclick="copyRef()">📋 Копировать</button>
         <div style="display:flex;justify-content:space-around;margin-top:12px;">
@@ -98,13 +121,13 @@
 </div>
 
 <div id="payScreen" class="screen">
-    <div class="top-bar"><div class="brand">💎 Оплата ELITE</div></div>
+    <div class="top-bar"><div class="brand">💳 Оплата</div></div>
     <div class="glass-card">
-        <p style="text-align:center;font-size:14px;margin-bottom:10px;">Выбери способ:</p>
+        <p style="text-align:center;" id="payInfo"></p>
         <button class="btn btn-pay" onclick="paySBP('sber')">🏦 СБП — Сбербанк</button>
         <button class="btn btn-pay" onclick="paySBP('alfa')">🏦 СБП — Альфа-Банк</button>
         <button class="btn btn-pay" onclick="goBack()">↩ Назад</button>
-        <p style="font-size:11px;color:#888;margin-top:10px;text-align:center;">Возврат за первый месяц не производится. Пробный период — 7 дней.</p>
+        <p style="font-size:11px;color:#888;margin-top:10px;text-align:center;">Возврат за первый месяц не производится.</p>
     </div>
 </div>
 
@@ -123,18 +146,17 @@
     document.getElementById('refLink').innerText = refLink;
     
     let userData = null;
+    let selectedPlan = 'elite';
+    let selectedMonths = 1;
+    let selectedPrice = 249;
 
     async function loadUser() {
         const res = await fetch(`${SUPABASE_URL}/rest/v1/users?user_id=eq.${userId}`, {
             headers: {'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`}
         });
         const data = await res.json();
-        if (data.length > 0) {
-            userData = data[0];
-        } else {
-            await createUser();
-            userData = { plan: 'trial', balance_days: 7, key: 'WEX-TRIAL-' + userId.toString().slice(-6), ref_count: 0, bonus_days: 0 };
-        }
+        if (data.length > 0) { userData = data[0]; }
+        else { await createUser(); userData = { plan: 'trial', balance_days: 7, key: 'WEX-TRIAL-' + userId.toString().slice(-6), ref_count: 0, bonus_days: 0 }; }
         updateUI();
     }
 
@@ -147,13 +169,11 @@
     }
 
     function updateUI() {
-        document.getElementById('bal').innerText = userData.balance_days + ' дней (' + userData.plan + ')';
-        document.getElementById('keyText').innerText = '🔑 Ключ: ' + userData.key;
+        document.getElementById('bal').innerText = (userData.balance_days || 7) + ' дней (' + (userData.plan || 'trial') + ')';
+        document.getElementById('keyText').innerText = '🔑 Ключ: ' + (userData.key || '—');
         document.getElementById('refCount').innerText = userData.ref_count || 0;
         document.getElementById('bonusDays').innerText = userData.bonus_days || 0;
-        if (userData.plan === 'elite') {
-            document.getElementById('statusText').innerHTML = '👑 <b>ELITE активен</b>';
-        }
+        if (userData.plan === 'elite') document.getElementById('statusText').innerHTML = '👑 <b>ELITE активен</b>';
     }
 
     function showMain() {
@@ -161,11 +181,21 @@
         document.getElementById('mainScreen').classList.add('active');
     }
 
-    function openSupport() { tg.openTelegramLink('https://t.me/pan1ca7'); }
+    function selectPeriod(plan, months, price) {
+        selectedPlan = plan;
+        selectedMonths = months;
+        selectedPrice = price;
+        document.getElementById(plan + 'Price').innerText = price + '₽';
+        
+        document.querySelectorAll('#' + plan + 'Periods .period-btn').forEach(b => b.classList.remove('active', 'gold-active'));
+        event.target.classList.add(plan === 'elite' ? 'gold-active' : 'active');
+    }
 
-    function buyElite() {
+    function buyPlan(plan) {
+        selectedPlan = plan;
         document.getElementById('mainScreen').classList.remove('active');
         document.getElementById('payScreen').classList.add('active');
+        document.getElementById('payInfo').innerHTML = `<b>${plan.toUpperCase()}</b> · ${selectedMonths} мес · <b>${selectedPrice}₽</b>`;
     }
 
     function goBack() {
@@ -173,24 +203,27 @@
         document.getElementById('mainScreen').classList.add('active');
     }
 
+    function openSupport() { tg.openTelegramLink('https://t.me/pan1ca7'); }
+
     async function paySBP(bank) {
         const code = Math.random().toString(36).substring(2, 10).toUpperCase();
-        const phone = bank === 'sber' ? '+7 (XXX) XXX-XX-92' : '+7 (XXX) XXX-XX-82';
+        const phone = bank === 'sber' ? '+7 952 843-59-22' : '+7 988 080-13-82';
         const bankName = bank === 'sber' ? 'Сбербанк' : 'Альфа-Банк';
         
         tg.showPopup({
             title: '🏦 ' + bankName,
-            message: '💰 249₽\n📱 ' + phone + '\n🏷 Код: ' + code + '\n\n⚠️ Укажи код в комментарии!',
+            message: '💰 ' + selectedPrice + '₽\n📱 ' + phone + '\n🏷 Код: ' + code + '\n\n⚠️ Укажи код в комментарии!',
             buttons: [{id:'done', text:'✅ Я оплатил'}, {type:'cancel'}]
         }, async (btn) => {
             if (btn === 'done') {
                 await fetch(`${SUPABASE_URL}/rest/v1/payments`, {
                     method: 'POST',
                     headers: {'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal'},
-                    body: JSON.stringify({user_id: userId, code: code, bank: bankName, amount: 249, status: 'pending'})
+                    body: JSON.stringify({user_id: userId, username: username, code: code, bank: bankName, amount: selectedPrice, plan: selectedPlan, months: selectedMonths, status: 'pending', created_at: new Date().toISOString()})
                 });
-                tg.sendData(JSON.stringify({action: 'payment_pending', code: code, bank: bankName}));
-                tg.showPopup({title:'✅', message:'Заявка отправлена! Админ проверит платёж.'});
+                tg.sendData(JSON.stringify({action: 'payment', code: code, plan: selectedPlan, price: selectedPrice}));
+                tg.showPopup({title:'✅', message:'Заявка отправлена! После проверки — обнови экран.'});
+                goBack();
             }
         });
     }
