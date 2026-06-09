@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEX VPN</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #0a0a0a; 
+            color: white; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            padding: 30px 0 20px 0;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #00ff88;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #888;
+            font-size: 14px;
+        }
+        .card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #2a2a2a;
+        }
+        .card.elite {
+            border-color: #FFD700;
+            background: #1a1a0f;
+        }
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .card .badge {
+            display: inline-block;
+            background: #00ff88;
+            color: #000;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card .badge.elite {
+            background: #FFD700;
+        }
+        .price {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00ff88;
+            margin: 10px 0;
+        }
+        .price span {
+            font-size: 14px;
+            color: #888;
+        }
+        .features {
+            list-style: none;
+            margin: 15px 0;
+        }
+        .features li {
+            padding: 6px 0;
+            font-size: 14px;
+            color: #ccc;
+        }
+        .features li::before {
+            content: "✓ ";
+            color: #00ff88;
+            font-weight: bold;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px 0;
+            transition: all 0.2s;
+        }
+        .btn:active {
+            transform: scale(0.96);
+            opacity: 0.8;
+        }
+        .btn-trial {
+            background: #333;
+            color: white;
+        }
+        .btn-elite {
+            background: #FFD700;
+            color: #000;
+            font-size: 18px;
+        }
+        .ref-section {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px solid #2a2a2a;
+        }
+        .ref-section h3 {
+            margin-bottom: 10px;
+        }
+        .ref-link-box {
+            background: #0d0d0d;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-size: 13px;
+            color: #00ff88;
+            border: 1px solid #333;
+        }
+        .btn-copy {
+            background: #2196F3;
+            color: white;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #00ff88;
+        }
+        .stat .label {
+            font-size: 12px;
+            color: #888;
+        }
+        .footer {
+            text-align: center;
+            color: #555;
+            font-size: 12px;
+            margin-top: 20px;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <h1>🔐 WEX VPN</h1>
+        <p>Через приложение Happ VPN</p>
+    </div>
+    
+    <div class="card">
+        <h3>🆓 ПРОБНЫЙ</h3>
+        <div class="badge">7 ДНЕЙ БЕСПЛАТНО</div>
+        <div class="price">0₽ <span>/ неделя</span></div>
+        <ul class="features">
+            <li>1 устройство</li>
+            <li>Антизаглушка: 2 GB</li>
+            <li>Базовые серверы</li>
+            <li>Работает в Happ VPN</li>
+        </ul>
+        <button class="btn btn-trial" onclick="getTrial()">🎁 Активировать бесплатно</button>
+    </div>
+    
+    <div class="card elite">
+        <h3>👑 ELITE VPN</h3>
+        <div class="badge elite">ПОЛНЫЙ ДОСТУП</div>
+        <div class="price">249₽ <span>/ месяц</span></div>
+        <ul class="features">
+            <li>3 устройства</li>
+            <li>Антизаглушка: 20 GB</li>
+            <li>Все серверы (EU, US, ASIA)</li>
+            <li>Максимальная скорость</li>
+            <li>Моментальная выдача ключа</li>
+        </ul>
+        <button class="btn btn-elite" onclick="buyElite()">💎 Купить ELITE</button>
+    </div>
+    
+    <div class="ref-section">
+        <h3>👥 Приведи друга</h3>
+        <p style="color: #888; font-size: 13px; margin-bottom: 10px;">
+            Друг оплачивает ELITE → ты получаешь <span style="color: #FFD700;">месяц ELITE бесплатно</span>
+        </p>
+        <div class="ref-link-box" id="refLink">Загрузка...</div>
+        <button class="btn btn-copy" onclick="copyRef()">📋 Копировать ссылку</button>
+        <div class="stats">
+            <div class="stat">
+                <div class="number" id="refCount">0</div>
+                <div class="label">Приглашено</div>
+            </div>
+            <div class="stat">
+                <div class="number" id="bonusDays">0</div>
+                <div class="label">Бонусных дней</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        Работает через приложение <b>Happ VPN</b><br>
+        Скачай в App Store / Google Play
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        
+        const user = tg.initDataUnsafe?.user;
+        const userId = user?.id || 'guest';
+        
+        const BOT_USERNAME = 'wex7vpnbot';
+        const refLink = 'https://t.me/' + BOT_USERNAME + '?start=ref' + userId;
+        document.getElementById('refLink').innerText = refLink;
+        
+        function getTrial() {
+            tg.showPopup({
+                title: '🎁 Пробный ключ',
+                message: 'Ты получишь бесплатный ключ на 7 дней для Happ VPN.\n\n1. Скачай Happ VPN\n2. Введи ключ\n3. Пользуйся!',
+                buttons: [
+                    {id: 'ok', type: 'default', text: 'Получить ключ'},
+                    {type: 'cancel', text: 'Отмена'}
+                ]
+            }, function(buttonId) {
+                if (buttonId === 'ok') {
+                    tg.showPopup({
+                        title: '✅ Твой ключ',
+                        message: 'Ключ: WEX-FREE-' + userId.toString().slice(-8) + '\n\nИнструкция:\n1. Скачай Happ VPN\n2. Открой приложение\n3. Введи этот ключ\n4. Готово!'
+                    });
+                }
+            });
+        }
+        
+        function buyElite() {
+            tg.showPopup({
+                title: '💎 ELITE VPN',
+                message: 'Цена: 249₽ / месяц\n\nСпособы оплаты:\n• Telegram Stars (250 ⭐)\n• Перевод на карту',
+                buttons: [
+                    {id: 'stars', type: 'default', text: '⭐ Оплатить Stars'},
+                    {id: 'card', type: 'default', text: '💳 Карта'},
+                    {type: 'cancel', text: 'Отмена'}
+                ]
+            }, function(buttonId) {
+                if (buttonId === 'stars') {
+                    tg.showPopup({title: '⭐ Telegram Stars', message: 'Отправь 250 Stars боту @' + BOT_USERNAME + '\n\nПосле оплаты напиши /paid'});
+                }
+                if (buttonId === 'card') {
+                    tg.showPopup({title: '💳 Оплата картой', message: 'Номер карты: 2200 XXXX XXXX XXXX\nСумма: 249₽\n\nПосле оплаты напиши /paid и пришли скриншот.'});
+                }
+            });
+        }
+        
+        function copyRef() {
+            navigator.clipboard.writeText(refLink).then(function() {
+                tg.showPopup({title: '✅ Скопировано!', message: 'Отправь ссылку другу. Он оплатит → ты получишь месяц ELITE бесплатно!'});
+            });
+        }
+    </script>
+    
+</body>
+</html>
+
