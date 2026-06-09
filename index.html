@@ -1,344 +1,136 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEX VPN</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
+    tg.expand();
 
-        body { 
-            background: #080808;
-            color: #fff; 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            padding: 20px 16px;
-            max-width: 480px;
-            margin: 0 auto;
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        /* матово-стеклянный фоновый эффект */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 0% 0%, rgba(60,60,60,0.25) 0%, transparent 50%),
-                        radial-gradient(circle at 100% 100%, rgba(30,30,30,0.3) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
-        }
+    const SUPABASE_URL = 'https://uwasaxshladsssvkooof.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable__-cdz___wVbGrgOVPn6plw_zVM5Zyel';
+    
+    const user = tg.initDataUnsafe?.user;
+    const userId = user?.id || 'guest';
+    const username = user?.username || user?.first_name || 'Юзер';
+    const BOT_USERNAME = 'wex7vpnbot';
+    const refLink = `https://t.me/${BOT_USERNAME}?start=ref${userId}`;
+    document.getElementById('refLink').innerText = refLink;
 
-        .glass-card {
-            background: rgba(18, 18, 18, 0.65);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 24px;
-            padding: 20px;
-            margin: 14px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            transition: 0.2s;
-        }
-        .glass-card.elite {
-            border: 1px solid rgba(255,215,0,0.15);
-            background: rgba(22,22,12,0.7);
-        }
-
-        /* --- HEADER --- */
-        .top-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        .brand {
-            font-size: 20px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #fff, #ccc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .support-btn {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: #aaa;
-            padding: 8px 14px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .support-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
-
-        .balance-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255,255,255,0.03);
-            border-radius: 16px;
-            padding: 12px 16px;
-            margin: 10px 0 6px;
-            border: 1px solid rgba(255,255,255,0.04);
-        }
-        .balance-label { font-size: 13px; color: #888; }
-        .balance-value { font-size: 18px; font-weight: 700; color: #00ff88; }
-
-        /* карточки тарифов */
-        .plan-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .badge {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
-            margin: 6px 0 10px;
-            background: rgba(0,255,136,0.1);
-            color: #00ff88;
-            border: 1px solid rgba(0,255,136,0.2);
-        }
-        .badge.gold {
-            background: rgba(255,215,0,0.1);
-            color: #FFD700;
-            border: 1px solid rgba(255,215,0,0.25);
-        }
-        .price {
-            font-size: 30px;
-            font-weight: 800;
-            color: #00ff88;
-            margin: 8px 0;
-        }
-        .price span { font-size: 14px; color: #888; font-weight: 500; }
-        .features { list-style: none; margin: 12px 0; }
-        .features li {
-            padding: 5px 0;
-            font-size: 13px;
-            color: #bbb;
-        }
-        .features li::before {
-            content: "✓ ";
-            color: #00ff88;
-            font-weight: 700;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 8px;
-            transition: 0.2s;
-        }
-        .btn:active { transform: scale(0.97); }
-        .btn-trial { background: #222; color: #fff; border: 1px solid #333; }
-        .btn-elite { background: #FFD700; color: #000; }
-
-        /* настройка */
-        .setup-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.08);
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .ref-link-box {
-            background: rgba(0,0,0,0.4);
-            padding: 10px;
-            border-radius: 12px;
-            margin: 10px 0;
-            font-size: 12px;
-            color: #00ff88;
-            word-break: break-all;
-        }
-        .btn-copy { background: #2196F3; color: #fff; }
-
-        .footer-note {
-            text-align: center;
-            font-size: 11px;
-            color: #444;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Верх: бренд + саппорт -->
-    <div class="top-bar">
-        <div class="brand">WEX VPN</div>
-        <button class="support-btn" onclick="openSupport()">💬 Support @pan1ca7</button>
-    </div>
-
-    <!-- Баланс -->
-    <div class="balance-row">
-        <span class="balance-label">Твой баланс</span>
-        <span class="balance-value" id="balanceDisplay">0 дней</span>
-    </div>
-
-    <!-- Пробный -->
-    <div class="glass-card">
-        <div class="plan-title">🆓 Пробный</div>
-        <div class="badge">7 дней бесплатно</div>
-        <div class="price">0₽ <span>/ нед</span></div>
-        <ul class="features">
-            <li>1 устройство</li>
-            <li>Антизаглушка 2 GB</li>
-            <li>Базовые серверы</li>
-        </ul>
-        <button class="btn btn-trial" onclick="getTrial()">🎁 Активировать</button>
-    </div>
-
-    <!-- ELITE -->
-    <div class="glass-card elite">
-        <div class="plan-title">👑 ELITE</div>
-        <div class="badge gold">Полный доступ</div>
-        <div class="price">249₽ <span>/ мес</span></div>
-        <ul class="features">
-            <li>3 устройства</li>
-            <li>Антизаглушка 20 GB</li>
-            <li>Все серверы (EU, US, ASIA)</li>
-            <li>Приоритетная скорость</li>
-        </ul>
-        <button class="btn btn-elite" onclick="buyElite()">💎 Купить ELITE</button>
-    </div>
-
-    <!-- НАСТРОЙКА -->
-    <button class="btn setup-btn" onclick="startSetup()">⚙️ Настройка</button>
-
-    <!-- Рефералы -->
-    <div class="glass-card" style="text-align:center;">
-        <h3 style="margin-bottom:6px;">👥 Приведи друга</h3>
-        <p style="font-size:12px;color:#888;">Друг оплатит ELITE → ты получишь месяц ELITE</p>
-        <div class="ref-link-box" id="refLink">загрузка...</div>
-        <button class="btn btn-copy" onclick="copyRef()">📋 Копировать ссылку</button>
-        <div style="display:flex;justify-content:space-around;margin-top:12px;">
-            <div><span style="color:#00ff88;font-weight:700;" id="refCount">0</span><br><small style="color:#888;">приглашено</small></div>
-            <div><span style="color:#00ff88;font-weight:700;" id="bonusDays">0</span><br><small style="color:#888;">бонус дней</small></div>
-        </div>
-    </div>
-
-    <div class="footer-note">Работает с Happ VPN</div>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-
-        const user = tg.initDataUnsafe?.user;
-        const userId = user?.id || 'guest';
-        const BOT_USERNAME = 'wex7vpnbot';
-        const refLink = `https://t.me/${BOT_USERNAME}?start=ref${userId}`;
-        document.getElementById('refLink').innerText = refLink;
-
-        // демо-баланс (пока ноль)
-        document.getElementById('balanceDisplay').innerText = '7 дней (пробный)';
-
-        function openSupport() {
-            tg.openTelegramLink('https://t.me/pan1ca7');
-        }
-
-        function getTrial() {
-            tg.showPopup({
-                title: 'Пробный ключ',
-                message: 'Получи ключ на 7 дней.\n1. Скачай Happ VPN\n2. Введи ключ',
-                buttons: [{id:'ok', text:'Получить'}, {type:'cancel'}]
-            }, (btn) => {
-                if(btn === 'ok') {
-                    tg.showPopup({title:'Ключ', message:'WEX-FREE-' + userId.toString().slice(-8)});
+    // Загружаем данные из Supabase
+    async function loadUser() {
+        try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/users?user_id=eq.${userId}`, {
+                headers: {
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`
                 }
             });
+            const data = await res.json();
+            if (data.length > 0) {
+                const u = data[0];
+                document.getElementById('balanceDisplay').innerText = u.balance_days + ' дней';
+                document.getElementById('refCount').innerText = u.ref_count || 0;
+                document.getElementById('bonusDays').innerText = u.bonus_days || 0;
+            } else {
+                // Создаём юзера
+                await createUser();
+                document.getElementById('balanceDisplay').innerText = '7 дней (пробный)';
+            }
+        } catch(e) {
+            console.log('База не подключена');
+            document.getElementById('balanceDisplay').innerText = '7 дней (пробный)';
         }
+    }
 
-        function buyElite() {
-            tg.showPopup({
-                title: 'ELITE 249₽',
-                message: '⭐ Stars: отправь 250 Stars боту\n💳 Карта: 2200 XXXX XXXX XXXX',
-                buttons: [{id:'stars', text:'⭐ Stars'}, {id:'card', text:'💳 Карта'}, {type:'cancel'}]
-            }, (btn) => {
-                if(btn === 'stars') tg.showPopup({title:'Stars', message:'Отправь 250 Stars боту @' + BOT_USERNAME});
-                if(btn === 'card') tg.showPopup({title:'Карта', message:'Переведи 249₽ и напиши /paid'});
-            });
-        }
+    async function createUser() {
+        const newUser = {
+            user_id: userId,
+            username: username,
+            plan: 'trial',
+            trial_end: new Date(Date.now() + 7*24*60*60*1000).toISOString(),
+            key: 'WEX-TRIAL-' + userId.toString().slice(-6),
+            balance_days: 7,
+            ref_code: 'ref' + userId,
+            ref_count: 0,
+            bonus_days: 0
+        };
+        await fetch(`${SUPABASE_URL}/rest/v1/users`, {
+            method: 'POST',
+            headers: {
+                'apikey': SUPABASE_KEY,
+                'Authorization': `Bearer ${SUPABASE_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(newUser)
+        });
+    }
 
-        // ----------------- НАСТРОЙКА -----------------
-        function startSetup() {
-            tg.showPopup({
-                title: 'Выбери платформу',
-                message: 'На чём будешь использовать VPN?',
-                buttons: [
-                    {id: 'ios', text: 'iOS'},
-                    {id: 'android', text: 'Android'},
-                    {id: 'windows', text: 'Windows'},
-                    {id: 'linux', text: 'Linux'},
-                    {type: 'cancel'}
-                ]
-            }, (platform) => {
-                if (!platform || platform === 'cancel') return;
-                chooseAudience(platform);
-            });
-        }
+    loadUser();
 
-        function chooseAudience(platform) {
-            tg.showPopup({
-                title: 'Для кого настройка?',
-                message: 'Выбери вариант',
-                buttons: [
-                    {id: 'self', text: 'Для себя'},
-                    {id: 'other', text: 'Для кого-то'},
-                    {type: 'cancel'}
-                ]
-            }, (audience) => {
-                if (!audience || audience === 'cancel') return;
-                askHapp(platform, audience);
-            });
-        }
+    function showMainScreen() {
+        document.getElementById('welcomeScreen').classList.remove('active');
+        document.getElementById('mainScreen').classList.add('active');
+    }
 
-        function askHapp(platform, audience) {
-            tg.showPopup({
-                title: 'Скажи "Happ"',
-                message: 'Введи "Happ" чтобы продолжить',
-                buttons: [
-                    {id: 'happ', text: 'Happ'},
-                    {id: 'skip', text: 'Пропустить'},
-                    {type: 'cancel'}
-                ]
-            }, (choice) => {
-                if (choice === 'happ' || choice === 'skip') {
-                    let link = '';
-                    if (platform === 'ios') link = 'https://apps.apple.com/app/happ-vpn/id1587873487';
-                    else if (platform === 'android') link = 'https://play.google.com/store/apps/details?id=com.happvpn';
-                    else if (platform === 'windows') link = 'https://happvpn.com/windows';
-                    else if (platform === 'linux') link = 'https://happvpn.com/linux';
-                    
-                    tg.showPopup({
-                        title: 'Готово',
-                        message: audience === 'self' ? 'Сейчас откроется Happ VPN. Нажми Подключиться.' : 'Отправь эту ссылку другу.',
-                        buttons: [{id:'connect', text:'🔗 Подключиться'}]
-                    }, (final) => {
-                        if (final === 'connect' && link) {
-                            tg.openLink(link);
-                        }
-                    });
-                }
-            });
-        }
+    function openSupport() { tg.openTelegramLink('https://t.me/pan1ca7'); }
 
-        function copyRef() {
-            navigator.clipboard.writeText(refLink);
-            tg.showPopup({title:'Скопировано', message:'Отправь другу и получи месяц ELITE!'});
-        }
-    </script>
-</body>
-</html>
+    function buyElite() {
+        tg.showPopup({
+            title: 'ELITE 249₽',
+            message: '⭐ Stars: отправь 250 Stars боту\n💳 Карта: 2200 XXXX XXXX XXXX',
+            buttons: [{id:'stars', text:'⭐ Stars'}, {id:'card', text:'💳 Карта'}, {type:'cancel'}]
+        }, (btn) => {
+            if(btn === 'stars') tg.showPopup({title:'Stars', message:'Отправь 250 Stars боту @' + BOT_USERNAME});
+            if(btn === 'card') tg.showPopup({title:'Карта', message:'Переведи 249₽ и напиши /paid'});
+        });
+    }
 
+    function startSetup() {
+        tg.showPopup({
+            title: 'Выбери платформу',
+            message: 'На чём будешь использовать VPN?',
+            buttons: [{id:'ios', text:'iOS'}, {id:'android', text:'Android'}, {id:'windows', text:'Windows'}, {id:'linux', text:'Linux'}, {type:'cancel'}]
+        }, (platform) => {
+            if (!platform || platform === 'cancel') return;
+            chooseAudience(platform);
+        });
+    }
+
+    function chooseAudience(platform) {
+        tg.showPopup({
+            title: 'Для кого настройка?',
+            message: 'Выбери вариант',
+            buttons: [{id:'self', text:'Для себя'}, {id:'other', text:'Для кого-то'}, {type:'cancel'}]
+        }, (audience) => {
+            if (!audience || audience === 'cancel') return;
+            askHapp(platform, audience);
+        });
+    }
+
+    function askHapp(platform, audience) {
+        tg.showPopup({
+            title: 'Скажи "Happ"',
+            message: 'Введи "Happ" чтобы продолжить',
+            buttons: [{id:'happ', text:'Happ'}, {id:'skip', text:'Пропустить'}, {type:'cancel'}]
+        }, (choice) => {
+            if (choice === 'happ' || choice === 'skip') {
+                let link = '';
+                if (platform === 'ios') link = 'https://apps.apple.com/app/happ-vpn/id1587873487';
+                else if (platform === 'android') link = 'https://play.google.com/store/apps/details?id=com.happvpn';
+                else if (platform === 'windows') link = 'https://happvpn.com/windows';
+                else link = 'https://happvpn.com/linux';
+                
+                tg.showPopup({
+                    title: 'Готово',
+                    message: audience === 'self' ? 'Сейчас откроется Happ VPN.' : 'Отправь ссылку другу.',
+                    buttons: [{id:'connect', text:'🔗 Подключиться'}]
+                }, (final) => {
+                    if (final === 'connect' && link) tg.openLink(link);
+                });
+            }
+        });
+    }
+
+    function copyRef() {
+        navigator.clipboard.writeText(refLink);
+        tg.showPopup({title:'Скопировано', message:'Отправь другу и получи месяц ELITE!'});
+    }
+</script>
