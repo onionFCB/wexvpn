@@ -8,22 +8,26 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #000; color: #c8c8c8; font-family: 'Inter', -apple-system, sans-serif; max-width: 500px; margin: 0 auto; min-height: 100vh; -webkit-font-smoothing: antialiased; padding-bottom: 95px; }
-        body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(ellipse at 20% 0%, rgba(255,255,255,0.02) 0%, transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(128,128,128,0.02) 0%, transparent 50%); pointer-events: none; z-index: -1; }
+        body { background: #000; color: #c0c0c0; font-family: 'Inter', -apple-system, sans-serif; max-width: 500px; margin: 0 auto; min-height: 100vh; -webkit-font-smoothing: antialiased; padding-bottom: 95px; }
+        body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(ellipse at 20% 0%, rgba(255,255,255,0.02) 0%, transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(180,180,180,0.02) 0%, transparent 50%); pointer-events: none; z-index: -1; }
 
-        .page { display: none; padding: 14px 10px 0; animation: fadeIn 0.35s ease; }
+        .page { display: none; padding: 14px 10px 0; animation: fadeIn 0.3s ease; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .top-bar { display: flex; align-items: center; gap: 6px; padding: 6px 0 2px; }
-        .logo { font-size: 21px; font-weight: 900; letter-spacing: -1.5px; background: linear-gradient(135deg, #d0d0d0, #666); -webkit-background-clip: text; -webkit-text-fill-color: transparent; flex: 1; }
-        .icon-btn { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.04); color: #888; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .top-bar { display: flex; align-items: center; gap: 8px; padding: 6px 0 2px; }
+        .logo { font-size: 21px; font-weight: 900; letter-spacing: -1.5px; background: linear-gradient(135deg, #d8d8d8, #707070); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .balance-top { font-size: 12px; font-weight: 700; color: #aaa; background: rgba(255,255,255,0.03); padding: 6px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; }
+        .support-center { display: flex; justify-content: center; margin: 4px 0 0; }
+        .support-link { font-size: 9px; color: #666; cursor: pointer; padding: 5px 12px; border-radius: 10px; background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.08); }
+        .icon-btn { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.05); color: #888; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .card { background: #070707; border: 1px solid #111; border-radius: 18px; padding: 14px; margin: 6px 0; position: relative; overflow: hidden; }
-        .card::after { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.015), transparent 60%); pointer-events: none; }
-        .card-neon { border: 1px solid #222; box-shadow: 0 0 20px rgba(128,128,128,0.04), inset 0 1px 0 rgba(255,255,255,0.02); }
-        .card-gold { border-color: rgba(255,215,0,0.12); box-shadow: 0 0 25px rgba(255,215,0,0.03); }
-        .card-purple { border-color: rgba(155,89,182,0.12); box-shadow: 0 0 25px rgba(155,89,182,0.03); }
+        .card { background: #070707; border: 1px solid #111; border-radius: 18px; padding: 14px; margin: 5px 0; position: relative; overflow: hidden; }
+        .card::after { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.012), transparent 60%); pointer-events: none; }
+        .card-neon { border-color: #1a1a1a; box-shadow: 0 0 25px rgba(150,150,150,0.03); }
+        .card-gold { border-color: rgba(255,215,0,0.1); }
+        .card-purple { border-color: rgba(155,89,182,0.1); }
+        .card-accent { border-color: rgba(0,200,200,0.12); box-shadow: 0 0 20px rgba(0,200,200,0.04); }
 
         .badge { font-size: 8px; font-weight: 700; padding: 3px 7px; border-radius: 7px; }
         .badge-red { background: rgba(255,77,77,0.06); color: #FF4D4D; }
@@ -34,10 +38,11 @@
         .btn:active { transform: scale(0.97); }
         .btn-green { background: #00ff88; color: #000; }
         .btn-gold { background: #FFD700; color: #000; }
-        .btn-ghost { background: rgba(255,255,255,0.02); color: #bbb; border: 1px solid rgba(255,255,255,0.05); }
-        .btn-outline { background: transparent; border: 1px solid #444; color: #aaa; box-shadow: 0 0 15px rgba(128,128,128,0.06); }
-        .btn-outline-gold { background: transparent; border: 1px solid rgba(255,215,0,0.3); color: #FFD700; }
-        .btn-outline-purple { background: transparent; border: 1px solid rgba(155,89,182,0.3); color: #9B59B6; }
+        .btn-ghost { background: rgba(255,255,255,0.02); color: #bbb; border: 1px solid rgba(255,255,255,0.06); }
+        .btn-outline { background: transparent; border: 1px solid #333; color: #aaa; }
+        .btn-outline-gold { background: transparent; border: 1px solid rgba(255,215,0,0.25); color: #FFD700; }
+        .btn-outline-purple { background: transparent; border: 1px solid rgba(155,89,182,0.25); color: #9B59B6; }
+        .btn-outline-teal { background: transparent; border: 1px solid rgba(0,200,200,0.25); color: #0cc; }
         .btn-blue { background: #2196F3; color: #fff; }
 
         .plan-row { display: flex; align-items: center; justify-content: space-between; }
@@ -50,46 +55,52 @@
         .period-btn.sel-purple { border-color: rgba(155,89,182,0.3); background: rgba(155,89,182,0.02); color: #fff; }
         .price-tag { font-size: 17px; font-weight: 800; }
 
-        .profile-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #0f0f0f; font-size: 12px; }
-        .profile-row .val { color: #999; }
-        .profile-row .val.green { color: #00ff88; font-weight: 700; }
-        .balance-circle { width: 64px; height: 64px; border-radius: 50%; background: rgba(0,255,136,0.03); border: 2px solid rgba(0,255,136,0.12); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 8px; }
-        .balance-num { font-size: 24px; font-weight: 900; color: #00ff88; }
+        .profile-table { width: 100%; border-collapse: collapse; }
+        .profile-table td { padding: 10px 0; border-bottom: 1px solid #0e0e0e; font-size: 12px; }
+        .profile-table td:last-child { text-align: right; color: #999; font-weight: 500; }
+        .profile-table td:last-child.green { color: #00ff88; font-weight: 700; }
+
+        .balance-circle { width: 60px; height: 60px; border-radius: 50%; background: rgba(0,255,136,0.03); border: 2px solid rgba(0,255,136,0.12); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 6px; }
+        .balance-num { font-size: 22px; font-weight: 900; color: #00ff88; }
 
         .amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 6px 0; }
-        .amount-btn { padding: 11px; border: 1px solid #161616; border-radius: 11px; background: #050505; color: #bbb; text-align: center; cursor: pointer; font-weight: 700; font-size: 14px; }
-        .amount-btn.sel { border-color: #555; background: rgba(255,255,255,0.02); }
+        .amount-btn { padding: 11px; border: 1px solid #181818; border-radius: 11px; background: #050505; color: #bbb; text-align: center; cursor: pointer; font-weight: 700; font-size: 14px; }
+        .amount-btn.sel { border-color: #0cc; background: rgba(0,200,200,0.04); }
 
-        .promo-input { width: 100%; padding: 11px; background: #050505; border: 1px solid #161616; border-radius: 11px; color: #fff; font-size: 13px; text-align: center; margin-top: 4px; }
-        .promo-row { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 6px 0; font-size: 13px; }
+        .promo-input { width: 100%; padding: 11px; background: #050505; border: 1px solid #181818; border-radius: 11px; color: #fff; font-size: 13px; text-align: center; margin-top: 4px; }
+        .promo-hint { font-size: 9px; color: #555; text-align: center; margin: 3px 0; }
+        .promo-row { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 4px 0; font-size: 13px; }
         .promo-final { color: #00ff88; font-weight: 800; font-size: 15px; }
 
         .ref-link-box { background: #050505; padding: 9px; border-radius: 10px; font-size: 9px; color: #00ff88; word-break: break-all; margin: 5px 0; border: 1px solid #131313; }
 
         .bottom-nav { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); width: calc(100% - 16px); max-width: 420px; background: #080808; border: 1px solid #131313; border-radius: 18px; display: flex; justify-content: space-around; padding: 5px 3px; z-index: 50; box-shadow: 0 6px 25px rgba(0,0,0,0.8); }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 1px; cursor: pointer; padding: 5px 8px; border-radius: 14px; transition: 0.2s; min-width: 40px; }
-        .nav-item span { font-size: 18px; opacity: 0.35; transition: 0.2s; filter: grayscale(1); }
+        .nav-item span { font-size: 18px; opacity: 0.4; transition: 0.2s; filter: grayscale(1); }
         .nav-item small { font-size: 7px; color: #444; font-weight: 600; transition: 0.2s; }
-        .nav-item.active span { opacity: 0.8; filter: grayscale(0); }
-        .nav-item.active small { color: #888; }
+        .nav-item.active span { opacity: 0.9; filter: grayscale(0); }
+        .nav-item.active small { color: #999; }
 
         .footer { text-align: center; font-size: 8px; color: #161616; padding: 10px 0; }
-        .support-link { font-size: 9px; color: #444; cursor: pointer; padding: 4px 9px; border-radius: 10px; background: rgba(255,255,255,0.015); border: 1px solid rgba(255,255,255,0.03); }
     </style>
 </head>
 <body>
 
 <div id="page-home" class="page active">
-    <div class="top-bar"><div class="logo">WEX VPN</div><span class="support-link" onclick="openSupport()">Поддержка</span></div>
+    <div class="top-bar">
+        <div class="logo">WEX VPN</div>
+        <span class="balance-top" onclick="switchPage('balance')" id="topBalance">Баланс 0₽</span>
+    </div>
+    <div class="support-center"><span class="support-link" onclick="openSupport()">Поддержка</span></div>
     
     <button class="btn btn-ghost" onclick="switchPage('setup')">⚙️ Настроить VPN</button>
 
     <div class="card card-neon"><div class="plan-row"><span class="plan-name">🛡 BASE</span><span class="badge badge-red">7 ГБ</span></div>
         <div class="plan-meta"><span>📱 1</span><span>Базовая</span></div>
         <div class="period-select" id="basePeriods">
-            <div class="period-btn sel" onclick="selectPeriod('base',1,149)">1м<br>149₽</div>
-            <div class="period-btn" onclick="selectPeriod('base',3,349)">3м<br>349₽</div>
-            <div class="period-btn" onclick="selectPeriod('base',6,599)">6м<br>599₽</div>
+            <div class="period-btn sel" onclick="selectPeriod('base',1,149)">1м 149₽</div>
+            <div class="period-btn" onclick="selectPeriod('base',3,349)">3м 349₽</div>
+            <div class="period-btn" onclick="selectPeriod('base',6,599)">6м 599₽</div>
         </div>
         <div class="price-tag" id="basePrice">149₽</div>
         <button class="btn btn-outline" onclick="buyPlan('base')">Выбрать BASE</button>
@@ -97,9 +108,9 @@
     <div class="card card-gold"><div class="plan-row"><span class="plan-name">👑 ELITE</span><span class="badge badge-gold">∞ ГБ</span></div>
         <div class="plan-meta"><span>📱 3</span><span>Приоритет</span></div>
         <div class="period-select" id="elitePeriods">
-            <div class="period-btn sel-gold" onclick="selectPeriod('elite',1,249)">1м<br>249₽</div>
-            <div class="period-btn" onclick="selectPeriod('elite',3,649)">3м<br>649₽</div>
-            <div class="period-btn" onclick="selectPeriod('elite',6,1190)">6м<br>1190₽</div>
+            <div class="period-btn sel-gold" onclick="selectPeriod('elite',1,249)">1м 249₽</div>
+            <div class="period-btn" onclick="selectPeriod('elite',3,649)">3м 649₽</div>
+            <div class="period-btn" onclick="selectPeriod('elite',6,1190)">6м 1190₽</div>
         </div>
         <div class="price-tag" id="elitePrice">249₽</div>
         <button class="btn btn-outline-gold" onclick="buyPlan('elite')">Выбрать ELITE</button>
@@ -107,9 +118,9 @@
     <div class="card card-purple"><div class="plan-row"><span class="plan-name">💜 PREMIUM</span><span class="badge badge-purple">∞ ГБ</span></div>
         <div class="plan-meta"><span>📱 5</span><span>Максимум</span></div>
         <div class="period-select" id="premiumPeriods">
-            <div class="period-btn sel-purple" onclick="selectPeriod('premium',1,499)">1м<br>499₽</div>
-            <div class="period-btn" onclick="selectPeriod('premium',3,1299)">3м<br>1299₽</div>
-            <div class="period-btn" onclick="selectPeriod('premium',6,2299)">6м<br>2299₽</div>
+            <div class="period-btn sel-purple" onclick="selectPeriod('premium',1,499)">1м 499₽</div>
+            <div class="period-btn" onclick="selectPeriod('premium',3,1299)">3м 1299₽</div>
+            <div class="period-btn" onclick="selectPeriod('premium',6,2299)">6м 2299₽</div>
         </div>
         <div class="price-tag" id="premiumPrice">499₽</div>
         <button class="btn btn-outline-purple" onclick="buyPlan('premium')">Выбрать PREMIUM</button>
@@ -122,18 +133,20 @@
     <div class="card card-neon" style="text-align:center;">
         <div class="balance-circle"><div class="balance-num" id="balDays">0</div><div style="font-size:8px;color:#888;">дней</div></div>
         <div style="font-size:10px;color:#888;"><span id="balPlan">—</span> · 🔑 <span id="keyLine">—</span></div>
-        <div id="statusBadge" style="margin-top:8px;padding:6px;border-radius:10px;font-size:10px;font-weight:700;background:rgba(255,255,255,0.02);color:#888;">⚡ Не активирован</div>
-        <button class="btn btn-green" onclick="activateTrial()" style="margin-top:8px;">🎁 Активировать пробный</button>
+        <div id="statusBadge" style="margin-top:6px;padding:5px;border-radius:8px;font-size:9px;font-weight:700;background:rgba(255,255,255,0.02);color:#888;">Не активирован</div>
+        <button class="btn btn-green" onclick="activateTrial()" style="margin-top:6px;">🎁 Активировать пробный</button>
     </div>
     <div class="card card-neon">
-        <div class="profile-row"><span>📦 Подписка</span><span class="val green" id="profPlan">—</span></div>
-        <div class="profile-row"><span>📅 Дней</span><span class="val green" id="profDays">—</span></div>
-        <div class="profile-row"><span>🔑 Ключ</span><span class="val" id="profKey">—</span></div>
-        <div class="profile-row" onclick="showDevices()" style="cursor:pointer;"><span>📱 Устройства</span><span class="val" id="profDevice">—</span></div>
-        <div class="profile-row"><span>👥 Друзей</span><span class="val" id="profRef">—</span></div>
-        <div class="profile-row"><span>🎁 Бонусов</span><span class="val green" id="profBonus">—</span></div>
+        <table class="profile-table">
+            <tr><td>📦 Подписка</td><td class="green" id="profPlan">—</td></tr>
+            <tr><td>📅 Дней</td><td class="green" id="profDays">—</td></tr>
+            <tr><td>🔑 Ключ</td><td id="profKey">—</td></tr>
+            <tr onclick="showDevices()" style="cursor:pointer;"><td>📱 Устройства</td><td id="profDevice">—</td></tr>
+            <tr><td>👥 Друзей</td><td id="profRef">—</td></tr>
+            <tr><td>🎁 Бонусов</td><td class="green" id="profBonus">—</td></tr>
+        </table>
     </div>
-    <button class="btn btn-outline" onclick="changeKey()" style="margin-top:6px;">🔑 Заменить ключ</button>
+    <button class="btn btn-outline" onclick="changeKey()">🔑 Заменить ключ</button>
 </div>
 
 <div id="page-ref" class="page">
@@ -162,20 +175,21 @@
 
 <div id="page-balance" class="page">
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Пополнение</div></div>
-    <div class="card card-neon" style="text-align:center;">
+    <div class="card card-accent" style="text-align:center;">
         <p style="font-size:11px;color:#888;">Сумма:</p>
         <div class="amount-grid">
             <div class="amount-btn" onclick="selectAmount(50)">50₽</div><div class="amount-btn" onclick="selectAmount(150)">150₽</div><div class="amount-btn" onclick="selectAmount(399)">399₽</div>
             <div class="amount-btn" onclick="selectAmount(599)">599₽</div><div class="amount-btn" onclick="selectAmount(999)">999₽</div><div class="amount-btn" onclick="selectAmount(2500)">2500₽</div>
         </div>
         <input type="text" class="promo-input" id="promoInput" placeholder="🔑 Промокод">
-        <p id="promoStatus" style="font-size:9px;margin-top:3px;min-height:12px;"></p>
+        <p class="promo-hint">Ищи промокоды в нашем <span style="color:#0cc;cursor:pointer;" onclick="tg.openTelegramLink('https://t.me/w7xvpn')">канале</span> — мы часто их выкладываем</p>
+        <p id="promoStatus" style="font-size:9px;margin-top:2px;min-height:12px;"></p>
         <div class="promo-row">
             <span style="color:#aaa;" id="baseAmount">50₽</span>
             <span id="promoArrow" style="display:none;color:#555;">→</span>
             <span class="promo-final" id="finalAmount" style="display:none;">60₽</span>
         </div>
-        <button class="btn btn-gold" onclick="topUpBalance()">💳 Пополнить</button>
+        <button class="btn btn-outline-teal" onclick="topUpBalance()">💳 Пополнить</button>
     </div>
 </div>
 
@@ -213,16 +227,12 @@
 </div>
 
 <script>
-    const tg = window.Telegram.WebApp; tg.ready(); tg.expand();
-    const SUPABASE_URL = 'https://uwasaxshladsssvkooof.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable__-cdz___wVbGrgOVPn6plw_zVM5Zyel';
-    const BOT_USERNAME = 'wex7vpnbot';
-    const ADMIN_ID = 8354515470;
-    const NOTIFY_BOT_TOKEN = '8720072211:AAEa19gXH2ziYvpS3RqITCE_GLeTlVGRw5U';
-    const user = tg.initDataUnsafe?.user;
-    const userId = user?.id || 'guest';
-    const username = user?.username || user?.first_name || 'Юзер';
-    document.getElementById('refLink').innerText = `https://t.me/${BOT_USERNAME}?start=ref${userId}`;
+    const tg=window.Telegram.WebApp;tg.ready();tg.expand();
+    const SUPABASE_URL='https://uwasaxshladsssvkooof.supabase.co';
+    const SUPABASE_KEY='sb_publishable__-cdz___wVbGrgOVPn6plw_zVM5Zyel';
+    const BOT_USERNAME='wex7vpnbot',ADMIN_ID=8354515470,NOTIFY_BOT_TOKEN='8720072211:AAEa19gXH2ziYvpS3RqITCE_GLeTlVGRw5U';
+    const user=tg.initDataUnsafe?.user,userId=user?.id||'guest',username=user?.username||user?.first_name||'Юзер';
+    document.getElementById('refLink').innerText=`https://t.me/${BOT_USERNAME}?start=ref${userId}`;
     let userData=null,selectedPlan='elite',selectedMonths=1,selectedPrice=249,selectedTopUp=50,promoApplied=false,deviceModel='Неизвестно';
     const PROMO_CODES={'WEX20':true,'VPNBONUS':true,'START20':true,'TAMIR':true,'PANICA':true};
     (function(){const ua=navigator.userAgent;if(/iPhone/.test(ua)){const m=ua.match(/iPhone(?: OS)?(?: |_)(\d+)/);deviceModel=m?'iPhone '+m[1]:'iPhone';}else if(/Android/.test(ua)){const m=ua.match(/Android\s([^;]+)/);deviceModel=m?'Android '+m[1]:'Android';}else deviceModel='Компьютер';})();
@@ -235,14 +245,15 @@
     }
     function updateUI(){
         const plan=userData.plan,days=userData.balance_days||0,key=userData.key,active=plan&&days>0;
+        document.getElementById('topBalance').innerText='Баланс '+(key?days+' дн':'0₽');
         document.getElementById('balDays').innerText=days;
         document.getElementById('balPlan').innerText=active?plan.toUpperCase():'не активен';
         document.getElementById('keyLine').innerText=key||'—';
         document.getElementById('refCount').innerText=userData.ref_count||0;
         document.getElementById('bonusDays').innerText=userData.bonus_days||0;
         const badge=document.getElementById('statusBadge');
-        if(active){badge.style.background='rgba(0,255,136,0.04)';badge.style.color='#00ff88';badge.innerText='👑 '+plan.toUpperCase()+' активен';}
-        else{badge.style.background='rgba(255,255,255,0.02)';badge.style.color='#888';badge.innerText='⚡ Не активирован';}
+        if(active){badge.style.background='rgba(0,255,136,0.04)';badge.style.color='#00ff88';badge.innerText=plan.toUpperCase()+' активен';}
+        else{badge.style.background='rgba(255,255,255,0.02)';badge.style.color='#888';badge.innerText='Не активирован';}
         document.getElementById('profPlan').innerText=active?plan.toUpperCase():'—';
         document.getElementById('profDays').innerText=days+' дней';
         document.getElementById('profKey').innerText=key||'—';
@@ -265,7 +276,7 @@
     }
     function switchPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('nav-'+id).classList.add('active');}
     function selectAmount(a){selectedTopUp=a;document.querySelectorAll('.amount-btn').forEach(b=>b.classList.remove('sel'));event.target.classList.add('sel');updatePromo();}
-    function updatePromo(){document.getElementById('baseAmount').innerText=selectedTopUp+'₽';const promo=document.getElementById('promoInput').value.toUpperCase().trim(),s=document.getElementById('promoStatus'),ar=document.getElementById('promoArrow'),fi=document.getElementById('finalAmount');if(promo&&PROMO_CODES[promo]){const b=Math.floor(selectedTopUp*0.2);s.innerHTML='<span style="color:#00ff88;">✅ Верно! +20%</span>';ar.style.display='inline';fi.style.display='inline';fi.innerText=(selectedTopUp+b)+'₽';promoApplied=true;}else if(promo){s.innerHTML='<span style="color:#FF4D4D;">❌ Неверно</span>';ar.style.display='none';fi.style.display='none';promoApplied=false;}else{s.innerHTML='';ar.style.display='none';fi.style.display='none';promoApplied=false;}}
+    function updatePromo(){document.getElementById('baseAmount').innerText=selectedTopUp+'₽';const promo=document.getElementById('promoInput').value.toUpperCase().trim(),s=document.getElementById('promoStatus'),ar=document.getElementById('promoArrow'),fi=document.getElementById('finalAmount');if(promo&&PROMO_CODES[promo]){const b=Math.floor(selectedTopUp*0.2);s.innerHTML='<span style="color:#0cc;">✅ Верно! +20%</span>';ar.style.display='inline';fi.style.display='inline';fi.innerText=(selectedTopUp+b)+'₽';promoApplied=true;}else if(promo){s.innerHTML='<span style="color:#FF4D4D;">❌ Неверно</span>';ar.style.display='none';fi.style.display='none';promoApplied=false;}else{s.innerHTML='';ar.style.display='none';fi.style.display='none';promoApplied=false;}}
     document.getElementById('promoInput').addEventListener('input',updatePromo);
     function topUpBalance(){let t=selectedTopUp;if(promoApplied)t+=Math.floor(selectedTopUp*0.2);selectedPrice=t;selectedPlan='balance_topup';selectedMonths=Math.max(1,Math.floor(t/50));document.getElementById('payInfo').innerHTML='Пополнение · <b>'+t+'₽</b> · ~'+selectedMonths+' дн';switchPage('pay');}
     function selectPeriod(p,m,pr){selectedPlan=p;selectedMonths=m;selectedPrice=pr;document.getElementById(p+'Price').innerText=pr+'₽';document.querySelectorAll('#'+p+'Periods .period-btn').forEach(b=>b.classList.remove('sel','sel-gold','sel-purple'));event.target.classList.add(p==='elite'?'sel-gold':p==='premium'?'sel-purple':'sel');}
