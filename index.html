@@ -7,168 +7,201 @@
     <title>WEX VPN</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #080808; color: #fff; font-family: 'Inter', sans-serif; padding: 20px 16px; max-width: 480px; margin: 0 auto; min-height: 100vh; }
-        body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(circle at 0% 0%, rgba(60,60,60,0.25) 0%, transparent 50%), radial-gradient(circle at 100% 100%, rgba(30,30,30,0.3) 0%, transparent 50%); pointer-events: none; z-index: -1; }
-        .glass-card { background: rgba(18,18,18,0.65); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.06); border-radius: 24px; padding: 20px; margin: 14px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+        body { background: #060606; color: #fff; font-family: 'Inter', sans-serif; padding: 16px 14px; max-width: 480px; margin: 0 auto; min-height: 100vh; }
+        body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(ellipse at 10% 0%, rgba(0,255,136,0.03) 0%, transparent 50%), radial-gradient(ellipse at 90% 100%, rgba(155,89,182,0.03) 0%, transparent 50%); pointer-events: none; z-index: -1; }
+
         .screen { display: none; }
-        .screen.active { display: block; }
-        .back-circle { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #aaa; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-        .back-circle:active { background: rgba(255,255,255,0.1); color: #fff; }
-        .menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; align-items: flex-start; justify-content: center; padding-top: 60px; }
-        .menu-overlay.open { display: flex; }
-        .menu-island { background: #121212; border-radius: 24px; padding: 6px; width: 300px; border: 1px solid #1f1f1f; box-shadow: 0 20px 50px rgba(0,0,0,0.9); }
-        .menu-row { padding: 16px 20px; font-size: 15px; font-weight: 700; color: #ccc; cursor: pointer; border-radius: 18px; margin: 2px 0; transition: 0.15s; }
-        .menu-row:active { background: #1a1a1a; color: #fff; }
-        .menu-brand { text-align: center; font-size: 11px; color: #444; padding: 12px 0 6px; font-weight: 500; }
-        .top-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-        .brand { font-size: 20px; font-weight: 800; background: linear-gradient(to right, #fff, #ccc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; flex: 1; }
-        .support-btn { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: #aaa; padding: 8px 12px; border-radius: 30px; font-size: 12px; font-weight: 500; cursor: pointer; }
-        .burger-btn { font-size: 28px; cursor: pointer; color: #aaa; line-height: 1; }
-        .balance-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); border-radius: 16px; padding: 12px 16px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.04); }
-        .balance-label { font-size: 13px; color: #888; }
-        .balance-value { font-size: 18px; font-weight: 700; color: #00ff88; }
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; }
-        .btn:active { transform: scale(0.97); }
+        .screen.active { display: block; animation: fadeIn 0.25s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card { background: rgba(14,14,14,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 18px; margin: 10px 0; }
+        .card-glow { box-shadow: 0 0 30px rgba(0,255,136,0.03); }
+        .card-gold { border-color: rgba(255,215,0,0.15); }
+        .card-purple { border-color: rgba(155,89,182,0.2); }
+
+        .top-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .logo { font-size: 22px; font-weight: 900; letter-spacing: -1px; background: linear-gradient(135deg, #00ff88, #00b864); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .top-actions { display: flex; gap: 8px; margin-left: auto; }
+        .icon-btn { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); color: #aaa; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .icon-btn:active { background: rgba(255,255,255,0.08); }
+        .support-text { font-size: 11px; font-weight: 600; color: #888; cursor: pointer; background: rgba(255,255,255,0.03); padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .support-text:active { color: #00ff88; }
+
+        .balance-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,255,136,0.06); border: 1px solid rgba(0,255,136,0.12); border-radius: 20px; padding: 10px 16px; margin: 6px 0; }
+        .balance-pill .days { font-size: 24px; font-weight: 800; color: #00ff88; }
+        .balance-pill .label { font-size: 12px; color: #888; }
+
+        .section-title { font-size: 13px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 2px; margin: 16px 0 6px; }
+
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 16px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 6px; transition: 0.15s; }
+        .btn:active { transform: scale(0.97); opacity: 0.9; }
         .btn-green { background: #00ff88; color: #000; }
         .btn-gold { background: #FFD700; color: #000; }
-        .btn-outline { background: transparent; border: 2px solid #FF4D4D; color: #FF4D4D; }
-        .btn-outline-premium { background: transparent; border: 2px solid #9B59B6; color: #9B59B6; }
-        .btn-setup { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #fff; }
-        .btn-pay { background: #222; color: #fff; border: 1px solid #444; margin: 4px 0; }
-        .btn-lava { background: #FF5722; color: #fff; font-size: 16px; }
-        .plan-title { font-size: 18px; font-weight: 700; }
-        .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; margin: 4px 0 8px; }
-        .badge-green { background: rgba(0,255,136,0.1); color: #00ff88; border: 1px solid rgba(0,255,136,0.2); }
-        .badge-gold { background: rgba(255,215,0,0.1); color: #FFD700; border: 1px solid rgba(255,215,0,0.25); }
-        .badge-premium { background: rgba(155,89,182,0.1); color: #9B59B6; border: 1px solid rgba(155,89,182,0.25); }
-        .plan-header { display: flex; justify-content: space-between; align-items: center; margin: 6px 0; }
-        .plan-header span { font-size: 13px; color: #aaa; }
-        .plan-header .limit { color: #00ff88; font-weight: 700; }
-        .period-select { display: flex; gap: 6px; margin: 10px 0; }
-        .period-btn { flex: 1; padding: 10px 4px; border: 1px solid #333; border-radius: 10px; background: #111; color: #fff; text-align: center; cursor: pointer; font-size: 11px; font-weight: 600; }
-        .period-btn.active { border-color: #FF4D4D; background: rgba(255,77,77,0.1); }
-        .period-btn.gold-active { border-color: #FFD700; background: rgba(255,215,0,0.1); }
-        .period-btn.premium-active { border-color: #9B59B6; background: rgba(155,89,182,0.1); }
-        .price-line { font-size: 22px; font-weight: 800; }
-        .ref-link-box { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 12px; margin: 10px 0; font-size: 12px; color: #00ff88; word-break: break-all; }
-        .btn-copy { background: #2196F3; color: #fff; }
-        .footer-note { text-align: center; font-size: 11px; color: #444; margin-top: 20px; }
-        .setup-icon { font-size: 64px; text-align: center; margin: 10px 0; }
-        .setup-title { font-size: 20px; font-weight: 800; text-align: center; margin: 5px 0; }
+        .btn-outline { background: transparent; border: 1.5px solid #FF4D4D; color: #FF4D4D; }
+        .btn-outline-purple { background: transparent; border: 1.5px solid #9B59B6; color: #9B59B6; }
+        .btn-ghost { background: rgba(255,255,255,0.04); color: #fff; border: 1px solid rgba(255,255,255,0.06); }
+
+        .plan-row { display: flex; align-items: center; justify-content: space-between; }
+        .plan-name { font-size: 17px; font-weight: 700; }
+        .plan-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 12px; }
+        .badge-red { background: rgba(255,77,77,0.1); color: #FF4D4D; }
+        .badge-gold { background: rgba(255,215,0,0.1); color: #FFD700; }
+        .badge-purple { background: rgba(155,89,182,0.1); color: #9B59B6; }
+
+        .period-select { display: flex; gap: 6px; margin: 8px 0; }
+        .period-btn { flex: 1; padding: 10px 4px; border: 1px solid #1a1a1a; border-radius: 12px; background: #0a0a0a; color: #aaa; text-align: center; cursor: pointer; font-size: 11px; font-weight: 600; }
+        .period-btn.sel { border-color: #00ff88; background: rgba(0,255,136,0.05); color: #fff; }
+        .period-btn.sel-gold { border-color: #FFD700; background: rgba(255,215,0,0.05); color: #fff; }
+        .period-btn.sel-purple { border-color: #9B59B6; background: rgba(155,89,182,0.05); color: #fff; }
+
+        .price-tag { font-size: 20px; font-weight: 800; }
+        .price-tag small { font-size: 11px; color: #555; text-decoration: line-through; font-weight: 400; }
+
+        .ref-box { background: rgba(255,255,255,0.02); border-radius: 14px; padding: 12px; margin: 8px 0; font-size: 11px; color: #00ff88; word-break: break-all; border: 1px solid rgba(255,255,255,0.04); }
+        .btn-sm { padding: 10px; font-size: 13px; border-radius: 12px; }
+
+        .profile-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 14px; }
+        .profile-row .val { color: #888; font-weight: 500; }
+        .profile-row .val.green { color: #00ff88; font-weight: 700; }
+
+        .footer { text-align: center; font-size: 10px; color: #333; margin-top: 20px; padding: 10px; }
     </style>
 </head>
 <body>
 
-<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()">
-    <div class="menu-island" onclick="event.stopPropagation()">
-        <div class="menu-row" onclick="openChannel()">📢 Канал</div>
-        <div class="menu-row" onclick="checkSpeed()">📶 Проверка интернета</div>
-        <div class="menu-row" onclick="changeKey()">🔑 Замена ключа</div>
-        <div class="menu-row" onclick="showHistory()">📋 История покупок</div>
-        <div class="menu-row" onclick="showDevices()">📱 Устройства</div>
-        <div class="menu-row" onclick="showPolicy()">⚖️ Политика</div>
-        <div class="menu-brand">с любовью, WEX VPN 🤍</div>
+<!-- МЕНЮ-ОСТРОВ -->
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:100;align-items:flex-start;justify-content:center;padding-top:50px;">
+    <div onclick="event.stopPropagation()" style="background:#111;border-radius:22px;padding:6px;width:290px;border:1px solid #1f1f1f;">
+        <div style="padding:16px 18px;font-weight:700;cursor:pointer;border-radius:16px;margin:2px 0;" onclick="openChannel()">📢 Канал</div>
+        <div style="padding:16px 18px;font-weight:700;cursor:pointer;border-radius:16px;margin:2px 0;" onclick="checkSpeed()">📶 Проверка интернета</div>
+        <div style="padding:16px 18px;font-weight:700;cursor:pointer;border-radius:16px;margin:2px 0;" onclick="changeKey()">🔑 Замена ключа</div>
+        <div style="padding:16px 18px;font-weight:700;cursor:pointer;border-radius:16px;margin:2px 0;" onclick="goTo('profileScreen')">👤 Личный кабинет</div>
+        <div style="padding:16px 18px;font-weight:700;cursor:pointer;border-radius:16px;margin:2px 0;" onclick="showPolicy()">⚖️ Политика</div>
+        <div style="text-align:center;font-size:10px;color:#444;padding:10px;">с любовью, WEX VPN 🤍</div>
     </div>
 </div>
 
+<!-- ПРИВЕТСТВИЕ -->
 <div id="welcomeScreen" class="screen active">
-    <div class="top-bar"><span class="burger-btn" onclick="openMenu()">☰</span><div class="brand">WEX VPN</div><button class="support-btn" onclick="openSupport()">💬 @pan1ca7</button></div>
-    <div class="glass-card">
-        <p style="font-size:15px;line-height:1.6;color:#ddd;">🚀 <b style="color:#00ff88;">Добро пожаловать.</b><br><br>Ты получил <b style="color:#00ff88;">7 дней пробного периода</b> с антизаглушкой на <b style="color:#00ff88;">2 ГБ</b>.<br><br>YouTube, TikTok, Discord — без тормозов.</p>
-        <button class="btn btn-green" onclick="showMain()">🚀 Запустить VPN</button>
+    <div class="top-bar"><div class="logo">WEX VPN</div><div class="top-actions"><span class="support-text" onclick="openSupport()">Поддержка</span></div></div>
+    <div class="card card-glow" style="text-align:center;">
+        <p style="font-size:40px;margin:10px 0;">🔐</p>
+        <p style="font-size:16px;font-weight:600;line-height:1.5;color:#ccc;">Добро пожаловать в <span style="color:#00ff88;font-weight:800;">WEX VPN</span></p>
+        <p style="font-size:13px;color:#888;margin:6px 0 14px;">7 дней пробного периода · 2 ГБ антизаглушки</p>
+        <button class="btn btn-green" onclick="showMain()">🚀 Начать</button>
     </div>
 </div>
 
+<!-- ГЛАВНЫЙ -->
 <div id="mainScreen" class="screen">
-    <div class="top-bar"><span class="burger-btn" onclick="openMenu()">☰</span><div class="brand">WEX VPN</div><button class="support-btn" onclick="openSupport()">💬 @pan1ca7</button></div>
-    <div class="balance-row"><span class="balance-label">Баланс</span><span class="balance-value" id="bal">7 дней (пробный)</span></div>
-    <div class="glass-card" style="text-align:center;">
-        <p id="statusText">⚡ Пробный период активен</p>
-        <p id="keyText" style="font-size:12px;color:#888;">Загрузка...</p>
-        <button class="btn btn-setup" onclick="goTo('setupScreen')">⚙️ Настройка</button>
+    <div class="top-bar">
+        <span class="icon-btn" onclick="openMenu()">☰</span>
+        <div class="logo">WEX VPN</div>
+        <div class="top-actions"><span class="support-text" onclick="openSupport()">Поддержка</span></div>
+    </div>
+    
+    <div class="balance-pill"><span class="days" id="balDays">7</span><span class="label">дней · <span id="balPlan">пробный</span></span></div>
+    <div style="font-size:11px;color:#555;margin:2px 0 8px;">🔑 <span id="keyLine">Загрузка...</span></div>
+
+    <div class="card card-glow" style="text-align:center;">
+        <button class="btn btn-ghost" onclick="goTo('setupScreen')">⚙️ Настройка VPN</button>
     </div>
 
-    <div class="glass-card" style="border-color: rgba(255,77,77,0.25);">
-        <div class="plan-title">🛡 BASE</div>
-        <div class="badge badge-green">Антизаглушка: 7 ГБ</div>
-        <div class="plan-header"><span>📱 1 устройство</span></div>
+    <div class="section-title">Тарифы</div>
+
+    <!-- BASE -->
+    <div class="card">
+        <div class="plan-row"><span class="plan-name">🛡 BASE</span><span class="plan-badge badge-red">1 устройство · 7 ГБ</span></div>
         <div class="period-select" id="basePeriods">
-            <div class="period-btn active" onclick="selectPeriod('base',1,149)">1 мес<br>149₽<br><small>7 ГБ</small></div>
-            <div class="period-btn" onclick="selectPeriod('base',3,349)">3 мес<br>349₽<br><small>30 ГБ</small></div>
-            <div class="period-btn" onclick="selectPeriod('base',6,599)">6 мес<br>599₽<br><small>80 ГБ</small></div>
+            <div class="period-btn sel" onclick="selectPeriod('base',1,149)">1 мес<br>149₽</div>
+            <div class="period-btn" onclick="selectPeriod('base',3,349)">3 мес<br>349₽</div>
+            <div class="period-btn" onclick="selectPeriod('base',6,599)">6 мес<br>599₽</div>
         </div>
-        <div class="price-line" id="basePrice">149₽</div>
-        <button class="btn btn-outline" onclick="buyPlan('base')">💳 Купить BASE</button>
+        <div class="price-tag" id="basePrice">149₽</div>
+        <button class="btn btn-outline" onclick="buyPlan('base')">Купить BASE</button>
     </div>
 
-    <div class="glass-card" style="border-color: rgba(255,215,0,0.3);">
-        <div class="plan-title">👑 ELITE</div>
-        <div class="badge badge-gold">Антизаглушка: ∞</div>
-        <div class="plan-header"><span>📱 3 устройства</span></div>
+    <!-- ELITE -->
+    <div class="card card-gold">
+        <div class="plan-row"><span class="plan-name">👑 ELITE</span><span class="plan-badge badge-gold">3 устройства · ∞ ГБ</span></div>
         <div class="period-select" id="elitePeriods">
-            <div class="period-btn gold-active active" onclick="selectPeriod('elite',1,249)">1 мес<br>249₽<br><small>∞ ГБ</small></div>
-            <div class="period-btn" onclick="selectPeriod('elite',3,649)">3 мес<br>649₽<br><small>∞ ГБ</small></div>
-            <div class="period-btn" onclick="selectPeriod('elite',6,1190)">6 мес<br>1190₽<br><small>∞ ГБ</small></div>
+            <div class="period-btn sel-gold" onclick="selectPeriod('elite',1,249)">1 мес<br>249₽</div>
+            <div class="period-btn" onclick="selectPeriod('elite',3,649)">3 мес<br>649₽</div>
+            <div class="period-btn" onclick="selectPeriod('elite',6,1190)">6 мес<br>1190₽</div>
         </div>
-        <div class="price-line" id="elitePrice">249₽</div>
-        <button class="btn btn-gold" onclick="buyPlan('elite')">💎 Купить ELITE</button>
+        <div class="price-tag" id="elitePrice">249₽</div>
+        <button class="btn btn-gold" onclick="buyPlan('elite')">Купить ELITE</button>
     </div>
 
-    <div class="glass-card" style="border-color: rgba(155,89,182,0.3);">
-        <div class="plan-title">💜 PREMIUM</div>
-        <div class="badge badge-premium">Антизаглушка: ∞</div>
-        <div class="plan-header"><span>📱 5 устройств</span></div>
+    <!-- PREMIUM -->
+    <div class="card card-purple">
+        <div class="plan-row"><span class="plan-name">💜 PREMIUM</span><span class="plan-badge badge-purple">5 устройств · ∞ ГБ</span></div>
         <div class="period-select" id="premiumPeriods">
-            <div class="period-btn premium-active active" onclick="selectPeriod('premium',1,499)">1 мес<br>499₽<br><small>∞ ГБ</small></div>
-            <div class="period-btn" onclick="selectPeriod('premium',3,1299)">3 мес<br>1299₽<br><small>∞ ГБ</small></div>
-            <div class="period-btn" onclick="selectPeriod('premium',6,2299)">6 мес<br>2299₽<br><small>∞ ГБ</small></div>
+            <div class="period-btn sel-purple" onclick="selectPeriod('premium',1,499)">1 мес<br>499₽</div>
+            <div class="period-btn" onclick="selectPeriod('premium',3,1299)">3 мес<br>1299₽</div>
+            <div class="period-btn" onclick="selectPeriod('premium',6,2299)">6 мес<br>2299₽</div>
         </div>
-        <div class="price-line" id="premiumPrice">499₽</div>
-        <button class="btn btn-outline-premium" onclick="buyPlan('premium')">💳 Купить PREMIUM</button>
+        <div class="price-tag" id="premiumPrice">499₽</div>
+        <button class="btn btn-outline-purple" onclick="buyPlan('premium')">Купить PREMIUM</button>
     </div>
 
-    <div class="glass-card" style="text-align:center;">
-        <h3 style="font-size:15px;">👥 Приведи друга</h3>
-        <p style="font-size:12px;color:#888;">Друг оплатит → ты +30 дней</p>
-        <div class="ref-link-box" id="refLink">...</div>
-        <button class="btn btn-copy" onclick="copyRef()">📋 Копировать</button>
-        <div style="display:flex;justify-content:space-around;margin-top:12px;">
-            <div><span style="color:#00ff88;font-weight:700;" id="refCount">0</span><br><small style="color:#888;">приглашено</small></div>
-            <div><span style="color:#00ff88;font-weight:700;" id="bonusDays">0</span><br><small style="color:#888;">бонус дней</small></div>
+    <!-- РЕФЕРАЛЫ -->
+    <div class="card" style="text-align:center;">
+        <p style="font-weight:700;font-size:14px;">👥 Приведи друга</p>
+        <p style="font-size:11px;color:#888;">Он оплатит → ты +30 дней</p>
+        <div class="ref-box" id="refLink">...</div>
+        <button class="btn btn-sm" style="background:#2196F3;color:#fff;" onclick="copyRef()">📋 Копировать ссылку</button>
+        <div style="display:flex;justify-content:space-around;margin-top:10px;">
+            <div><span style="color:#00ff88;font-weight:700;" id="refCount">0</span><br><small style="color:#666;">приглашено</small></div>
+            <div><span style="color:#00ff88;font-weight:700;" id="bonusDays">0</span><br><small style="color:#666;">бонус дней</small></div>
         </div>
     </div>
-    <div class="footer-note">WEX VPN © 2026</div>
+    <div class="footer">WEX VPN © 2026</div>
 </div>
 
+<!-- НАСТРОЙКА -->
 <div id="setupScreen" class="screen">
-    <div class="top-bar"><div class="brand">⚙️ Настройка</div><div class="back-circle" onclick="goBack()">←</div></div>
-    <div class="glass-card" style="text-align:center;">
-        <div class="setup-icon">📲</div>
-        <div class="setup-title">Happ VPN</div>
-        <p style="font-size:13px;color:#888;margin:5px 0;">Скачай приложение</p>
-        <button class="btn btn-gold" onclick="downloadHapp()">📥 Скачать Happ VPN</button>
-        <p style="font-size:11px;color:#555;margin-top:8px;">Автоопределение устройства</p>
-        <div style="margin-top:15px;"><p style="font-size:13px;color:#aaa;">Выбери платформу вручную:</p></div>
-        <button class="btn btn-setup" onclick="selectPlatform('ios')">🍎 iOS</button>
-        <button class="btn btn-setup" onclick="selectPlatform('android')">🤖 Android</button>
-        <button class="btn btn-setup" onclick="selectPlatform('windows')">💻 Windows</button>
-        <button class="btn btn-setup" onclick="selectPlatform('linux')">🐧 Linux</button>
+    <div class="top-bar"><span class="icon-btn" onclick="goBack()">←</span><div class="logo">Настройка</div></div>
+    <div class="card" style="text-align:center;">
+        <p style="font-size:50px;">📲</p>
+        <p style="font-weight:700;font-size:17px;">Happ VPN</p>
+        <p style="font-size:12px;color:#888;">Приложение для подключения</p>
+        <button class="btn btn-gold" onclick="downloadHapp()">📥 Скачать</button>
+        <p style="font-size:10px;color:#555;margin:6px 0;">Автоопределение устройства</p>
+        <div style="margin-top:12px;"><p style="font-size:12px;color:#888;">Или выбери вручную:</p></div>
+        <button class="btn btn-ghost" onclick="selectPlatform('ios')" style="margin-top:4px;">🍎 iOS</button>
+        <button class="btn btn-ghost" onclick="selectPlatform('android')">🤖 Android</button>
+        <button class="btn btn-ghost" onclick="selectPlatform('windows')">💻 Windows</button>
+        <button class="btn btn-ghost" onclick="selectPlatform('linux')">🐧 Linux</button>
     </div>
 </div>
 
+<!-- ОПЛАТА -->
 <div id="payScreen" class="screen">
-    <div class="top-bar"><div class="brand">💳 Оплата</div><div class="back-circle" onclick="goBack()">←</div></div>
-    <div class="glass-card">
-        <p style="text-align:center;" id="payInfo"></p>
-        <div style="margin-top:10px;">
-            <p style="font-size:12px;color:#888;text-align:center;">Выбери банк для перевода:</p>
-            <button class="btn btn-pay" onclick="payManual('sber')">🏦 Сбер ····22</button>
-            <button class="btn btn-pay" onclick="payManual('alfa')">🏦 Альфа ····82</button>
-        </div>
-        <p style="font-size:11px;color:#888;margin-top:10px;text-align:center;">Возврат за первый месяц не производится.</p>
+    <div class="top-bar"><span class="icon-btn" onclick="goBack()">←</span><div class="logo">Оплата</div></div>
+    <div class="card" style="text-align:center;">
+        <p id="payInfo" style="font-weight:700;margin-bottom:10px;"></p>
+        <p style="font-size:12px;color:#888;">Выбери банк:</p>
+        <button class="btn btn-ghost" onclick="payManual('sber')">🏦 Сбер ····22</button>
+        <button class="btn btn-ghost" onclick="payManual('alfa')">🏦 Альфа ····82</button>
+        <p style="font-size:10px;color:#666;margin-top:10px;">Возврат за первый месяц не производится.</p>
     </div>
+</div>
+
+<!-- ЛИЧНЫЙ КАБИНЕТ -->
+<div id="profileScreen" class="screen">
+    <div class="top-bar"><span class="icon-btn" onclick="goBack()">←</span><div class="logo">Личный кабинет</div></div>
+    <div class="card">
+        <div class="profile-row"><span>Статус</span><span class="val green" id="profPlan">—</span></div>
+        <div class="profile-row"><span>Дней осталось</span><span class="val green" id="profDays">—</span></div>
+        <div class="profile-row"><span>Ключ</span><span class="val" id="profKey">—</span></div>
+        <div class="profile-row"><span>Приглашено</span><span class="val" id="profRef">—</span></div>
+        <div class="profile-row"><span>Бонусных дней</span><span class="val green" id="profBonus">—</span></div>
+    </div>
+    <button class="btn btn-outline" onclick="changeKey()" style="margin-top:8px;">🔑 Заменить ключ</button>
+    <button class="btn btn-ghost" onclick="showHistory()">📋 История покупок</button>
 </div>
 
 <script>
@@ -185,87 +218,59 @@
     const refLink = `https://t.me/${BOT_USERNAME}?start=ref${userId}`;
     document.getElementById('refLink').innerText = refLink;
     
-    let userData = null, selectedPlan = 'elite', selectedMonths = 1, selectedPrice = 249, lastScreen = 'mainScreen';
+    let userData = null, selectedPlan = 'elite', selectedMonths = 1, selectedPrice = 249;
 
     async function loadUser() {
         const res = await fetch(`${SUPABASE_URL}/rest/v1/users?user_id=eq.${userId}`, {headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}});
         const data = await res.json();
-        if(data.length>0){userData=data[0];}else{await createUser();userData={plan:'trial',balance_days:7,key:'WEX-TRIAL-'+userId.toString().slice(-6),ref_count:0,bonus_days:0};}
+        if(data.length>0){userData=data[0]; showMain();}else{await createUser();userData={plan:'trial',balance_days:7,key:'WEX-TRIAL-'+userId.toString().slice(-6),ref_count:0,bonus_days:0};}
         updateUI();
     }
     async function createUser() {
         await fetch(`${SUPABASE_URL}/rest/v1/users`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({user_id:userId,username:username,plan:'trial',trial_end:new Date(Date.now()+7*86400000).toISOString(),key:'WEX-TRIAL-'+userId.toString().slice(-6),balance_days:7,ref_code:'ref'+userId,ref_count:0,bonus_days:0})});
     }
     function updateUI() {
-        document.getElementById('bal').innerText=(userData.balance_days||7)+' дней ('+(userData.plan||'trial')+')';
-        document.getElementById('keyText').innerText='🔑 Ключ: '+(userData.key||'—');
-        document.getElementById('refCount').innerText=userData.ref_count||0;
-        document.getElementById('bonusDays').innerText=userData.bonus_days||0;
-        if(userData.plan==='elite'||userData.plan==='premium')document.getElementById('statusText').innerHTML='<b>'+userData.plan.toUpperCase()+' активен</b>';
+        document.getElementById('balDays').innerText = userData.balance_days || 7;
+        document.getElementById('balPlan').innerText = userData.plan || 'trial';
+        document.getElementById('keyLine').innerText = userData.key || '—';
+        document.getElementById('refCount').innerText = userData.ref_count || 0;
+        document.getElementById('bonusDays').innerText = userData.bonus_days || 0;
+        document.getElementById('profPlan').innerText = userData.plan || '—';
+        document.getElementById('profDays').innerText = (userData.balance_days || 0) + ' дней';
+        document.getElementById('profKey').innerText = userData.key || '—';
+        document.getElementById('profRef').innerText = userData.ref_count || 0;
+        document.getElementById('profBonus').innerText = (userData.bonus_days || 0) + ' дней';
     }
-    function showMain(){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('mainScreen').classList.add('active');lastScreen='mainScreen';}
-    function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');lastScreen=id;}
-    function goBack(){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('mainScreen').classList.add('active');lastScreen='mainScreen';}
-    function selectPeriod(plan,months,price){selectedPlan=plan;selectedMonths=months;selectedPrice=price;document.getElementById(plan+'Price').innerText=price+'₽';document.querySelectorAll('#'+plan+'Periods .period-btn').forEach(b=>b.classList.remove('active','gold-active','premium-active'));event.target.classList.add(plan==='elite'?'gold-active':plan==='premium'?'premium-active':'active');}
+    function showMain(){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('mainScreen').classList.add('active');}
+    function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+    function goBack(){showMain();}
+    function selectPeriod(plan,months,price){selectedPlan=plan;selectedMonths=months;selectedPrice=price;document.getElementById(plan+'Price').innerText=price+'₽';document.querySelectorAll('#'+plan+'Periods .period-btn').forEach(b=>b.classList.remove('sel','sel-gold','sel-purple'));event.target.classList.add(plan==='elite'?'sel-gold':plan==='premium'?'sel-purple':'sel');}
     function buyPlan(plan){selectedPlan=plan;goTo('payScreen');document.getElementById('payInfo').innerHTML='<b>'+plan.toUpperCase()+'</b> · '+selectedMonths+' мес · <b>'+selectedPrice+'₽</b>';}
     function openSupport(){tg.openTelegramLink('https://t.me/pan1ca7');}
     function openChannel(){tg.openTelegramLink('https://t.me/w7xvpn');closeMenu();}
     function checkSpeed(){tg.openLink('https://yandex.ru/internet/');closeMenu();}
-    function changeKey(){tg.showPopup({title:'⚠️ Замена ключа',message:'Старый ключ будет аннулирован без возможности восстановления.\n\nПродолжить?',buttons:[{id:'yes',text:'✅ Да, заменить'},{id:'no',text:'❌ Отмена'}]},(btn)=>{if(btn==='yes')tg.showPopup({title:'✅',message:'Заявка отправлена.\nНовый ключ — после обработки.\nПоддержка: @pan1ca7'});});closeMenu();}
-    function showHistory(){tg.showPopup({title:'📋 История',message:'Пока нет покупок.\nЗдесь будет история платежей.',buttons:[{id:'ok',text:'Ок'}]});closeMenu();}
-    function showDevices(){tg.showPopup({title:'📱 Устройства',message:'🟢 Активных: 1\n\n📱 iPhone 16 Pro Max\nСтатус: подключён',buttons:[{id:'ok',text:'Ок'}]});closeMenu();}
-    function showPolicy(){tg.showPopup({title:'⚖️ Политика',message:'WEX VPN — авторский продукт.\n\nЗапрещено: копирование, перепродажа.\nЛогов нет. Данные не собираются.\nВозврат за первый месяц — нет.\nНарушение = блокировка.',buttons:[{id:'ok',text:'Понятно'}]});closeMenu();}
-    function openMenu(){document.getElementById('menuOverlay').classList.add('open');}
-    function closeMenu(){document.getElementById('menuOverlay').classList.remove('open');}
-    
-    function downloadHapp() {
-        const ua = navigator.userAgent;
-        if (/iPhone|iPad|iPod/.test(ua)) tg.openLink('https://apps.apple.com/app/happ-vpn/id1587873487');
-        else if (/Android/.test(ua)) tg.openLink('https://play.google.com/store/apps/details?id=com.happvpn');
-        else tg.openLink('https://happvpn.com');
-    }
-
+    function changeKey(){tg.showPopup({title:'⚠️ Замена ключа',message:'Старый ключ будет аннулирован.\n\nПродолжить?',buttons:[{id:'yes',text:'✅ Да, заменить'},{id:'no',text:'❌ Отмена'}]},(btn)=>{if(btn==='yes')tg.showPopup({title:'✅',message:'Заявка отправлена.\nПоддержка: @pan1ca7'});});closeMenu();}
+    function showHistory(){tg.showPopup({title:'📋 История',message:'История появится после первого платежа.',buttons:[{id:'ok',text:'Ок'}]});closeMenu();}
+    function showPolicy(){tg.showPopup({title:'⚖️ Политика',message:'WEX VPN — авторский продукт.\nЗапрещено: копирование, перепродажа.\nЛогов нет.\nВозврат за первый месяц — нет.\nНарушение = блокировка.',buttons:[{id:'ok',text:'Понятно'}]});closeMenu();}
+    function openMenu(){document.getElementById('menuOverlay').style.display='flex';}
+    function closeMenu(){document.getElementById('menuOverlay').style.display='none';}
+    function downloadHapp(){const ua=navigator.userAgent;if(/iPhone|iPad|iPod/.test(ua))tg.openLink('https://apps.apple.com/app/happ-vpn/id1587873487');else if(/Android/.test(ua))tg.openLink('https://play.google.com/store/apps/details?id=com.happvpn');else tg.openLink('https://happvpn.com');}
     async function payManual(bank){
-        const code = Math.random().toString(36).substring(2,10).toUpperCase();
-        const phone = bank === 'sber' ? '+7 952 843-59-22' : '+7 988 080-13-82';
-        const phoneShow = bank === 'sber' ? '···22' : '···82';
-        const bankName = bank === 'sber' ? 'Сбербанк' : 'Альфа-Банк';
-        
-        tg.showPopup({
-            title: '🏦 ' + bankName + ' ' + phoneShow,
-            message: '💰 ' + selectedPrice + '₽\n📱 ' + phone + '\n🏷 Код: ' + code + '\n\n⚠️ Укажи код в комментарии!',
-            buttons: [{id:'done', text:'✅ Я оплатил'}, {type:'cancel'}]
-        }, async (btn) => {
-            if (btn === 'done') {
-                await fetch(`${SUPABASE_URL}/rest/v1/payments`, {
-                    method: 'POST',
-                    headers: {'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal'},
-                    body: JSON.stringify({user_id: userId, username: username, code: code, bank: bankName, amount: selectedPrice, plan: selectedPlan, months: selectedMonths, status: 'pending', created_at: new Date().toISOString()})
-                });
-                
-                const msg = `🔔 *Новый платёж!*\n\n👤 @${username}\n🆔 ${userId}\n📦 ${selectedPlan.toUpperCase()} · ${selectedMonths} мес\n💰 ${selectedPrice}₽\n🏦 ${bankName}\n🏷 Код: \`${code}\``;
-                
-                await fetch(`https://api.telegram.org/bot${NOTIFY_BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({chat_id: ADMIN_ID, text: msg, parse_mode: 'Markdown'})
-                });
-                
-                tg.sendData(JSON.stringify({action:'payment', code:code, plan:selectedPlan, price:selectedPrice}));
-                tg.showPopup({title:'✅', message:'Заявка отправлена! После проверки — обнови экран (потяни вниз).'});
+        const code=Math.random().toString(36).substring(2,10).toUpperCase();
+        const phone=bank==='sber'?'+7 952 843-59-22':'+7 988 080-13-82';
+        const bankName=bank==='sber'?'Сбербанк':'Альфа-Банк';
+        tg.showPopup({title:'🏦 '+bankName,message:'💰 '+selectedPrice+'₽\n📱 '+phone+'\n🏷 Код: '+code+'\n\n⚠️ Укажи код в комментарии!',buttons:[{id:'done',text:'✅ Я оплатил'},{type:'cancel'}]},async(btn)=>{
+            if(btn==='done'){
+                await fetch(`${SUPABASE_URL}/rest/v1/payments`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({user_id:userId,username:username,code:code,bank:bankName,amount:selectedPrice,plan:selectedPlan,months:selectedMonths,status:'pending',created_at:new Date().toISOString()})});
+                const msg=`🔔 *Новый платёж!*\n\n👤 @${username}\n💰 ${selectedPrice}₽\n📦 ${selectedPlan.toUpperCase()} · ${selectedMonths} мес\n🏦 ${bankName}\n🏷 Код: \`${code}\``;
+                await fetch(`https://api.telegram.org/bot${NOTIFY_BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:ADMIN_ID,text:msg,parse_mode:'Markdown'})});
+                tg.sendData(JSON.stringify({action:'payment',code:code}));
+                tg.showPopup({title:'✅',message:'Заявка отправлена! После проверки — обнови экран.'});
                 goBack();
             }
         });
     }
-
-    function selectPlatform(platform){
-        let link='';
-        if(platform==='ios')link='https://apps.apple.com/app/happ-vpn/id1587873487';
-        else if(platform==='android')link='https://play.google.com/store/apps/details?id=com.happvpn';
-        else if(platform==='windows')link='https://happvpn.com/windows';
-        else link='https://happvpn.com/linux';
-        tg.showPopup({title:'Готово',message:'Откроется для '+platform.toUpperCase(),buttons:[{id:'go',text:'🔗 Продолжить'},{type:'cancel'}]},(btn)=>{if(btn==='go')tg.openLink(link);});
-    }
+    function selectPlatform(p){let l='';if(p==='ios')l='https://apps.apple.com/app/happ-vpn/id1587873487';else if(p==='android')l='https://play.google.com/store/apps/details?id=com.happvpn';else if(p==='windows')l='https://happvpn.com/windows';else l='https://happvpn.com/linux';tg.showPopup({title:'Готово',buttons:[{id:'go',text:'🔗 Продолжить'}]},(b)=>{if(b==='go')tg.openLink(l);});}
     function copyRef(){navigator.clipboard.writeText(refLink);tg.showPopup({title:'✅',message:'Ссылка скопирована!'});}
     loadUser();
 </script>
