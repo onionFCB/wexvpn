@@ -45,11 +45,9 @@
         .btn-ghost { background: rgba(255,255,255,0.03); color: #ddd; border: 1px solid rgba(255,255,255,0.06); }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 6px; }
         .section-title { font-size: 12px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 2px; }
-        .section-badge { font-size: 10px; background: rgba(0,255,136,0.08); color: #00ff88; padding: 4px 10px; border-radius: 10px; font-weight: 600; }
         .plan-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
         .plan-name { font-size: 18px; font-weight: 700; }
         .plan-meta { font-size: 11px; color: #888; display: flex; gap: 12px; margin: 2px 0 8px; }
-        .plan-meta span { display: flex; align-items: center; gap: 4px; }
         .plan-badge { font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 10px; }
         .b-red { background: rgba(255,77,77,0.08); color: #FF4D4D; }
         .b-gold { background: rgba(255,215,0,0.08); color: #FFD700; }
@@ -61,10 +59,7 @@
         .period-btn.sel-purple { border-color: #9B59B6; background: rgba(155,89,182,0.04); color: #fff; }
         .period-btn small { font-size: 10px; color: #666; display: block; }
         .price-tag { font-size: 22px; font-weight: 800; margin: 4px 0; }
-        .price-tag small { font-size: 11px; color: #555; text-decoration: line-through; font-weight: 400; }
         .ref-card { text-align: center; }
-        .ref-card h3 { font-size: 15px; font-weight: 700; }
-        .ref-card p { font-size: 12px; color: #888; margin: 4px 0 8px; }
         .ref-link { background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: 12px; font-size: 11px; color: #00ff88; word-break: break-all; margin: 8px 0; border: 1px solid rgba(255,255,255,0.04); }
         .btn-blue { background: #2196F3; color: #fff; }
         .profile-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 14px; }
@@ -76,7 +71,6 @@
 </head>
 <body>
 
-<!-- МЕНЮ -->
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()">
     <div class="menu-panel" onclick="event.stopPropagation()">
         <div class="menu-item" onclick="openChannel()"><span class="menu-emoji">📢</span>Канал</div>
@@ -88,7 +82,6 @@
     </div>
 </div>
 
-<!-- ПРИВЕТСТВИЕ -->
 <div id="welcomeScreen" class="screen active">
     <div class="top-bar"><div class="logo">WEX VPN</div><span class="support-link" onclick="openSupport()">Поддержка</span></div>
     <div class="card card-accent" style="text-align:center;">
@@ -100,25 +93,16 @@
     <div class="footer">Защищённое соединение • Без логов</div>
 </div>
 
-<!-- ГЛАВНЫЙ -->
 <div id="mainScreen" class="screen">
     <div class="top-bar"><span class="icon-btn" onclick="openMenu()">☰</span><div class="logo">WEX VPN</div><span class="support-link" onclick="openSupport()">Поддержка</span></div>
-
-    <div class="balance-strip">
-        <div class="balance-big" id="balDays">7</div>
-        <div class="balance-meta">дней · <span id="balPlan">пробный</span><br>🔑 <span id="keyLine">—</span></div>
-    </div>
-
+    <div class="balance-strip"><div class="balance-big" id="balDays">7</div><div class="balance-meta">дней · <span id="balPlan">пробный</span><br>🔑 <span id="keyLine">—</span></div></div>
     <div id="statusBadge" class="status-badge" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:#888;">⚡ Пробный период</div>
-
     <button class="btn btn-ghost" onclick="goTo('setupScreen')" style="margin-bottom:6px;">⚙️ Настроить VPN</button>
+    <div class="section-header"><span class="section-title">Тарифы</span></div>
 
-    <div class="section-header"><span class="section-title">Тарифы</span><span class="section-badge">▼ Выбери свой</span></div>
-
-    <!-- BASE -->
     <div class="card">
         <div class="plan-row"><span class="plan-name">🛡 BASE</span><span class="plan-badge b-red">7 ГБ</span></div>
-        <div class="plan-meta"><span>📱 1</span><span>⚡ Базовая скорость</span></div>
+        <div class="plan-meta"><span>📱 1</span><span>⚡ Базовая</span></div>
         <div class="period-select" id="basePeriods">
             <div class="period-btn sel" onclick="selectPeriod('base',1,149)">1 мес<small>149₽</small></div>
             <div class="period-btn" onclick="selectPeriod('base',3,349)">3 мес<small>349₽</small></div>
@@ -128,7 +112,6 @@
         <button class="btn btn-outline" onclick="buyPlan('base')">Выбрать BASE</button>
     </div>
 
-    <!-- ELITE -->
     <div class="card card-gold">
         <div class="plan-row"><span class="plan-name">👑 ELITE</span><span class="plan-badge b-gold">∞ ГБ</span></div>
         <div class="plan-meta"><span>📱 3</span><span>⚡ Приоритет</span></div>
@@ -141,7 +124,6 @@
         <button class="btn btn-gold" onclick="buyPlan('elite')">Выбрать ELITE</button>
     </div>
 
-    <!-- PREMIUM -->
     <div class="card card-purple">
         <div class="plan-row"><span class="plan-name">💜 PREMIUM</span><span class="plan-badge b-purple">∞ ГБ</span></div>
         <div class="plan-meta"><span>📱 5</span><span>⚡ Максимум</span></div>
@@ -154,7 +136,6 @@
         <button class="btn btn-outline-purple" onclick="buyPlan('premium')">Выбрать PREMIUM</button>
     </div>
 
-    <!-- РЕФЕРАЛЫ -->
     <div class="card ref-card">
         <h3>🤝 Дарим месяц</h3>
         <p>Твой друг оплачивает подписку — ты получаешь +30 дней в подарок</p>
@@ -168,7 +149,6 @@
     <div class="footer">WEX VPN © 2026 • Конфиденциально</div>
 </div>
 
-<!-- НАСТРОЙКА -->
 <div id="setupScreen" class="screen">
     <div class="top-bar"><span class="icon-btn" onclick="goBack()">←</span><div class="logo">Настройка</div></div>
     <div class="card card-accent" style="text-align:center;">
@@ -185,7 +165,6 @@
     </div>
 </div>
 
-<!-- ОПЛАТА -->
 <div id="payScreen" class="screen">
     <div class="top-bar"><span class="icon-btn" onclick="goBack()">←</span><div class="logo">Оплата</div></div>
     <div class="card" style="text-align:center;">
@@ -197,7 +176,6 @@
     </div>
 </div>
 
-<!-- ЛИЧНЫЙ КАБИНЕТ -->
 <div id="profileScreen" class="screen">
     <div class="top-bar"><span class="icon-btn" onclick="goBack()">←</span><div class="logo">Личный кабинет</div></div>
     <div class="card">
@@ -276,15 +254,9 @@
         document.getElementById('keyLine').innerText = key;
         document.getElementById('refCount').innerText = userData.ref_count||0;
         document.getElementById('bonusDays').innerText = userData.bonus_days||0;
-        
         const badge = document.getElementById('statusBadge');
-        if(plan==='trial'){
-            badge.style.background='rgba(255,255,255,0.03)'; badge.style.borderColor='rgba(255,255,255,0.06)'; badge.style.color='#888';
-            badge.innerText='⚡ Пробный период';
-        } else {
-            badge.style.background='rgba(0,255,136,0.08)'; badge.style.borderColor='rgba(0,255,136,0.2)'; badge.style.color='#00ff88';
-            badge.innerText='👑 ' + plan.toUpperCase() + ' активен';
-        }
+        if(plan==='trial'){badge.style.background='rgba(255,255,255,0.03)';badge.style.borderColor='rgba(255,255,255,0.06)';badge.style.color='#888';badge.innerText='⚡ Пробный период';}
+        else {badge.style.background='rgba(0,255,136,0.08)';badge.style.borderColor='rgba(0,255,136,0.2)';badge.style.color='#00ff88';badge.innerText='👑 '+plan.toUpperCase()+' активен';}
         document.getElementById('profPlan').innerText=plan.toUpperCase();
         document.getElementById('profDays').innerText=days+' дней';
         document.getElementById('profKey').innerText=key;
@@ -314,8 +286,8 @@
         tg.showPopup({title:'🏦 '+bankName,message:'💰 '+selectedPrice+'₽\n📱 '+phone+'\n🏷 Код: '+code+'\n\n⚠️ Укажи код в комментарии!',buttons:[{id:'done',text:'✅ Я оплатил'},{type:'cancel'}]},async(btn)=>{
             if(btn==='done'){
                 await fetch(`${SUPABASE_URL}/rest/v1/payments`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({user_id:userId,username:username,code:code,bank:bankName,amount:selectedPrice,plan:selectedPlan,months:selectedMonths,status:'pending',created_at:new Date().toISOString()})});
-                const msg=`🔔 *Новый платёж!*\n\n👤 @${username}\n📱 ${deviceModel}\n💰 ${selectedPrice}₽\n📦 ${selectedPlan.toUpperCase()} · ${selectedMonths} мес\n🏦 ${bankName}\n🏷 Код: \`${code}\`\n\n✅ Подтверди в Supabase → payments → status = approved`;
-                await fetch(`https://api.telegram.org/bot${NOTIFY_BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:ADMIN_ID,text:msg,parse_mode:'Markdown'})});
+                const msg = `🔔 *Новый платёж!*\n\n👤 @${username}\n📱 ${deviceModel}\n💰 ${selectedPrice}₽\n📦 ${selectedPlan.toUpperCase()} · ${selectedMonths} мес\n🏦 ${bankName}\n🏷 Код: \`${code}\`\n\n✅ [Подтвердить](https://t.me/wexpayment_bot?start=approve_${code})\n❌ [Отклонить](https://t.me/wexpayment_bot?start=reject_${code})`;
+                await fetch(`https://api.telegram.org/bot${NOTIFY_BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:ADMIN_ID,text:msg,parse_mode:'Markdown',disable_web_page_preview:true})});
                 tg.sendData(JSON.stringify({action:'payment',code:code}));
                 tg.showPopup({title:'✅',message:'Заявка отправлена!\n\nПосле подтверждения — обнови экран.'});
                 goBack();
