@@ -8,8 +8,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #000; color: #b8b8b8; font-family: 'Inter', -apple-system, sans-serif; max-width: 500px; margin: 0 auto; min-height: 100vh; -webkit-font-smoothing: antialiased; padding-bottom: 95px; }
-        body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(ellipse at 20% 0%, rgba(180,180,180,0.02) 0%, transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(120,120,120,0.02) 0%, transparent 50%); pointer-events: none; z-index: -1; }
+        body { background: #000; color: #c0c0c0; font-family: 'Inter', -apple-system, sans-serif; max-width: 500px; margin: 0 auto; min-height: 100vh; -webkit-font-smoothing: antialiased; padding-bottom: 95px; }
+        body::before { content: ""; position: fixed; inset: 0; background: radial-gradient(ellipse at 20% 0%, rgba(180,180,180,0.02) 0%, transparent 50%), radial-gradient(ellipse at 80% 100%, rgba(100,100,100,0.02) 0%, transparent 50%); pointer-events: none; z-index: -1; }
 
         .page { display: none; padding: 14px 10px 0; animation: fadeIn 0.3s ease; }
         .page.active { display: block; }
@@ -21,17 +21,17 @@
         .support-link { font-size: 9px; color: #777; cursor: pointer; padding: 5px 10px; border-radius: 9px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); }
         .icon-btn { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); color: #888; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .card { background: #070707; border: 1px solid #111; border-radius: 18px; padding: 14px; margin: 5px 0; position: relative; overflow: hidden; }
+        .card { background: #080808; border: 1px solid #131313; border-radius: 18px; padding: 14px; margin: 5px 0; position: relative; overflow: hidden; }
         .card::after { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.01), transparent 60%); pointer-events: none; }
-        .card-neon { border-color: #1a1a1a; box-shadow: 0 0 25px rgba(150,150,150,0.03); }
+        .card-neon { border-color: #1c1c1c; box-shadow: 0 0 25px rgba(150,150,150,0.03); }
         .card-gold { border-color: rgba(255,215,0,0.1); }
-        .card-purple { border-color: rgba(155,89,182,0.1); }
+        .card-premium { border-color: rgba(180,130,255,0.15); box-shadow: 0 0 30px rgba(180,130,255,0.04); }
         .card-accent { border-color: rgba(0,200,200,0.1); }
 
         .badge { font-size: 8px; font-weight: 700; padding: 3px 7px; border-radius: 7px; }
         .badge-red { background: rgba(255,77,77,0.06); color: #FF4D4D; }
         .badge-gold { background: rgba(255,215,0,0.06); color: #FFD700; }
-        .badge-purple { background: rgba(155,89,182,0.06); color: #9B59B6; }
+        .badge-premium { background: rgba(180,130,255,0.08); color: #b482ff; }
 
         .btn { width: 100%; padding: 13px; border: none; border-radius: 15px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 4px; transition: 0.15s; }
         .btn:active { transform: scale(0.97); }
@@ -40,7 +40,7 @@
         .btn-ghost { background: rgba(255,255,255,0.02); color: #bbb; border: 1px solid rgba(255,255,255,0.05); }
         .btn-outline { background: transparent; border: 1px solid #2a2a2a; color: #aaa; }
         .btn-outline-gold { background: transparent; border: 1px solid rgba(255,215,0,0.2); color: #FFD700; }
-        .btn-outline-purple { background: transparent; border: 1px solid rgba(155,89,182,0.2); color: #9B59B6; }
+        .btn-outline-premium { background: transparent; border: 1px solid rgba(180,130,255,0.25); color: #b482ff; }
         .btn-outline-teal { background: transparent; border: 1px solid rgba(0,200,200,0.2); color: #0cc; }
         .btn-blue { background: #2196F3; color: #fff; }
 
@@ -48,50 +48,52 @@
         .plan-name { font-size: 15px; font-weight: 700; }
         .plan-meta { font-size: 9px; color: #777; display: flex; gap: 6px; margin: 1px 0 4px; }
         .period-select { display: flex; gap: 3px; margin: 5px 0; }
-        .period-btn { flex: 1; padding: 7px 1px; border: 1px solid #161616; border-radius: 9px; background: #040404; color: #777; text-align: center; cursor: pointer; font-size: 9px; font-weight: 600; }
+        .period-btn { flex: 1; padding: 7px 1px; border: 1px solid #181818; border-radius: 9px; background: #040404; color: #777; text-align: center; cursor: pointer; font-size: 9px; font-weight: 600; }
         .period-btn.sel { border-color: #555; background: rgba(255,255,255,0.02); color: #fff; }
         .period-btn.sel-gold { border-color: rgba(255,215,0,0.3); background: rgba(255,215,0,0.02); color: #fff; }
-        .period-btn.sel-purple { border-color: rgba(155,89,182,0.3); background: rgba(155,89,182,0.02); color: #fff; }
+        .period-btn.sel-premium { border-color: rgba(180,130,255,0.3); background: rgba(180,130,255,0.02); color: #fff; }
         .price-tag { font-size: 17px; font-weight: 800; }
 
-        /* КАБИНЕТ ПРЕМИУМ */
         .profile-hero { text-align: center; padding: 10px 0; }
-        .profile-avatar { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.03); border: 2px solid #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 6px; }
-        .profile-name { font-size: 16px; font-weight: 700; }
+        .profile-avatar { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.04); border: 2px solid #1c1c1c; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 6px; }
+        .profile-name { font-size: 16px; font-weight: 700; color: #d0d0d0; }
         .profile-status { font-size: 10px; padding: 4px 10px; border-radius: 8px; display: inline-block; margin: 4px 0; }
-        .profile-status.trial { background: rgba(0,255,136,0.04); color: #00ff88; }
-        .profile-status.inactive { background: rgba(255,255,255,0.03); color: #888; }
+        .profile-status.active { background: rgba(0,255,136,0.04); color: #00ff88; }
+        .profile-status.inactive { background: rgba(255,255,255,0.04); color: #999; }
 
         .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 8px 0; }
-        .stat-item { background: #050505; border: 1px solid #131313; border-radius: 14px; padding: 12px; text-align: center; }
-        .stat-value { font-size: 20px; font-weight: 900; color: #fff; }
-        .stat-label { font-size: 9px; color: #666; margin-top: 2px; }
+        .stat-item { background: #0a0a0a; border: 1px solid #151515; border-radius: 14px; padding: 12px; text-align: center; }
+        .stat-value { font-size: 20px; font-weight: 900; color: #e0e0e0; }
+        .stat-label { font-size: 9px; color: #777; margin-top: 2px; }
 
         .sub-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; cursor: pointer; }
         .sub-icon { font-size: 24px; }
         .sub-info { flex:1; }
-        .sub-name { font-weight: 700; font-size: 14px; }
-        .sub-desc { font-size: 10px; color: #888; }
-        .sub-arrow { color: #555; font-size: 18px; }
+        .sub-name { font-weight: 700; font-size: 14px; color: #d0d0d0; }
+        .sub-desc { font-size: 10px; color: #999; }
+        .sub-arrow { color: #666; font-size: 18px; }
 
         .amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 6px 0; }
-        .amount-btn { padding: 11px; border: 1px solid #181818; border-radius: 11px; background: #050505; color: #bbb; text-align: center; cursor: pointer; font-weight: 700; font-size: 14px; }
+        .amount-btn { padding: 11px; border: 1px solid #1a1a1a; border-radius: 11px; background: #050505; color: #bbb; text-align: center; cursor: pointer; font-weight: 700; font-size: 14px; }
         .amount-btn.sel { border-color: #0cc; background: rgba(0,200,200,0.04); }
-        .promo-input { width: 100%; padding: 11px; background: #050505; border: 1px solid #181818; border-radius: 11px; color: #fff; font-size: 13px; text-align: center; margin-top: 4px; }
-        .promo-hint { font-size: 9px; color: #555; text-align: center; margin: 3px 0; }
+        .promo-input { width: 100%; padding: 11px; background: #050505; border: 1px solid #1a1a1a; border-radius: 11px; color: #fff; font-size: 13px; text-align: center; margin-top: 4px; }
+        .promo-hint { font-size: 9px; color: #666; text-align: center; margin: 3px 0; }
         .promo-row { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 4px 0; font-size: 13px; }
         .promo-final { color: #00ff88; font-weight: 800; font-size: 15px; }
 
-        .ref-link-box { background: #050505; padding: 9px; border-radius: 10px; font-size: 9px; color: #00ff88; word-break: break-all; margin: 5px 0; border: 1px solid #131313; }
+        .ref-link-box { background: #050505; padding: 9px; border-radius: 10px; font-size: 9px; color: #00ff88; word-break: break-all; margin: 5px 0; border: 1px solid #151515; }
+
+        .speed-extra { font-size: 10px; color: #777; text-align: center; margin-top: 8px; line-height: 1.5; }
+        .speed-extra span { color: #aaa; }
 
         .bottom-nav { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); width: calc(100% - 16px); max-width: 420px; background: #080808; border: 1px solid #131313; border-radius: 18px; display: flex; justify-content: space-around; padding: 5px 3px; z-index: 50; box-shadow: 0 6px 25px rgba(0,0,0,0.8); }
         .nav-item { display: flex; flex-direction: column; align-items: center; gap: 1px; cursor: pointer; padding: 5px 8px; border-radius: 14px; transition: 0.2s; min-width: 40px; }
         .nav-item span { font-size: 18px; opacity: 0.4; transition: 0.2s; filter: grayscale(1); }
-        .nav-item small { font-size: 7px; color: #444; font-weight: 600; transition: 0.2s; }
+        .nav-item small { font-size: 7px; color: #555; font-weight: 600; transition: 0.2s; }
         .nav-item.active span { opacity: 0.9; filter: grayscale(0); }
-        .nav-item.active small { color: #999; }
+        .nav-item.active small { color: #aaa; }
 
-        .footer { text-align: center; font-size: 8px; color: #161616; padding: 10px 0; }
+        .footer { text-align: center; font-size: 8px; color: #1a1a1a; padding: 10px 0; }
     </style>
 </head>
 <body>
@@ -116,95 +118,78 @@
         <div class="price-tag" id="elitePrice">249₽</div>
         <button class="btn btn-outline-gold" onclick="buyPlan('elite')">Выбрать ELITE</button>
     </div>
-    <div class="card card-purple"><div class="plan-row"><span class="plan-name">💜 PREMIUM</span><span class="badge badge-purple">∞ ГБ</span></div>
+    <div class="card card-premium"><div class="plan-row"><span class="plan-name">💜 PREMIUM</span><span class="badge badge-premium">∞ ГБ</span></div>
         <div class="plan-meta"><span>📱 5</span><span>Максимум</span></div>
         <div class="period-select" id="premiumPeriods">
-            <div class="period-btn sel-purple" onclick="selectPeriod('premium',1,499)">1м 499₽</div><div class="period-btn" onclick="selectPeriod('premium',3,1299)">3м 1299₽</div><div class="period-btn" onclick="selectPeriod('premium',6,2299)">6м 2299₽</div>
+            <div class="period-btn sel-premium" onclick="selectPeriod('premium',1,499)">1м 499₽</div><div class="period-btn" onclick="selectPeriod('premium',3,1299)">3м 1299₽</div><div class="period-btn" onclick="selectPeriod('premium',6,2299)">6м 2299₽</div>
         </div>
         <div class="price-tag" id="premiumPrice">499₽</div>
-        <button class="btn btn-outline-purple" onclick="buyPlan('premium')">Выбрать PREMIUM</button>
+        <button class="btn btn-outline-premium" onclick="buyPlan('premium')">Выбрать PREMIUM</button>
     </div>
     <div class="footer">WEX VPN © 2026</div>
 </div>
 
-<!-- КАБИНЕТ УЛЬТРА -->
 <div id="page-profile" class="page">
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Кабинет</div></div>
-    
     <div class="card card-neon profile-hero">
         <div class="profile-avatar">👤</div>
         <div class="profile-name" id="profileName">Юзер</div>
         <div class="profile-status inactive" id="profileStatus">Не активирован</div>
     </div>
-
     <div class="stat-grid">
         <div class="stat-item"><div class="stat-value" id="statDays">0</div><div class="stat-label">дней</div></div>
         <div class="stat-item"><div class="stat-value" id="statKey">—</div><div class="stat-label">ключ</div></div>
         <div class="stat-item"><div class="stat-value" id="statRef">0</div><div class="stat-label">друзей</div></div>
         <div class="stat-item"><div class="stat-value" id="statBonus">0</div><div class="stat-label">бонусов</div></div>
     </div>
-
     <div class="card card-neon">
-        <p style="font-size:11px;color:#888;margin-bottom:6px;">Твоя подписка</p>
+        <p style="font-size:11px;color:#999;margin-bottom:6px;">Твоя подписка</p>
         <div class="sub-row" onclick="buyPlan('base')"><span class="sub-icon">🛡</span><div class="sub-info"><div class="sub-name">BASE</div><div class="sub-desc">1 устройство · 7 ГБ · 149₽/мес</div></div><span class="sub-arrow">›</span></div>
         <div class="sub-row" onclick="buyPlan('elite')"><span class="sub-icon">👑</span><div class="sub-info"><div class="sub-name">ELITE</div><div class="sub-desc">3 устройства · ∞ ГБ · 249₽/мес</div></div><span class="sub-arrow">›</span></div>
         <div class="sub-row" onclick="buyPlan('premium')"><span class="sub-icon">💜</span><div class="sub-info"><div class="sub-name">PREMIUM</div><div class="sub-desc">5 устройств · ∞ ГБ · 499₽/мес</div></div><span class="sub-arrow">›</span></div>
         <button class="btn btn-green" onclick="activateTrial()" style="margin-top:8px;">🎁 Активировать пробный</button>
     </div>
-
     <button class="btn btn-outline" onclick="changeKey()">🔑 Заменить ключ</button>
     <button class="btn btn-ghost" onclick="showDevices()">📱 Устройства: <span id="profDeviceShort">—</span></button>
 </div>
 
 <div id="page-ref" class="page">
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Друзья</div></div>
-    <div class="card card-neon" style="text-align:center;">
-        <p style="font-size:36px;">💎</p><h3>Дарим месяц</h3>
-        <p style="font-size:10px;color:#888;margin:3px 0 6px;">Оплатил — получил +30 дней</p>
-        <div class="ref-link-box" id="refLink">...</div>
-        <button class="btn btn-blue" onclick="copyRef()">📋 Копировать</button>
-        <div style="display:flex;justify-content:space-around;margin-top:8px;">
-            <div><span style="color:#00ff88;font-weight:700;font-size:18px;" id="refCount">0</span><br><small style="color:#555;">друзей</small></div>
-            <div><span style="color:#00ff88;font-weight:700;font-size:18px;" id="bonusDays">0</span><br><small style="color:#555;">бонус дней</small></div>
-        </div>
+    <div class="card card-neon" style="text-align:center;"><p style="font-size:36px;">💎</p><h3>Дарим месяц</h3><p style="font-size:10px;color:#999;margin:3px 0 6px;">Оплатил — получил +30 дней</p><div class="ref-link-box" id="refLink">...</div><button class="btn btn-blue" onclick="copyRef()">📋 Копировать</button>
+        <div style="display:flex;justify-content:space-around;margin-top:8px;"><div><span style="color:#00ff88;font-weight:700;font-size:18px;" id="refCount">0</span><br><small style="color:#666;">друзей</small></div><div><span style="color:#00ff88;font-weight:700;font-size:18px;" id="bonusDays">0</span><br><small style="color:#666;">бонус дней</small></div></div>
     </div>
 </div>
 
 <div id="page-speed" class="page">
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Тест сети</div></div>
-    <div class="card card-neon" style="text-align:center;"><p style="font-size:44px;">📡</p><p style="font-weight:700;">Яндекс.Интернетомер</p><button class="btn btn-green" onclick="tg.openLink('https://yandex.ru/internet/')">🚀 Запустить</button></div>
+    <div class="card card-neon" style="text-align:center;"><p style="font-size:44px;">📡</p><p style="font-weight:700;">Яндекс.Интернетомер</p><button class="btn btn-green" onclick="tg.openLink('https://yandex.ru/internet/')">🚀 Запустить</button>
+        <div class="speed-extra">В нашем <span onclick="tg.openTelegramLink('https://t.me/w7xvpn')" style="cursor:pointer;color:#0cc;">чате</span> напиши <span>пинг</span> — если высокий, поменяем сервер.<br>Ошибки, баги, троттлинг — <span>решаем.</span><br><span>Никто не отменял стабильность.</span></div>
+    </div>
 </div>
 
 <div id="page-balance" class="page">
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Пополнение</div></div>
-    <div class="card card-accent" style="text-align:center;">
-        <p style="font-size:11px;color:#888;">Сумма:</p>
-        <div class="amount-grid">
-            <div class="amount-btn" onclick="selectAmount(50)">50₽</div><div class="amount-btn" onclick="selectAmount(150)">150₽</div><div class="amount-btn" onclick="selectAmount(399)">399₽</div>
-            <div class="amount-btn" onclick="selectAmount(599)">599₽</div><div class="amount-btn" onclick="selectAmount(999)">999₽</div><div class="amount-btn" onclick="selectAmount(2500)">2500₽</div>
-        </div>
+    <div class="card card-accent" style="text-align:center;"><p style="font-size:11px;color:#999;">Сумма:</p>
+        <div class="amount-grid"><div class="amount-btn" onclick="selectAmount(50)">50₽</div><div class="amount-btn" onclick="selectAmount(150)">150₽</div><div class="amount-btn" onclick="selectAmount(399)">399₽</div><div class="amount-btn" onclick="selectAmount(599)">599₽</div><div class="amount-btn" onclick="selectAmount(999)">999₽</div><div class="amount-btn" onclick="selectAmount(2500)">2500₽</div></div>
         <input type="text" class="promo-input" id="promoInput" placeholder="🔑 Промокод">
         <p class="promo-hint">Ищи в <span style="color:#0cc;cursor:pointer;" onclick="tg.openTelegramLink('https://t.me/w7xvpn')">канале</span></p>
         <p id="promoStatus" style="font-size:9px;min-height:12px;"></p>
-        <div class="promo-row"><span style="color:#aaa;" id="baseAmount">50₽</span><span id="promoArrow" style="display:none;color:#555;">→</span><span class="promo-final" id="finalAmount" style="display:none;">60₽</span></div>
+        <div class="promo-row"><span style="color:#aaa;" id="baseAmount">50₽</span><span id="promoArrow" style="display:none;color:#666;">→</span><span class="promo-final" id="finalAmount" style="display:none;">60₽</span></div>
         <button class="btn btn-outline-teal" onclick="topUpBalance()">💳 Пополнить</button>
     </div>
 </div>
 
 <div id="page-pay" class="page">
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Оплата</div></div>
-    <div class="card card-neon" style="text-align:center;">
-        <p id="payInfo" style="font-weight:700;margin-bottom:8px;"></p>
-        <p style="font-size:10px;color:#888;">Банк:</p>
-        <button class="btn btn-ghost" onclick="payManual('sber')">🏦 Сбер ····22</button>
-        <button class="btn btn-ghost" onclick="payManual('alfa')">🏦 Альфа ····82</button>
-        <p style="font-size:8px;color:#555;margin-top:8px;">Первый месяц возврату не подлежит</p>
+    <div class="card card-neon" style="text-align:center;"><p id="payInfo" style="font-weight:700;margin-bottom:8px;"></p><p style="font-size:10px;color:#999;">Банк:</p>
+        <button class="btn btn-ghost" onclick="payManual('sber')">🏦 Сбер ····22</button><button class="btn btn-ghost" onclick="payManual('alfa')">🏦 Альфа ····82</button>
+        <p style="font-size:8px;color:#666;margin-top:8px;">Первый месяц возврату не подлежит</p>
     </div>
 </div>
 
 <div id="page-setup" class="page">
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Настройка</div></div>
-    <div class="card card-neon" style="text-align:center;"><p style="font-size:40px;">📲</p><p style="font-weight:700;">Happ VPN</p><button class="btn btn-green" onclick="downloadHapp()">📥 Скачать</button><p style="font-size:8px;color:#555;margin:5px 0;">Авто</p>
+    <div class="card card-neon" style="text-align:center;"><p style="font-size:40px;">📲</p><p style="font-weight:700;">Happ VPN</p><button class="btn btn-green" onclick="downloadHapp()">📥 Скачать</button><p style="font-size:8px;color:#666;margin:5px 0;">Авто</p>
         <button class="btn btn-ghost" onclick="selectPlatform('ios')">🍎 iOS</button><button class="btn btn-ghost" onclick="selectPlatform('android')">🤖 Android</button><button class="btn btn-ghost" onclick="selectPlatform('windows')">💻 Windows</button><button class="btn btn-ghost" onclick="selectPlatform('linux')">🐧 Linux</button>
     </div>
 </div>
@@ -226,7 +211,21 @@
     document.getElementById('refLink').innerText=`https://t.me/${BOT_USERNAME}?start=ref${userId}`;
     let userData=null,selectedPlan='elite',selectedMonths=1,selectedPrice=249,selectedTopUp=50,promoApplied=false,deviceModel='Неизвестно';
     const PROMO_CODES={'WEX20':true,'VPNBONUS':true,'START20':true,'TAMIR':true,'PANICA':true};
-    (function(){const ua=navigator.userAgent;if(/iPhone/.test(ua)){const m=ua.match(/iPhone(?: OS)?(?: |_)(\d+)/);deviceModel=m?'iPhone '+m[1]:'iPhone';}else if(/Android/.test(ua)){const m=ua.match(/Android\s([^;]+)/);deviceModel=m?'Android '+m[1]:'Android';}else deviceModel='Компьютер';})();
+    
+    (function detectDevice(){
+        const ua=navigator.userAgent;
+        if(/iPhone/.test(ua)){
+            const m=ua.match(/iPhone(\d+,\d+)/);
+            if(m){
+                const modelNum=m[1];
+                const modelMap={'17,1':'iPhone 16 Pro','17,2':'iPhone 16 Pro Max','16,1':'iPhone 15 Pro','16,2':'iPhone 15 Pro Max','15,2':'iPhone 14 Pro','15,3':'iPhone 14 Pro Max','14,2':'iPhone 13 Pro','14,3':'iPhone 13 Pro Max','13,4':'iPhone 12 Pro Max','13,3':'iPhone 12 Pro'};
+                deviceModel=modelMap[modelNum]||'iPhone';
+            }else{deviceModel='iPhone';}
+        }else if(/Android/.test(ua)){const m=ua.match(/Android\s([^;]+)/);deviceModel=m?'Android '+m[1]:'Android';}
+        else if(/Windows/.test(ua))deviceModel='Windows';
+        else if(/Macintosh/.test(ua))deviceModel='Mac';
+        else deviceModel='Устройство';
+    })();
 
     async function loadUser(){
         const res=await fetch(`${SUPABASE_URL}/rest/v1/users?user_id=eq.${userId}`,{headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}});
@@ -236,10 +235,10 @@
     }
     function updateUI(){
         const plan=userData.plan,days=userData.balance_days||0,key=userData.key,active=plan&&days>0;
-        document.getElementById('topBalance').innerText=active?days+' дн':'0₽';
+        document.getElementById('topBalance').innerText='0₽';
         document.getElementById('profileName').innerText=username;
         const ps=document.getElementById('profileStatus');
-        if(active){ps.className='profile-status trial';ps.innerText=plan.toUpperCase()+' · '+days+' дн';}
+        if(active){ps.className='profile-status active';ps.innerText=plan.toUpperCase()+' · '+days+' дн';}
         else{ps.className='profile-status inactive';ps.innerText='Не активирован';}
         document.getElementById('statDays').innerText=days;
         document.getElementById('statKey').innerText=key?key.slice(-4):'—';
@@ -266,7 +265,7 @@
     function updatePromo(){document.getElementById('baseAmount').innerText=selectedTopUp+'₽';const p=document.getElementById('promoInput').value.toUpperCase().trim(),s=document.getElementById('promoStatus'),a=document.getElementById('promoArrow'),f=document.getElementById('finalAmount');if(p&&PROMO_CODES[p]){const b=Math.floor(selectedTopUp*0.2);s.innerHTML='<span style="color:#0cc;">✅ Верно! +20%</span>';a.style.display='inline';f.style.display='inline';f.innerText=(selectedTopUp+b)+'₽';promoApplied=true;}else if(p){s.innerHTML='<span style="color:#FF4D4D;">❌ Неверно</span>';a.style.display='none';f.style.display='none';promoApplied=false;}else{s.innerHTML='';a.style.display='none';f.style.display='none';promoApplied=false;}}
     document.getElementById('promoInput').addEventListener('input',updatePromo);
     function topUpBalance(){let t=selectedTopUp;if(promoApplied)t+=Math.floor(selectedTopUp*0.2);selectedPrice=t;selectedPlan='balance_topup';selectedMonths=Math.max(1,Math.floor(t/50));document.getElementById('payInfo').innerHTML='Пополнение · <b>'+t+'₽</b> · ~'+selectedMonths+' дн';switchPage('pay');}
-    function selectPeriod(p,m,pr){selectedPlan=p;selectedMonths=m;selectedPrice=pr;document.getElementById(p+'Price').innerText=pr+'₽';document.querySelectorAll('#'+p+'Periods .period-btn').forEach(b=>b.classList.remove('sel','sel-gold','sel-purple'));event.target.classList.add(p==='elite'?'sel-gold':p==='premium'?'sel-purple':'sel');}
+    function selectPeriod(p,m,pr){selectedPlan=p;selectedMonths=m;selectedPrice=pr;document.getElementById(p+'Price').innerText=pr+'₽';document.querySelectorAll('#'+p+'Periods .period-btn').forEach(b=>b.classList.remove('sel','sel-gold','sel-premium'));event.target.classList.add(p==='elite'?'sel-gold':p==='premium'?'sel-premium':'sel');}
     function buyPlan(p){selectedPlan=p;selectedPrice=p==='base'?149:p==='elite'?249:499;document.getElementById('payInfo').innerHTML='<b>'+p.toUpperCase()+'</b> · '+selectedMonths+' мес · <b>'+selectedPrice+'₽</b>';switchPage('pay');}
     function openSupport(){tg.openTelegramLink('https://t.me/pan1ca7');}
     function changeKey(){tg.showPopup({title:'⚠️',message:'Ключ аннулируется.',buttons:[{id:'yes',text:'✅ Да'},{id:'no',text:'❌ Нет'}]},(btn)=>{if(btn==='yes')tg.showPopup({title:'✅',message:'Заявка отправлена.'});});}
