@@ -15,26 +15,24 @@
         .screen { display: none; }
         .screen.active { display: block; }
 
-        /* КРУГЛАЯ КНОПКА НАЗАД */
-        .back-circle { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-        .back-circle:active { background: rgba(255,255,255,0.12); }
+        .back-circle { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #aaa; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .back-circle:active { background: rgba(255,255,255,0.1); color: #fff; }
 
-        .menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; }
-        .menu-overlay.open { display: block; }
-        .side-menu { position: fixed; left: 0; top: 0; width: 290px; height: 100%; background: #0d0d0d; z-index: 101; padding: 30px 20px; transform: translateX(-100%); transition: 0.3s; border-right: 1px solid #1a1a1a; overflow-y: auto; }
-        .side-menu.open { transform: translateX(0); }
-        .menu-item { padding: 16px 0; border-bottom: 1px solid #181818; font-size: 16px; font-weight: 700; cursor: pointer; color: #ddd; }
-        .menu-item:hover { color: #00ff88; }
-        .menu-brand { font-size: 12px; color: #555; margin-top: 30px; text-align: center; font-weight: 500; }
-        .burger-btn { font-size: 28px; cursor: pointer; color: #aaa; line-height: 1; }
+        .menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; align-items: flex-start; justify-content: center; padding-top: 60px; }
+        .menu-overlay.open { display: flex; }
+        .menu-island { background: #121212; border-radius: 24px; padding: 6px; width: 300px; border: 1px solid #1f1f1f; box-shadow: 0 20px 50px rgba(0,0,0,0.9); }
+        .menu-row { padding: 16px 20px; font-size: 15px; font-weight: 700; color: #ccc; cursor: pointer; border-radius: 18px; margin: 2px 0; transition: 0.15s; }
+        .menu-row:active { background: #1a1a1a; color: #fff; }
+        .menu-brand { text-align: center; font-size: 11px; color: #444; padding: 12px 0 6px; font-weight: 500; }
 
         .top-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
         .brand { font-size: 20px; font-weight: 800; background: linear-gradient(to right, #fff, #ccc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; flex: 1; }
         .support-btn { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: #aaa; padding: 8px 12px; border-radius: 30px; font-size: 12px; font-weight: 500; cursor: pointer; }
+        .burger-btn { font-size: 28px; cursor: pointer; color: #aaa; line-height: 1; }
         .balance-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03); border-radius: 16px; padding: 12px 16px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.04); }
         .balance-label { font-size: 13px; color: #888; }
         .balance-value { font-size: 18px; font-weight: 700; color: #00ff88; }
-        .btn { width: 100%; padding: 14px; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; }
         .btn:active { transform: scale(0.97); }
         .btn-green { background: #00ff88; color: #000; }
         .btn-gold { background: #FFD700; color: #000; }
@@ -57,27 +55,29 @@
         .period-btn.gold-active { border-color: #FFD700; background: rgba(255,215,0,0.1); }
         .period-btn.premium-active { border-color: #9B59B6; background: rgba(155,89,182,0.1); }
         .price-line { font-size: 22px; font-weight: 800; }
-        .price-line small { font-size: 12px; color: #888; text-decoration: line-through; }
         .ref-link-box { background: rgba(0,0,0,0.4); padding: 10px; border-radius: 12px; margin: 10px 0; font-size: 12px; color: #00ff88; word-break: break-all; }
         .btn-copy { background: #2196F3; color: #fff; }
         .footer-note { text-align: center; font-size: 11px; color: #444; margin-top: 20px; }
-        .setup-icon { text-align: center; font-size: 60px; margin: 10px 0; }
-        .setup-title { font-size: 18px; font-weight: 700; text-align: center; margin: 5px 0; }
+        .setup-icon { font-size: 64px; text-align: center; margin: 10px 0; }
+        .setup-title { font-size: 20px; font-weight: 800; text-align: center; margin: 5px 0; }
     </style>
 </head>
 <body>
 
-<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
-<div class="side-menu" id="sideMenu">
-    <div class="menu-item" onclick="openChannel()">📢 Канал</div>
-    <div class="menu-item" onclick="checkSpeed()">📶 Проверка интернета</div>
-    <div class="menu-item" onclick="changeKey()">🔑 Замена ключа</div>
-    <div class="menu-item" onclick="showHistory()">📋 История покупок</div>
-    <div class="menu-item" onclick="showDevices()">📱 Устройства</div>
-    <div class="menu-item" onclick="showPolicy()">⚖️ Политика</div>
-    <div class="menu-brand">с любовью, WEX VPN 🤍</div>
+<!-- МЕНЮ-ОСТРОВ -->
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()">
+    <div class="menu-island" onclick="event.stopPropagation()">
+        <div class="menu-row" onclick="openChannel()">📢 Канал</div>
+        <div class="menu-row" onclick="checkSpeed()">📶 Проверка интернета</div>
+        <div class="menu-row" onclick="changeKey()">🔑 Замена ключа</div>
+        <div class="menu-row" onclick="showHistory()">📋 История покупок</div>
+        <div class="menu-row" onclick="showDevices()">📱 Устройства</div>
+        <div class="menu-row" onclick="showPolicy()">⚖️ Политика</div>
+        <div class="menu-brand">с любовью, WEX VPN 🤍</div>
+    </div>
 </div>
 
+<!-- ПРИВЕТСТВИЕ -->
 <div id="welcomeScreen" class="screen active">
     <div class="top-bar"><span class="burger-btn" onclick="openMenu()">☰</span><div class="brand">WEX VPN</div><button class="support-btn" onclick="openSupport()">💬 @pan1ca7</button></div>
     <div class="glass-card">
@@ -86,6 +86,7 @@
     </div>
 </div>
 
+<!-- ГЛАВНЫЙ -->
 <div id="mainScreen" class="screen">
     <div class="top-bar"><span class="burger-btn" onclick="openMenu()">☰</span><div class="brand">WEX VPN</div><button class="support-btn" onclick="openSupport()">💬 @pan1ca7</button></div>
     <div class="balance-row"><span class="balance-label">Баланс</span><span class="balance-value" id="bal">7 дней (пробный)</span></div>
@@ -97,10 +98,10 @@
     </div>
 
     <!-- BASE -->
-    <div class="glass-card" style="border-color: rgba(255,77,77,0.3);">
+    <div class="glass-card" style="border-color: rgba(255,77,77,0.25);">
         <div class="plan-title">🛡 BASE</div>
-        <div class="badge badge-green">7 ГБ антизаглушки</div>
-        <div class="plan-header"><span>📱 1 устройство</span><span class="limit">Лимит: 7 ГБ</span></div>
+        <div class="badge badge-green">Антизаглушка: 7 ГБ</div>
+        <div class="plan-header"><span>📱 1 устройство</span></div>
         <div class="period-select" id="basePeriods">
             <div class="period-btn active" onclick="selectPeriod('base',1,149)">1 мес<br>149₽<br><small>7 ГБ</small></div>
             <div class="period-btn" onclick="selectPeriod('base',3,349)">3 мес<br>349₽<br><small>30 ГБ</small></div>
@@ -113,12 +114,12 @@
     <!-- ELITE -->
     <div class="glass-card" style="border-color: rgba(255,215,0,0.3);">
         <div class="plan-title">👑 ELITE</div>
-        <div class="badge badge-gold">30 ГБ антизаглушки</div>
-        <div class="plan-header"><span>📱 3 устройства</span><span class="limit">Лимит: 30 ГБ</span></div>
+        <div class="badge badge-gold">Антизаглушка: ∞</div>
+        <div class="plan-header"><span>📱 3 устройства</span></div>
         <div class="period-select" id="elitePeriods">
-            <div class="period-btn gold-active active" onclick="selectPeriod('elite',1,249)">1 мес<br>249₽<br><small>30 ГБ</small></div>
-            <div class="period-btn" onclick="selectPeriod('elite',3,649)">3 мес<br>649₽<br><small>100 ГБ</small></div>
-            <div class="period-btn" onclick="selectPeriod('elite',6,1190)">6 мес<br>1190₽<br><small>350 ГБ</small></div>
+            <div class="period-btn gold-active active" onclick="selectPeriod('elite',1,249)">1 мес<br>249₽<br><small>∞ ГБ</small></div>
+            <div class="period-btn" onclick="selectPeriod('elite',3,649)">3 мес<br>649₽<br><small>∞ ГБ</small></div>
+            <div class="period-btn" onclick="selectPeriod('elite',6,1190)">6 мес<br>1190₽<br><small>∞ ГБ</small></div>
         </div>
         <div class="price-line" id="elitePrice">249₽</div>
         <button class="btn btn-gold" onclick="buyPlan('elite')">💎 Купить ELITE</button>
@@ -127,8 +128,8 @@
     <!-- PREMIUM -->
     <div class="glass-card" style="border-color: rgba(155,89,182,0.3);">
         <div class="plan-title">💜 PREMIUM</div>
-        <div class="badge badge-premium">БЕЗЛИМИТ</div>
-        <div class="plan-header"><span>📱 5 устройств</span><span class="limit">Лимит: ∞</span></div>
+        <div class="badge badge-premium">Антизаглушка: ∞</div>
+        <div class="plan-header"><span>📱 5 устройств</span></div>
         <div class="period-select" id="premiumPeriods">
             <div class="period-btn premium-active active" onclick="selectPeriod('premium',1,499)">1 мес<br>499₽<br><small>∞ ГБ</small></div>
             <div class="period-btn" onclick="selectPeriod('premium',3,1299)">3 мес<br>1299₽<br><small>∞ ГБ</small></div>
@@ -151,15 +152,16 @@
     <div class="footer-note">WEX VPN © 2026</div>
 </div>
 
+<!-- НАСТРОЙКА -->
 <div id="setupScreen" class="screen">
-    <div class="top-bar"><div class="back-circle" onclick="goBack()">←</div><div class="brand">⚙️ Настройка</div></div>
+    <div class="top-bar"><div class="brand">⚙️ Настройка</div><div class="back-circle" onclick="goBack()">←</div></div>
     <div class="glass-card" style="text-align:center;">
         <div class="setup-icon">📲</div>
         <div class="setup-title">Happ VPN</div>
-        <p style="font-size:13px;color:#888;">Скачай приложение для работы VPN</p>
-        <button class="btn btn-gold" onclick="tg.openLink('https://happvpn.com')">📥 Скачать Happ VPN</button>
-        <p style="font-size:11px;color:#555;margin-top:10px;">App Store / Google Play</p>
-        <div style="margin-top:15px;"><p style="font-size:13px;color:#aaa;">Уже скачал? Выбери платформу:</p></div>
+        <p style="font-size:13px;color:#888;margin:5px 0;">Скачай приложение</p>
+        <button class="btn btn-gold" onclick="downloadHapp()">📥 Скачать Happ VPN</button>
+        <p style="font-size:11px;color:#555;margin-top:8px;">Автоопределение устройства</p>
+        <div style="margin-top:15px;"><p style="font-size:13px;color:#aaa;">Выбери платформу вручную:</p></div>
         <button class="btn btn-setup" onclick="selectPlatform('ios')">🍎 iOS</button>
         <button class="btn btn-setup" onclick="selectPlatform('android')">🤖 Android</button>
         <button class="btn btn-setup" onclick="selectPlatform('windows')">💻 Windows</button>
@@ -167,8 +169,9 @@
     </div>
 </div>
 
+<!-- ОПЛАТА -->
 <div id="payScreen" class="screen">
-    <div class="top-bar"><div class="back-circle" onclick="goBack()">←</div><div class="brand">💳 Оплата</div></div>
+    <div class="top-bar"><div class="brand">💳 Оплата</div><div class="back-circle" onclick="goBack()">←</div></div>
     <div class="glass-card">
         <p style="text-align:center;" id="payInfo"></p>
         <button class="btn btn-lava" onclick="openLava()">🟠 Оплатить через Lava</button>
@@ -211,20 +214,28 @@
         if(userData.plan==='elite'||userData.plan==='premium')document.getElementById('statusText').innerHTML='<b>'+userData.plan.toUpperCase()+' активен</b>';
     }
     function showMain(){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('mainScreen').classList.add('active');lastScreen='mainScreen';}
-    function goTo(screenId){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(screenId).classList.add('active');lastScreen=screenId;}
-    function goBack(){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(lastScreen==='payScreen'||lastScreen==='setupScreen'?'mainScreen':lastScreen).classList.add('active');}
+    function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');lastScreen=id;}
+    function goBack(){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('mainScreen').classList.add('active');lastScreen='mainScreen';}
     function selectPeriod(plan,months,price){selectedPlan=plan;selectedMonths=months;selectedPrice=price;document.getElementById(plan+'Price').innerText=price+'₽';document.querySelectorAll('#'+plan+'Periods .period-btn').forEach(b=>b.classList.remove('active','gold-active','premium-active'));event.target.classList.add(plan==='elite'?'gold-active':plan==='premium'?'premium-active':'active');}
     function buyPlan(plan){selectedPlan=plan;goTo('payScreen');document.getElementById('payInfo').innerHTML='<b>'+plan.toUpperCase()+'</b> · '+selectedMonths+' мес · <b>'+selectedPrice+'₽</b>';}
-    function openLava(){tg.showPopup({title:'💳 Оплата',message:'Оплата через Lava скоро будет доступна.\nПока используй ручной перевод.',buttons:[{id:'ok',text:'Понятно'}]});}
+    function openLava(){tg.showPopup({title:'💳 Lava',message:'Оплата через Lava — скоро.\nПока используй ручной перевод.',buttons:[{id:'ok',text:'Ок'}]});}
     function openSupport(){tg.openTelegramLink('https://t.me/pan1ca7');}
-    function openChannel(){tg.openTelegramLink('https://t.me/wexvpnchannel');closeMenu();}
+    function openChannel(){tg.openTelegramLink('https://t.me/w7xvpn');closeMenu();}
     function checkSpeed(){tg.openLink('https://yandex.ru/internet/');closeMenu();}
-    function changeKey(){tg.showPopup({title:'⚠️ ВНИМАНИЕ',message:'При замене ключа старый будет аннулирован и восстановлению НЕ подлежит.\n\nПродолжить?',buttons:[{id:'yes',text:'Да, заменить'},{type:'cancel'}]},(btn)=>{if(btn==='yes')tg.showPopup({title:'🔑',message:'Заявка на замену отправлена.\nПоддержка: @pan1ca7'});});closeMenu();}
-    function showHistory(){tg.showPopup({title:'📋 История покупок',message:'Пока нет покупок.\nИстория появится после первого платежа.',buttons:[{id:'ok',text:'Ок'}]});closeMenu();}
-    function showDevices(){tg.showPopup({title:'📱 Устройства',message:'Активных устройств: 1\n\n📱 iPhone 16 Pro Max\nСтатус: ✅ Подключён',buttons:[{id:'ok',text:'Ок'}]});closeMenu();}
-    function showPolicy(){tg.showPopup({title:'⚖️ Политика',message:'WEX VPN — авторский продукт.\n\nЗапрещено: копирование, перепродажа.\n\nЛогов нет. Данные не собираются.\n\nВозврат за первый месяц — нет.\n\nНарушение = блокировка.',buttons:[{id:'ok',text:'Понятно'}]});closeMenu();}
-    function openMenu(){document.getElementById('sideMenu').classList.add('open');document.getElementById('menuOverlay').classList.add('open');}
-    function closeMenu(){document.getElementById('sideMenu').classList.remove('open');document.getElementById('menuOverlay').classList.remove('open');}
+    function changeKey(){tg.showPopup({title:'⚠️ Замена ключа',message:'Старый ключ будет аннулирован без возможности восстановления.\n\nПродолжить?',buttons:[{id:'yes',text:'✅ Да, заменить'},{id:'no',text:'❌ Отмена'}]},(btn)=>{if(btn==='yes')tg.showPopup({title:'✅',message:'Заявка отправлена.\nНовый ключ — после обработки.\nПоддержка: @pan1ca7'});});closeMenu();}
+    function showHistory(){tg.showPopup({title:'📋 История',message:'Пока нет покупок.\nЗдесь будет история платежей.',buttons:[{id:'ok',text:'Ок'}]});closeMenu();}
+    function showDevices(){tg.showPopup({title:'📱 Устройства',message:'🟢 Активных: 1\n\n📱 iPhone 16 Pro Max\nСтатус: подключён',buttons:[{id:'ok',text:'Ок'}]});closeMenu();}
+    function showPolicy(){tg.showPopup({title:'⚖️ Политика',message:'WEX VPN — авторский продукт.\n\nЗапрещено: копирование, перепродажа.\nЛогов нет. Данные не собираются.\nВозврат за первый месяц — нет.\nНарушение = блокировка.',buttons:[{id:'ok',text:'Понятно'}]});closeMenu();}
+    function openMenu(){document.getElementById('menuOverlay').classList.add('open');}
+    function closeMenu(){document.getElementById('menuOverlay').classList.remove('open');}
+    
+    function downloadHapp() {
+        const ua = navigator.userAgent;
+        if (/iPhone|iPad|iPod/.test(ua)) tg.openLink('https://apps.apple.com/app/happ-vpn/id1587873487');
+        else if (/Android/.test(ua)) tg.openLink('https://play.google.com/store/apps/details?id=com.happvpn');
+        else tg.openLink('https://happvpn.com');
+    }
+
     async function payManual(bank){
         const code=Math.random().toString(36).substring(2,10).toUpperCase();
         const phone=bank==='sber'?'+7 952 843-59-22':'+7 988 080-13-82';
@@ -245,7 +256,7 @@
         else if(platform==='android')link='https://play.google.com/store/apps/details?id=com.happvpn';
         else if(platform==='windows')link='https://happvpn.com/windows';
         else link='https://happvpn.com/linux';
-        tg.showPopup({title:'Готово',message:'Откроется инструкция для '+platform.toUpperCase(),buttons:[{id:'go',text:'🔗 Продолжить'},{type:'cancel'}]},(btn)=>{if(btn==='go')tg.openLink(link);});
+        tg.showPopup({title:'Готово',message:'Откроется для '+platform.toUpperCase(),buttons:[{id:'go',text:'🔗 Продолжить'},{type:'cancel'}]},(btn)=>{if(btn==='go')tg.openLink(link);});
     }
     function copyRef(){navigator.clipboard.writeText(refLink);tg.showPopup({title:'✅',message:'Ссылка скопирована!'});}
     loadUser();
