@@ -14,17 +14,14 @@
         .glass-card { background: rgba(18,18,18,0.65); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.06); border-radius: 24px; padding: 20px; margin: 14px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
         .screen { display: none; }
         .screen.active { display: block; }
-
         .back-circle { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #aaa; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         .back-circle:active { background: rgba(255,255,255,0.1); color: #fff; }
-
         .menu-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; align-items: flex-start; justify-content: center; padding-top: 60px; }
         .menu-overlay.open { display: flex; }
         .menu-island { background: #121212; border-radius: 24px; padding: 6px; width: 300px; border: 1px solid #1f1f1f; box-shadow: 0 20px 50px rgba(0,0,0,0.9); }
         .menu-row { padding: 16px 20px; font-size: 15px; font-weight: 700; color: #ccc; cursor: pointer; border-radius: 18px; margin: 2px 0; transition: 0.15s; }
         .menu-row:active { background: #1a1a1a; color: #fff; }
         .menu-brand { text-align: center; font-size: 11px; color: #444; padding: 12px 0 6px; font-weight: 500; }
-
         .top-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
         .brand { font-size: 20px; font-weight: 800; background: linear-gradient(to right, #fff, #ccc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; flex: 1; }
         .support-btn { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: #aaa; padding: 8px 12px; border-radius: 30px; font-size: 12px; font-weight: 500; cursor: pointer; }
@@ -64,7 +61,6 @@
 </head>
 <body>
 
-<!-- МЕНЮ-ОСТРОВ -->
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()">
     <div class="menu-island" onclick="event.stopPropagation()">
         <div class="menu-row" onclick="openChannel()">📢 Канал</div>
@@ -77,7 +73,6 @@
     </div>
 </div>
 
-<!-- ПРИВЕТСТВИЕ -->
 <div id="welcomeScreen" class="screen active">
     <div class="top-bar"><span class="burger-btn" onclick="openMenu()">☰</span><div class="brand">WEX VPN</div><button class="support-btn" onclick="openSupport()">💬 @pan1ca7</button></div>
     <div class="glass-card">
@@ -86,18 +81,15 @@
     </div>
 </div>
 
-<!-- ГЛАВНЫЙ -->
 <div id="mainScreen" class="screen">
     <div class="top-bar"><span class="burger-btn" onclick="openMenu()">☰</span><div class="brand">WEX VPN</div><button class="support-btn" onclick="openSupport()">💬 @pan1ca7</button></div>
     <div class="balance-row"><span class="balance-label">Баланс</span><span class="balance-value" id="bal">7 дней (пробный)</span></div>
-    
     <div class="glass-card" style="text-align:center;">
         <p id="statusText">⚡ Пробный период активен</p>
         <p id="keyText" style="font-size:12px;color:#888;">Загрузка...</p>
         <button class="btn btn-setup" onclick="goTo('setupScreen')">⚙️ Настройка</button>
     </div>
 
-    <!-- BASE -->
     <div class="glass-card" style="border-color: rgba(255,77,77,0.25);">
         <div class="plan-title">🛡 BASE</div>
         <div class="badge badge-green">Антизаглушка: 7 ГБ</div>
@@ -111,7 +103,6 @@
         <button class="btn btn-outline" onclick="buyPlan('base')">💳 Купить BASE</button>
     </div>
 
-    <!-- ELITE -->
     <div class="glass-card" style="border-color: rgba(255,215,0,0.3);">
         <div class="plan-title">👑 ELITE</div>
         <div class="badge badge-gold">Антизаглушка: ∞</div>
@@ -125,7 +116,6 @@
         <button class="btn btn-gold" onclick="buyPlan('elite')">💎 Купить ELITE</button>
     </div>
 
-    <!-- PREMIUM -->
     <div class="glass-card" style="border-color: rgba(155,89,182,0.3);">
         <div class="plan-title">💜 PREMIUM</div>
         <div class="badge badge-premium">Антизаглушка: ∞</div>
@@ -152,7 +142,6 @@
     <div class="footer-note">WEX VPN © 2026</div>
 </div>
 
-<!-- НАСТРОЙКА -->
 <div id="setupScreen" class="screen">
     <div class="top-bar"><div class="brand">⚙️ Настройка</div><div class="back-circle" onclick="goBack()">←</div></div>
     <div class="glass-card" style="text-align:center;">
@@ -169,15 +158,12 @@
     </div>
 </div>
 
-<!-- ОПЛАТА -->
 <div id="payScreen" class="screen">
     <div class="top-bar"><div class="brand">💳 Оплата</div><div class="back-circle" onclick="goBack()">←</div></div>
     <div class="glass-card">
         <p style="text-align:center;" id="payInfo"></p>
-        <button class="btn btn-lava" onclick="openLava()">🟠 Оплатить через Lava</button>
-        <p style="font-size:11px;color:#888;text-align:center;margin:5px 0;">Карта / СБП / Мир</p>
-        <div style="margin-top:15px; border-top:1px solid #222; padding-top:10px;">
-            <p style="font-size:12px;color:#888;text-align:center;">Ручной перевод:</p>
+        <div style="margin-top:10px;">
+            <p style="font-size:12px;color:#888;text-align:center;">Выбери банк для перевода:</p>
             <button class="btn btn-pay" onclick="payManual('sber')">🏦 Сбер ····22</button>
             <button class="btn btn-pay" onclick="payManual('alfa')">🏦 Альфа ····82</button>
         </div>
@@ -190,11 +176,15 @@
     const SUPABASE_URL = 'https://uwasaxshladsssvkooof.supabase.co';
     const SUPABASE_KEY = 'sb_publishable__-cdz___wVbGrgOVPn6plw_zVM5Zyel';
     const BOT_USERNAME = 'wex7vpnbot';
+    const ADMIN_ID = 8354515470;
+    const NOTIFY_BOT_TOKEN = '8720072211:AAEa19gXH2ziYvpS3RqITCE_GLeTlVGRw5U';
+    
     const user = tg.initDataUnsafe?.user;
     const userId = user?.id || 'guest';
     const username = user?.username || user?.first_name || 'Юзер';
     const refLink = `https://t.me/${BOT_USERNAME}?start=ref${userId}`;
     document.getElementById('refLink').innerText = refLink;
+    
     let userData = null, selectedPlan = 'elite', selectedMonths = 1, selectedPrice = 249, lastScreen = 'mainScreen';
 
     async function loadUser() {
@@ -218,7 +208,6 @@
     function goBack(){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('mainScreen').classList.add('active');lastScreen='mainScreen';}
     function selectPeriod(plan,months,price){selectedPlan=plan;selectedMonths=months;selectedPrice=price;document.getElementById(plan+'Price').innerText=price+'₽';document.querySelectorAll('#'+plan+'Periods .period-btn').forEach(b=>b.classList.remove('active','gold-active','premium-active'));event.target.classList.add(plan==='elite'?'gold-active':plan==='premium'?'premium-active':'active');}
     function buyPlan(plan){selectedPlan=plan;goTo('payScreen');document.getElementById('payInfo').innerHTML='<b>'+plan.toUpperCase()+'</b> · '+selectedMonths+' мес · <b>'+selectedPrice+'₽</b>';}
-    function openLava(){tg.showPopup({title:'💳 Lava',message:'Оплата через Lava — скоро.\nПока используй ручной перевод.',buttons:[{id:'ok',text:'Ок'}]});}
     function openSupport(){tg.openTelegramLink('https://t.me/pan1ca7');}
     function openChannel(){tg.openTelegramLink('https://t.me/w7xvpn');closeMenu();}
     function checkSpeed(){tg.openLink('https://yandex.ru/internet/');closeMenu();}
@@ -237,19 +226,38 @@
     }
 
     async function payManual(bank){
-        const code=Math.random().toString(36).substring(2,10).toUpperCase();
-        const phone=bank==='sber'?'+7 952 843-59-22':'+7 988 080-13-82';
-        const phoneShow=bank==='sber'?'···22':'···82';
-        const bankName=bank==='sber'?'Сбербанк':'Альфа-Банк';
-        tg.showPopup({title:'🏦 '+bankName+' '+phoneShow,message:'💰 '+selectedPrice+'₽\n🏷 Код: '+code+'\n\n⚠️ Укажи код в комментарии!',buttons:[{id:'done',text:'✅ Я оплатил'},{type:'cancel'}]},async(btn)=>{
-            if(btn==='done'){
-                await fetch(`${SUPABASE_URL}/rest/v1/payments`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({user_id:userId,username:username,code:code,bank:bankName,amount:selectedPrice,plan:selectedPlan,months:selectedMonths,status:'pending',created_at:new Date().toISOString()})});
-                tg.sendData(JSON.stringify({action:'payment',code:code,plan:selectedPlan,price:selectedPrice}));
-                tg.showPopup({title:'✅',message:'Заявка отправлена! После проверки — обнови экран.'});
+        const code = Math.random().toString(36).substring(2,10).toUpperCase();
+        const phone = bank === 'sber' ? '+7 952 843-59-22' : '+7 988 080-13-82';
+        const phoneShow = bank === 'sber' ? '···22' : '···82';
+        const bankName = bank === 'sber' ? 'Сбербанк' : 'Альфа-Банк';
+        
+        tg.showPopup({
+            title: '🏦 ' + bankName + ' ' + phoneShow,
+            message: '💰 ' + selectedPrice + '₽\n📱 ' + phone + '\n🏷 Код: ' + code + '\n\n⚠️ Укажи код в комментарии!',
+            buttons: [{id:'done', text:'✅ Я оплатил'}, {type:'cancel'}]
+        }, async (btn) => {
+            if (btn === 'done') {
+                await fetch(`${SUPABASE_URL}/rest/v1/payments`, {
+                    method: 'POST',
+                    headers: {'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal'},
+                    body: JSON.stringify({user_id: userId, username: username, code: code, bank: bankName, amount: selectedPrice, plan: selectedPlan, months: selectedMonths, status: 'pending', created_at: new Date().toISOString()})
+                });
+                
+                const msg = `🔔 *Новый платёж!*\n\n👤 @${username}\n🆔 ${userId}\n📦 ${selectedPlan.toUpperCase()} · ${selectedMonths} мес\n💰 ${selectedPrice}₽\n🏦 ${bankName}\n🏷 Код: \`${code}\``;
+                
+                await fetch(`https://api.telegram.org/bot${NOTIFY_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({chat_id: ADMIN_ID, text: msg, parse_mode: 'Markdown'})
+                });
+                
+                tg.sendData(JSON.stringify({action:'payment', code:code, plan:selectedPlan, price:selectedPrice}));
+                tg.showPopup({title:'✅', message:'Заявка отправлена! После проверки — обнови экран (потяни вниз).'});
                 goBack();
             }
         });
     }
+
     function selectPlatform(platform){
         let link='';
         if(platform==='ios')link='https://apps.apple.com/app/happ-vpn/id1587873487';
