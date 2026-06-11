@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="anypay-verification" content="4ac378fb30a2a555e9d723944b2b">
+    <meta name="anypay-verification" content="4ac378fb30a2a555e9d723944b2b" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>WEX VPN</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -28,11 +28,13 @@
         .card-gold { border-color: rgba(255,215,0,0.1); }
         .card-premium { border-color: rgba(180,130,255,0.15); box-shadow: 0 0 30px rgba(180,130,255,0.04); }
         .card-accent { border-color: rgba(0,200,200,0.1); }
+        .card-flash { border-color: rgba(255,140,0,0.15); }
 
         .badge { font-size: 8px; font-weight: 700; padding: 3px 7px; border-radius: 7px; }
         .badge-red { background: rgba(255,77,77,0.06); color: #FF4D4D; }
         .badge-gold { background: rgba(255,215,0,0.06); color: #FFD700; }
         .badge-premium { background: rgba(180,130,255,0.08); color: #b482ff; }
+        .badge-flash { background: rgba(255,140,0,0.08); color: #ff8c00; }
 
         .btn { width: 100%; padding: 13px; border: none; border-radius: 15px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 4px; transition: 0.15s; }
         .btn:active { transform: scale(0.97); }
@@ -43,6 +45,7 @@
         .btn-outline-gold { background: transparent; border: 1px solid rgba(255,215,0,0.2); color: #FFD700; }
         .btn-outline-premium { background: transparent; border: 1px solid rgba(180,130,255,0.25); color: #b482ff; }
         .btn-outline-teal { background: transparent; border: 1px solid rgba(0,200,200,0.2); color: #0cc; }
+        .btn-outline-flash { background: transparent; border: 1px solid rgba(255,140,0,0.2); color: #ff8c00; }
         .btn-blue { background: #2196F3; color: #fff; }
 
         .plan-row { display: flex; align-items: center; justify-content: space-between; }
@@ -53,7 +56,14 @@
         .period-btn.sel { border-color: #555; background: rgba(255,255,255,0.02); color: #fff; }
         .period-btn.sel-gold { border-color: rgba(255,215,0,0.3); background: rgba(255,215,0,0.02); color: #fff; }
         .period-btn.sel-premium { border-color: rgba(180,130,255,0.3); background: rgba(180,130,255,0.02); color: #fff; }
+        .period-btn.sel-flash { border-color: rgba(255,140,0,0.3); background: rgba(255,140,0,0.02); color: #fff; }
         .price-tag { font-size: 17px; font-weight: 800; }
+
+        .quick-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; margin: 4px 0; }
+        .quick-btn { padding: 10px 6px; border: 1px solid #1a1a1a; border-radius: 12px; background: #050505; text-align: center; cursor: pointer; font-weight: 700; font-size: 12px; color: #bbb; }
+        .quick-btn:active { background: #0a0a0a; }
+        .quick-btn .days { font-size: 18px; color: #ff8c00; display: block; }
+        .quick-btn .price { font-size: 10px; color: #888; }
 
         .profile-hero { text-align: center; padding: 10px 0; }
         .profile-avatar { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.04); border: 2px solid #1c1c1c; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 6px; }
@@ -74,14 +84,6 @@
         .sub-desc { font-size: 10px; color: #999; }
         .sub-arrow { color: #666; font-size: 18px; }
 
-        .amount-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin: 6px 0; }
-        .amount-btn { padding: 11px; border: 1px solid #1a1a1a; border-radius: 11px; background: #050505; color: #bbb; text-align: center; cursor: pointer; font-weight: 700; font-size: 14px; }
-        .amount-btn.sel { border-color: #0cc; background: rgba(0,200,200,0.04); }
-        .promo-input { width: 100%; padding: 11px; background: #050505; border: 1px solid #1a1a1a; border-radius: 11px; color: #fff; font-size: 13px; text-align: center; margin-top: 4px; }
-        .promo-hint { font-size: 9px; color: #666; text-align: center; margin: 3px 0; }
-        .promo-row { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 4px 0; font-size: 13px; }
-        .promo-final { color: #00ff88; font-weight: 800; font-size: 15px; }
-
         .ref-link-box { background: #050505; padding: 9px; border-radius: 10px; font-size: 9px; color: #00ff88; word-break: break-all; margin: 5px 0; border: 1px solid #151515; }
 
         .speed-extra { font-size: 10px; color: #777; text-align: center; margin-top: 8px; line-height: 1.5; }
@@ -100,17 +102,31 @@
 <body>
 
 <div id="page-home" class="page active">
-    <div class="top-bar"><div class="logo">WEX VPN</div><span class="support-link" onclick="openSupport()">Поддержка</span><span class="top-balance" onclick="switchPage('balance')" id="topBalance">0₽</span></div>
+    <div class="top-bar"><div class="logo">WEX VPN</div><span class="support-link" onclick="openSupport()">Поддержка</span><span class="top-balance" onclick="switchPage('balance')" id="topBalance">0 дн</span></div>
     <button class="btn btn-ghost" onclick="switchPage('setup')">⚙️ Настроить VPN</button>
 
-    <div class="card card-neon"><div class="plan-row"><span class="plan-name">🛡 BASE</span><span class="badge badge-red">7 ГБ</span></div>
+    <!-- РАЗОВЫЕ ОПЦИИ -->
+    <div class="card card-flash">
+        <p style="font-size:10px;font-weight:700;color:#ff8c00;margin-bottom:4px;">⚡ Разовый доступ</p>
+        <div class="quick-grid">
+            <div class="quick-btn" onclick="quickBuy('flash_1',1,39)"><span class="days">1 день</span><span class="price">39₽</span></div>
+            <div class="quick-btn" onclick="quickBuy('flash_3',3,79)"><span class="days">3 дня</span><span class="price">79₽</span></div>
+            <div class="quick-btn" onclick="quickBuy('flash_7',7,119)"><span class="days">7 дней</span><span class="price">119₽</span></div>
+            <div class="quick-btn" onclick="quickBuy('flash_14',14,189)"><span class="days">14 дней</span><span class="price">189₽</span></div>
+        </div>
+    </div>
+
+    <!-- BASE -->
+    <div class="card card-neon"><div class="plan-row"><span class="plan-name">🛡 BASE</span><span class="badge badge-red">30 ГБ</span></div>
         <div class="plan-meta"><span>📱 1</span><span>Базовая</span></div>
         <div class="period-select" id="basePeriods">
-            <div class="period-btn sel" onclick="selectPeriod('base',1,149)">1м 149₽</div><div class="period-btn" onclick="selectPeriod('base',3,349)">3м 349₽</div><div class="period-btn" onclick="selectPeriod('base',6,599)">6м 599₽</div>
+            <div class="period-btn sel" onclick="selectPeriod('base',1,120)">1м 120₽</div><div class="period-btn" onclick="selectPeriod('base',3,299)">3м 299₽</div><div class="period-btn" onclick="selectPeriod('base',6,549)">6м 549₽</div>
         </div>
-        <div class="price-tag" id="basePrice">149₽</div>
+        <div class="price-tag" id="basePrice">120₽</div>
         <button class="btn btn-outline" onclick="buyPlan('base')">Выбрать BASE</button>
     </div>
+
+    <!-- ELITE -->
     <div class="card card-gold"><div class="plan-row"><span class="plan-name">👑 ELITE</span><span class="badge badge-gold">∞ ГБ</span></div>
         <div class="plan-meta"><span>📱 3</span><span>Приоритет</span></div>
         <div class="period-select" id="elitePeriods">
@@ -119,12 +135,14 @@
         <div class="price-tag" id="elitePrice">249₽</div>
         <button class="btn btn-outline-gold" onclick="buyPlan('elite')">Выбрать ELITE</button>
     </div>
+
+    <!-- PREMIUM -->
     <div class="card card-premium"><div class="plan-row"><span class="plan-name">💜 PREMIUM</span><span class="badge badge-premium">∞ ГБ</span></div>
         <div class="plan-meta"><span>📱 5</span><span>Максимум</span></div>
         <div class="period-select" id="premiumPeriods">
-            <div class="period-btn sel-premium" onclick="selectPeriod('premium',1,499)">1м 499₽</div><div class="period-btn" onclick="selectPeriod('premium',3,1299)">3м 1299₽</div><div class="period-btn" onclick="selectPeriod('premium',6,2299)">6м 2299₽</div>
+            <div class="period-btn sel-premium" onclick="selectPeriod('premium',1,449)">1м 449₽</div><div class="period-btn" onclick="selectPeriod('premium',3,1199)">3м 1199₽</div><div class="period-btn" onclick="selectPeriod('premium',6,2199)">6м 2199₽</div>
         </div>
-        <div class="price-tag" id="premiumPrice">499₽</div>
+        <div class="price-tag" id="premiumPrice">449₽</div>
         <button class="btn btn-outline-premium" onclick="buyPlan('premium')">Выбрать PREMIUM</button>
     </div>
     <div class="footer">WEX VPN © 2026</div>
@@ -145,9 +163,9 @@
     </div>
     <div class="card card-neon">
         <p style="font-size:11px;color:#999;margin-bottom:6px;">Твоя подписка</p>
-        <div class="sub-row" onclick="buyPlan('base')"><span class="sub-icon">🛡</span><div class="sub-info"><div class="sub-name">BASE</div><div class="sub-desc">1 устройство · 7 ГБ · 149₽/мес</div></div><span class="sub-arrow">›</span></div>
-        <div class="sub-row" onclick="buyPlan('elite')"><span class="sub-icon">👑</span><div class="sub-info"><div class="sub-name">ELITE</div><div class="sub-desc">3 устройства · ∞ ГБ · 249₽/мес</div></div><span class="sub-arrow">›</span></div>
-        <div class="sub-row" onclick="buyPlan('premium')"><span class="sub-icon">💜</span><div class="sub-info"><div class="sub-name">PREMIUM</div><div class="sub-desc">5 устройств · ∞ ГБ · 499₽/мес</div></div><span class="sub-arrow">›</span></div>
+        <div class="sub-row" onclick="buyPlan('base')"><span class="sub-icon">🛡</span><div class="sub-info"><div class="sub-name">BASE</div><div class="sub-desc">1 устр. · 30 ГБ · 120₽/мес</div></div><span class="sub-arrow">›</span></div>
+        <div class="sub-row" onclick="buyPlan('elite')"><span class="sub-icon">👑</span><div class="sub-info"><div class="sub-name">ELITE</div><div class="sub-desc">3 устр. · ∞ ГБ · 249₽/мес</div></div><span class="sub-arrow">›</span></div>
+        <div class="sub-row" onclick="buyPlan('premium')"><span class="sub-icon">💜</span><div class="sub-info"><div class="sub-name">PREMIUM</div><div class="sub-desc">5 устр. · ∞ ГБ · 449₽/мес</div></div><span class="sub-arrow">›</span></div>
         <button class="btn btn-green" onclick="activateTrial()" style="margin-top:8px;">🎁 Активировать пробный</button>
     </div>
     <button class="btn btn-outline" onclick="changeKey()">🔑 Заменить ключ</button>
@@ -172,18 +190,20 @@
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Пополнение</div></div>
     <div class="card card-accent" style="text-align:center;"><p style="font-size:11px;color:#999;">Сумма:</p>
         <div class="amount-grid"><div class="amount-btn" onclick="selectAmount(50)">50₽</div><div class="amount-btn" onclick="selectAmount(150)">150₽</div><div class="amount-btn" onclick="selectAmount(399)">399₽</div><div class="amount-btn" onclick="selectAmount(599)">599₽</div><div class="amount-btn" onclick="selectAmount(999)">999₽</div><div class="amount-btn" onclick="selectAmount(2500)">2500₽</div></div>
-        <input type="text" class="promo-input" id="promoInput" placeholder="🔑 Промокод">
-        <p class="promo-hint">Ищи в <span style="color:#0cc;cursor:pointer;" onclick="tg.openTelegramLink('https://t.me/w7xvpn')">канале</span></p>
+        <input type="text" class="promo-input" id="promoInput" placeholder="🔑 Промокод" style="width:100%;padding:11px;background:#050505;border:1px solid #1a1a1a;border-radius:11px;color:#fff;font-size:13px;text-align:center;margin-top:4px;">
+        <p class="promo-hint" style="font-size:9px;color:#666;text-align:center;margin:3px 0;">Ищи в <span style="color:#0cc;cursor:pointer;" onclick="tg.openTelegramLink('https://t.me/w7xvpn')">канале</span></p>
         <p id="promoStatus" style="font-size:9px;min-height:12px;"></p>
-        <div class="promo-row"><span style="color:#aaa;" id="baseAmount">50₽</span><span id="promoArrow" style="display:none;color:#666;">→</span><span class="promo-final" id="finalAmount" style="display:none;">60₽</span></div>
+        <div class="promo-row" style="display:flex;align-items:center;justify-content:center;gap:6px;margin:4px 0;font-size:13px;"><span style="color:#aaa;" id="baseAmount">50₽</span><span id="promoArrow" style="display:none;color:#666;">→</span><span class="promo-final" id="finalAmount" style="display:none;color:#00ff88;font-weight:800;font-size:15px;">60₽</span></div>
         <button class="btn btn-outline-teal" onclick="topUpBalance()">💳 Пополнить</button>
     </div>
 </div>
 
 <div id="page-pay" class="page">
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Оплата</div></div>
-    <div class="card card-neon" style="text-align:center;"><p id="payInfo" style="font-weight:700;margin-bottom:8px;"></p><p style="font-size:10px;color:#999;">Банк:</p>
-        <button class="btn btn-ghost" onclick="payManual('sber')">🏦 Сбер ····22</button><button class="btn btn-ghost" onclick="payManual('alfa')">🏦 Альфа ····82</button>
+    <div class="card card-neon" style="text-align:center;"><p id="payInfo" style="font-weight:700;margin-bottom:8px;"></p><p style="font-size:10px;color:#999;">Способ:</p>
+        <button class="btn btn-outline-teal" onclick="payAnyPay()">💳 Карта / СБП / QR</button>
+        <button class="btn btn-ghost" onclick="payManual('sber')">🏦 Сбер ····22</button>
+        <button class="btn btn-ghost" onclick="payManual('alfa')">🏦 Альфа ····82</button>
         <p style="font-size:8px;color:#666;margin-top:8px;">Первый месяц возврату не подлежит</p>
     </div>
 </div>
@@ -210,22 +230,28 @@
     const BOT_USERNAME='wex7vpnbot',ADMIN_ID=8354515470,NOTIFY_BOT_TOKEN='8720072211:AAEa19gXH2ziYvpS3RqITCE_GLeTlVGRw5U';
     const user=tg.initDataUnsafe?.user,userId=user?.id||'guest',username=user?.username||user?.first_name||'Юзер';
     document.getElementById('refLink').innerText=`https://t.me/${BOT_USERNAME}?start=ref${userId}`;
+
+    const ANYPAY_LINKS = {
+        'base_1':'https://anypay.io/merchant?merchant_id=17833&pay_id=1&amount=120&currency=RUB&desc=%F0%9F%9B%A1%20BASE%201%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=00425a6d4598ef3d100551a4052d05ea',
+        'base_3':'https://anypay.io/merchant?merchant_id=17833&pay_id=2&amount=299&currency=RUB&desc=%F0%9F%9B%A1%20BASE%203%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=2eb0469f36d4cef58a6947e97e836c72',
+        'base_6':'https://anypay.io/merchant?merchant_id=17833&pay_id=3&amount=550&currency=RUB&desc=%F0%9F%9B%A1%20BASE%206%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=eb4a754ee10a9c51bac7bf0340e69493',
+        'elite_1':'https://anypay.io/merchant?merchant_id=17833&pay_id=4&amount=249&currency=RUB&desc=%F0%9F%91%91%20ELITE%201%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=3f24a54545f34e16c1d4ea6c06c4ce9b',
+        'elite_3':'https://anypay.io/merchant?merchant_id=17833&pay_id=5&amount=649&currency=RUB&desc=%F0%9F%91%91%20ELITE%203%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=4fe33c6a1abd2d2bc1c893747fe49a1d',
+        'elite_6':'https://anypay.io/merchant?merchant_id=17833&pay_id=6&amount=1190&currency=RUB&desc=%F0%9F%91%91%20ELITE%206%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=acb19c3c664b8df6c55fbbcbaa72bd34',
+        'premium_1':'https://anypay.io/merchant?merchant_id=17833&pay_id=7&amount=449&currency=RUB&desc=%F0%9F%92%9C%20PREMIUM%201%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=b453b564fb48526ad108f130cc18d022',
+        'premium_3':'https://anypay.io/merchant?merchant_id=17833&pay_id=8&amount=1199&currency=RUB&desc=%F0%9F%92%9C%20PREMIUM%203%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=d4f50b1590b3e77efd77092cac0a9f77',
+        'premium_6':'https://anypay.io/merchant?merchant_id=17833&pay_id=9&amount=2199&currency=RUB&desc=%F0%9F%92%9C%20PREMIUM%206%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=fd4d521c5feb47c9b9cecb2ea9f34c7b'
+    };
+
     let userData=null,selectedPlan='elite',selectedMonths=1,selectedPrice=249,selectedTopUp=50,promoApplied=false,deviceModel='Неизвестно';
     const PROMO_CODES={'WEX20':true,'VPNBONUS':true,'START20':true,'TAMIR':true,'PANICA':true};
     
     (function detectDevice(){
         const ua=navigator.userAgent;
-        if(/iPhone/.test(ua)){
-            const m=ua.match(/iPhone(\d+,\d+)/);
-            if(m){
-                const modelNum=m[1];
-                const modelMap={'17,1':'iPhone 16 Pro','17,2':'iPhone 16 Pro Max','16,1':'iPhone 15 Pro','16,2':'iPhone 15 Pro Max','15,2':'iPhone 14 Pro','15,3':'iPhone 14 Pro Max','14,2':'iPhone 13 Pro','14,3':'iPhone 13 Pro Max','13,4':'iPhone 12 Pro Max','13,3':'iPhone 12 Pro'};
-                deviceModel=modelMap[modelNum]||'iPhone';
-            }else{deviceModel='iPhone';}
-        }else if(/Android/.test(ua)){const m=ua.match(/Android\s([^;]+)/);deviceModel=m?'Android '+m[1]:'Android';}
+        if(/iPhone/.test(ua)){const m=ua.match(/iPhone(\d+,\d+)/);if(m){const map={'17,1':'iPhone 16 Pro','17,2':'iPhone 16 Pro Max','16,1':'iPhone 15 Pro','16,2':'iPhone 15 Pro Max'};deviceModel=map[m[1]]||'iPhone';}else deviceModel='iPhone';}
+        else if(/Android/.test(ua)){const m=ua.match(/Android\s([^;]+)/);deviceModel=m?'Android '+m[1]:'Android';}
         else if(/Windows/.test(ua))deviceModel='Windows';
         else if(/Macintosh/.test(ua))deviceModel='Mac';
-        else deviceModel='Устройство';
     })();
 
     async function loadUser(){
@@ -236,7 +262,7 @@
     }
     function updateUI(){
         const plan=userData.plan,days=userData.balance_days||0,key=userData.key,active=plan&&days>0;
-        document.getElementById('topBalance').innerText='0₽';
+        document.getElementById('topBalance').innerText=(days||0)+' дн';
         document.getElementById('profileName').innerText=username;
         const ps=document.getElementById('profileStatus');
         if(active){ps.className='profile-status active';ps.innerText=plan.toUpperCase()+' · '+days+' дн';}
@@ -261,21 +287,39 @@
             await fetch(`${SUPABASE_URL}/rest/v1/users?user_id=eq.${userId}`,{method:'PATCH',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({plan:p.plan,balance_days:nb,key:nk})});
             userData.plan=p.plan;userData.balance_days=nb;userData.key=nk;updateUI();tg.showPopup({title:'🎉',message:'Оплата подтверждена!'});}}
     }
-    function switchPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('nav-'+id).classList.add('active');}
+    function switchPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));const nav=document.getElementById('nav-'+id);if(nav)nav.classList.add('active');}
     function selectAmount(a){selectedTopUp=a;document.querySelectorAll('.amount-btn').forEach(b=>b.classList.remove('sel'));event.target.classList.add('sel');updatePromo();}
     function updatePromo(){document.getElementById('baseAmount').innerText=selectedTopUp+'₽';const p=document.getElementById('promoInput').value.toUpperCase().trim(),s=document.getElementById('promoStatus'),a=document.getElementById('promoArrow'),f=document.getElementById('finalAmount');if(p&&PROMO_CODES[p]){const b=Math.floor(selectedTopUp*0.2);s.innerHTML='<span style="color:#0cc;">✅ Верно! +20%</span>';a.style.display='inline';f.style.display='inline';f.innerText=(selectedTopUp+b)+'₽';promoApplied=true;}else if(p){s.innerHTML='<span style="color:#FF4D4D;">❌ Неверно</span>';a.style.display='none';f.style.display='none';promoApplied=false;}else{s.innerHTML='';a.style.display='none';f.style.display='none';promoApplied=false;}}
     document.getElementById('promoInput').addEventListener('input',updatePromo);
-    function topUpBalance(){let t=selectedTopUp;if(promoApplied)t+=Math.floor(selectedTopUp*0.2);selectedPrice=t;selectedPlan='balance_topup';selectedMonths=Math.max(1,Math.floor(t/50));document.getElementById('payInfo').innerHTML='Пополнение · <b>'+t+'₽</b> · ~'+selectedMonths+' дн';switchPage('pay');}
+    function topUpBalance(){let t=selectedTopUp;if(promoApplied)t+=Math.floor(selectedTopUp*0.2);selectedPrice=t;selectedPlan='balance_topup';selectedMonths=Math.max(1,Math.floor(t/50));document.getElementById('payInfo').innerHTML='Пополнение · <b>'+t+'₽</b>';switchPage('pay');}
     function selectPeriod(p,m,pr){selectedPlan=p;selectedMonths=m;selectedPrice=pr;document.getElementById(p+'Price').innerText=pr+'₽';document.querySelectorAll('#'+p+'Periods .period-btn').forEach(b=>b.classList.remove('sel','sel-gold','sel-premium'));event.target.classList.add(p==='elite'?'sel-gold':p==='premium'?'sel-premium':'sel');}
-    function buyPlan(p){selectedPlan=p;selectedPrice=p==='base'?149:p==='elite'?249:499;document.getElementById('payInfo').innerHTML='<b>'+p.toUpperCase()+'</b> · '+selectedMonths+' мес · <b>'+selectedPrice+'₽</b>';switchPage('pay');}
+    function quickBuy(plan,days,price){selectedPlan=plan;selectedMonths=1;selectedPrice=price;selectedDays=days;document.getElementById('payInfo').innerHTML='⚡ '+days+' дн · <b>'+price+'₽</b>';switchPage('pay');}
+    function buyPlan(p){selectedPlan=p;selectedPrice=p==='base'?120:p==='elite'?249:449;document.getElementById('payInfo').innerHTML='<b>'+p.toUpperCase()+'</b> · '+selectedMonths+' мес · <b>'+selectedPrice+'₽</b>';switchPage('pay');}
     function openSupport(){tg.openTelegramLink('https://t.me/pan1ca7');}
     function changeKey(){tg.showPopup({title:'⚠️',message:'Ключ аннулируется.',buttons:[{id:'yes',text:'✅ Да'},{id:'no',text:'❌ Нет'}]},(btn)=>{if(btn==='yes')tg.showPopup({title:'✅',message:'Заявка отправлена.'});});}
     function showDevices(){tg.showPopup({title:'📱',message:'🟢 '+deviceModel+'\nПодключено: 1',buttons:[{id:'ok',text:'Ок'}]});}
     function downloadHapp(){const ua=navigator.userAgent;if(/iPhone|iPad|iPod/.test(ua))tg.openLink('https://apps.apple.com/app/happ-vpn/id1587873487');else if(/Android/.test(ua))tg.openLink('https://play.google.com/store/apps/details?id=com.happvpn');else tg.openLink('https://happvpn.com');}
-    async function payManual(bank){const code=Math.random().toString(36).substring(2,10).toUpperCase(),phone=bank==='sber'?'+7 952 843-59-22':'+7 988 080-13-82',bankName=bank==='sber'?'Сбербанк':'Альфа-Банк';tg.showPopup({title:'🏦 '+bankName,message:'💰 '+selectedPrice+'₽\n📱 '+phone+'\n🏷 '+code+'\n\n⚠️ Код в комментарии!',buttons:[{id:'done',text:'✅ Оплатил'},{type:'cancel'}]},async(btn)=>{if(btn==='done'){await fetch(`${SUPABASE_URL}/rest/v1/payments`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({user_id:userId,username,code,bank:bankName,amount:selectedPrice,plan:selectedPlan,months:selectedMonths,status:'pending',created_at:new Date().toISOString()})});await fetch(`https://api.telegram.org/bot${NOTIFY_BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:ADMIN_ID,text:'🔔 *Платёж!*\n👤 @'+username+'\n💰 '+selectedPrice+'₽\n📦 '+selectedPlan.toUpperCase()+'\n🏷 `'+code+'`',parse_mode:'Markdown'})});tg.showPopup({title:'✅',message:'Отправлено!'});switchPage('home');}});}
+    
+    function payAnyPay(){
+        const key=selectedPlan+'_'+selectedMonths;
+        const link=ANYPAY_LINKS[key]||ANYPAY_LINKS['elite_1'];
+        tg.openLink(link);
+        tg.showPopup({title:'💳',message:'После оплаты нажми "Я оплатил" в ручном переводе.'});
+    }
+
+    async function payManual(bank){
+        const code=Math.random().toString(36).substring(2,10).toUpperCase(),phone=bank==='sber'?'+7 952 843-59-22':'+7 988 080-13-82',bankName=bank==='sber'?'Сбербанк':'Альфа-Банк';
+        tg.showPopup({title:'🏦 '+bankName,message:'💰 '+selectedPrice+'₽\n📱 '+phone+'\n🏷 '+code+'\n\n⚠️ Код в комментарии!',buttons:[{id:'done',text:'✅ Оплатил'},{type:'cancel'}]},async(btn)=>{
+            if(btn==='done'){
+                await fetch(`${SUPABASE_URL}/rest/v1/payments`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({user_id:userId,username,code,bank:bankName,amount:selectedPrice,plan:selectedPlan,months:selectedMonths,status:'pending',created_at:new Date().toISOString()})});
+                await fetch(`https://api.telegram.org/bot${NOTIFY_BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:ADMIN_ID,text:'🔔 *Платёж!*\n👤 @'+username+'\n💰 '+selectedPrice+'₽\n📦 '+selectedPlan.toUpperCase()+'\n🏷 `'+code+'`',parse_mode:'Markdown'})});
+                tg.showPopup({title:'✅',message:'Отправлено!'});switchPage('home');
+            }
+        });
+    }
     function selectPlatform(p){let l='';if(p==='ios')l='https://apps.apple.com/app/happ-vpn/id1587873487';else if(p==='android')l='https://play.google.com/store/apps/details?id=com.happvpn';else if(p==='windows')l='https://happvpn.com/windows';else l='https://happvpn.com/linux';tg.showPopup({title:'Готово',buttons:[{id:'go',text:'🔗 Продолжить'}]},(b)=>{if(b==='go')tg.openLink(l);});}
     function copyRef(){navigator.clipboard.writeText(document.getElementById('refLink').innerText);tg.showPopup({title:'✅',message:'Скопировано!'});}
-    setInterval(async()=>{if(userData&&userData.plan==='trial')await checkPendingPayment();},15000);
+    setInterval(async()=>{if(userData&&!userData.plan)await checkPendingPayment();},15000);
     loadUser();
 </script>
 </body>
