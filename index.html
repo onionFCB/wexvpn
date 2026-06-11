@@ -17,10 +17,13 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .top-bar { display: flex; align-items: center; gap: 8px; padding: 6px 0 2px; }
-        .logo { font-size: 21px; font-weight: 900; letter-spacing: -1.5px; background: linear-gradient(135deg, #d8d8d8, #707070); -webkit-background-clip: text; -webkit-text-fill-color: transparent; flex:1; }
-        .top-balance { font-size: 11px; font-weight: 700; color: #999; background: rgba(255,255,255,0.025); padding: 6px 10px; border-radius: 9px; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; }
+        .logo { font-size: 21px; font-weight: 900; letter-spacing: -1.5px; background: linear-gradient(135deg, #d8d8d8, #707070); -webkit-background-clip: text; -webkit-text-fill-color: transparent; flex:1; text-align:center; }
         .support-link { font-size: 9px; color: #777; cursor: pointer; padding: 5px 10px; border-radius: 9px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); }
         .icon-btn { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); color: #888; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+        .balance-header { text-align:center; margin:2px 0 6px; }
+        .balance-header .rub { font-size: 28px; font-weight:900; color: #00ff88; }
+        .balance-header .sub { font-size: 10px; color: #888; }
 
         .card { background: #080808; border: 1px solid #131313; border-radius: 18px; padding: 14px; margin: 5px 0; position: relative; overflow: hidden; }
         .card::after { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.01), transparent 60%); pointer-events: none; }
@@ -28,7 +31,7 @@
         .card-gold { border-color: rgba(255,215,0,0.1); }
         .card-premium { border-color: rgba(180,130,255,0.15); box-shadow: 0 0 30px rgba(180,130,255,0.04); }
         .card-accent { border-color: rgba(0,200,200,0.1); }
-        .card-flash { border-color: rgba(255,140,0,0.15); }
+        .card-flash { border-color: rgba(255,140,0,0.12); }
 
         .badge { font-size: 8px; font-weight: 700; padding: 3px 7px; border-radius: 7px; }
         .badge-red { background: rgba(255,77,77,0.06); color: #FF4D4D; }
@@ -45,7 +48,6 @@
         .btn-outline-gold { background: transparent; border: 1px solid rgba(255,215,0,0.2); color: #FFD700; }
         .btn-outline-premium { background: transparent; border: 1px solid rgba(180,130,255,0.25); color: #b482ff; }
         .btn-outline-teal { background: transparent; border: 1px solid rgba(0,200,200,0.2); color: #0cc; }
-        .btn-outline-flash { background: transparent; border: 1px solid rgba(255,140,0,0.2); color: #ff8c00; }
         .btn-blue { background: #2196F3; color: #fff; }
 
         .plan-row { display: flex; align-items: center; justify-content: space-between; }
@@ -56,7 +58,6 @@
         .period-btn.sel { border-color: #555; background: rgba(255,255,255,0.02); color: #fff; }
         .period-btn.sel-gold { border-color: rgba(255,215,0,0.3); background: rgba(255,215,0,0.02); color: #fff; }
         .period-btn.sel-premium { border-color: rgba(180,130,255,0.3); background: rgba(180,130,255,0.02); color: #fff; }
-        .period-btn.sel-flash { border-color: rgba(255,140,0,0.3); background: rgba(255,140,0,0.02); color: #fff; }
         .price-tag { font-size: 17px; font-weight: 800; }
 
         .quick-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; margin: 4px 0; }
@@ -64,25 +65,10 @@
         .quick-btn:active { background: #0a0a0a; }
         .quick-btn .days { font-size: 18px; color: #ff8c00; display: block; }
         .quick-btn .price { font-size: 10px; color: #888; }
+        .quick-note { font-size: 8px; color: #666; text-align: center; margin-top: 2px; }
 
-        .profile-hero { text-align: center; padding: 10px 0; }
-        .profile-avatar { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.04); border: 2px solid #1c1c1c; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 6px; }
-        .profile-name { font-size: 16px; font-weight: 700; color: #d0d0d0; }
-        .profile-status { font-size: 10px; padding: 4px 10px; border-radius: 8px; display: inline-block; margin: 4px 0; }
-        .profile-status.active { background: rgba(0,255,136,0.04); color: #00ff88; }
-        .profile-status.inactive { background: rgba(255,255,255,0.04); color: #999; }
-
-        .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 8px 0; }
-        .stat-item { background: #0a0a0a; border: 1px solid #151515; border-radius: 14px; padding: 12px; text-align: center; }
-        .stat-value { font-size: 20px; font-weight: 900; color: #e0e0e0; }
-        .stat-label { font-size: 9px; color: #777; margin-top: 2px; }
-
-        .sub-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; cursor: pointer; }
-        .sub-icon { font-size: 24px; }
-        .sub-info { flex:1; }
-        .sub-name { font-weight: 700; font-size: 14px; color: #d0d0d0; }
-        .sub-desc { font-size: 10px; color: #999; }
-        .sub-arrow { color: #666; font-size: 18px; }
+        .custom-input { width: 100%; padding: 12px; background: #050505; border: 1px solid #1a1a1a; border-radius: 12px; color: #fff; font-size: 16px; text-align: center; font-weight: 700; margin-top: 4px; }
+        .custom-hint { font-size: 9px; color: #666; text-align: center; margin: 3px 0; }
 
         .ref-link-box { background: #050505; padding: 9px; border-radius: 10px; font-size: 9px; color: #00ff88; word-break: break-all; margin: 5px 0; border: 1px solid #151515; }
 
@@ -102,18 +88,22 @@
 <body>
 
 <div id="page-home" class="page active">
-    <div class="top-bar"><div class="logo">WEX VPN</div><span class="support-link" onclick="openSupport()">Поддержка</span><span class="top-balance" onclick="switchPage('balance')" id="topBalance">0 дн</span></div>
+    <div class="top-bar"><span class="icon-btn" onclick="switchPage('profile')">☰</span><div class="logo">WEX VPN</div><span class="support-link" onclick="openSupport()">Поддержка</span></div>
+    
+    <div class="balance-header"><div class="rub" id="headerBalance">0₽</div><div class="sub">Баланс</div></div>
+
     <button class="btn btn-ghost" onclick="switchPage('setup')">⚙️ Настроить VPN</button>
 
-    <!-- РАЗОВЫЕ ОПЦИИ -->
+    <!-- РАЗОВЫЕ ОПЦИИ (ELITE) -->
     <div class="card card-flash">
-        <p style="font-size:10px;font-weight:700;color:#ff8c00;margin-bottom:4px;">⚡ Разовый доступ</p>
+        <p style="font-size:10px;font-weight:700;color:#ff8c00;margin-bottom:2px;">⚡ Разовый доступ <span style="color:#FFD700;">(ELITE)</span></p>
         <div class="quick-grid">
-            <div class="quick-btn" onclick="quickBuy('flash_1',1,39)"><span class="days">1 день</span><span class="price">39₽</span></div>
-            <div class="quick-btn" onclick="quickBuy('flash_3',3,79)"><span class="days">3 дня</span><span class="price">79₽</span></div>
-            <div class="quick-btn" onclick="quickBuy('flash_7',7,119)"><span class="days">7 дней</span><span class="price">119₽</span></div>
-            <div class="quick-btn" onclick="quickBuy('flash_14',14,189)"><span class="days">14 дней</span><span class="price">189₽</span></div>
+            <div class="quick-btn" onclick="quickBuy('flash_1',1,15,'30 ГБ')"><span class="days">1 день</span><span class="price">15₽</span></div>
+            <div class="quick-btn" onclick="quickBuy('flash_3',3,39,'30 ГБ')"><span class="days">3 дня</span><span class="price">39₽</span></div>
+            <div class="quick-btn" onclick="quickBuy('flash_7',7,69,'∞')"><span class="days">7 дней</span><span class="price">69₽</span></div>
+            <div class="quick-btn" onclick="quickBuy('flash_14',14,125,'∞')"><span class="days">14 дней</span><span class="price">125₽</span></div>
         </div>
+        <div class="quick-note">∞ антизаглушка от 7 дней</div>
     </div>
 
     <!-- BASE -->
@@ -148,53 +138,13 @@
     <div class="footer">WEX VPN © 2026</div>
 </div>
 
-<div id="page-profile" class="page">
-    <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Кабинет</div></div>
-    <div class="card card-neon profile-hero">
-        <div class="profile-avatar">👤</div>
-        <div class="profile-name" id="profileName">Юзер</div>
-        <div class="profile-status inactive" id="profileStatus">Не активирован</div>
-    </div>
-    <div class="stat-grid">
-        <div class="stat-item"><div class="stat-value" id="statDays">0</div><div class="stat-label">дней</div></div>
-        <div class="stat-item"><div class="stat-value" id="statKey">—</div><div class="stat-label">ключ</div></div>
-        <div class="stat-item"><div class="stat-value" id="statRef">0</div><div class="stat-label">друзей</div></div>
-        <div class="stat-item"><div class="stat-value" id="statBonus">0</div><div class="stat-label">бонусов</div></div>
-    </div>
-    <div class="card card-neon">
-        <p style="font-size:11px;color:#999;margin-bottom:6px;">Твоя подписка</p>
-        <div class="sub-row" onclick="buyPlan('base')"><span class="sub-icon">🛡</span><div class="sub-info"><div class="sub-name">BASE</div><div class="sub-desc">1 устр. · 30 ГБ · 120₽/мес</div></div><span class="sub-arrow">›</span></div>
-        <div class="sub-row" onclick="buyPlan('elite')"><span class="sub-icon">👑</span><div class="sub-info"><div class="sub-name">ELITE</div><div class="sub-desc">3 устр. · ∞ ГБ · 249₽/мес</div></div><span class="sub-arrow">›</span></div>
-        <div class="sub-row" onclick="buyPlan('premium')"><span class="sub-icon">💜</span><div class="sub-info"><div class="sub-name">PREMIUM</div><div class="sub-desc">5 устр. · ∞ ГБ · 449₽/мес</div></div><span class="sub-arrow">›</span></div>
-        <button class="btn btn-green" onclick="activateTrial()" style="margin-top:8px;">🎁 Активировать пробный</button>
-    </div>
-    <button class="btn btn-outline" onclick="changeKey()">🔑 Заменить ключ</button>
-    <button class="btn btn-ghost" onclick="showDevices()">📱 Устройства: <span id="profDeviceShort">—</span></button>
-</div>
-
-<div id="page-ref" class="page">
-    <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Друзья</div></div>
-    <div class="card card-neon" style="text-align:center;"><p style="font-size:36px;">💎</p><h3>Дарим месяц</h3><p style="font-size:10px;color:#999;margin:3px 0 6px;">Оплатил — получил +30 дней</p><div class="ref-link-box" id="refLink">...</div><button class="btn btn-blue" onclick="copyRef()">📋 Копировать</button>
-        <div style="display:flex;justify-content:space-around;margin-top:8px;"><div><span style="color:#00ff88;font-weight:700;font-size:18px;" id="refCount">0</span><br><small style="color:#666;">друзей</small></div><div><span style="color:#00ff88;font-weight:700;font-size:18px;" id="bonusDays">0</span><br><small style="color:#666;">бонус дней</small></div></div>
-    </div>
-</div>
-
-<div id="page-speed" class="page">
-    <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Тест сети</div></div>
-    <div class="card card-neon" style="text-align:center;"><p style="font-size:44px;">📡</p><p style="font-weight:700;">Яндекс.Интернетомер</p><button class="btn btn-green" onclick="tg.openLink('https://yandex.ru/internet/')">🚀 Запустить</button>
-        <div class="speed-extra">В нашем <span onclick="tg.openTelegramLink('https://t.me/w7xvpn')" style="cursor:pointer;color:#0cc;">чате</span> напиши <span>пинг</span> — если высокий, поменяем сервер.<br>Ошибки, баги, троттлинг — <span>решаем.</span><br><span>Никто не отменял стабильность.</span></div>
-    </div>
-</div>
-
 <div id="page-balance" class="page">
     <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Пополнение</div></div>
-    <div class="card card-accent" style="text-align:center;"><p style="font-size:11px;color:#999;">Сумма:</p>
-        <div class="amount-grid"><div class="amount-btn" onclick="selectAmount(50)">50₽</div><div class="amount-btn" onclick="selectAmount(150)">150₽</div><div class="amount-btn" onclick="selectAmount(399)">399₽</div><div class="amount-btn" onclick="selectAmount(599)">599₽</div><div class="amount-btn" onclick="selectAmount(999)">999₽</div><div class="amount-btn" onclick="selectAmount(2500)">2500₽</div></div>
-        <input type="text" class="promo-input" id="promoInput" placeholder="🔑 Промокод" style="width:100%;padding:11px;background:#050505;border:1px solid #1a1a1a;border-radius:11px;color:#fff;font-size:13px;text-align:center;margin-top:4px;">
-        <p class="promo-hint" style="font-size:9px;color:#666;text-align:center;margin:3px 0;">Ищи в <span style="color:#0cc;cursor:pointer;" onclick="tg.openTelegramLink('https://t.me/w7xvpn')">канале</span></p>
-        <p id="promoStatus" style="font-size:9px;min-height:12px;"></p>
-        <div class="promo-row" style="display:flex;align-items:center;justify-content:center;gap:6px;margin:4px 0;font-size:13px;"><span style="color:#aaa;" id="baseAmount">50₽</span><span id="promoArrow" style="display:none;color:#666;">→</span><span class="promo-final" id="finalAmount" style="display:none;color:#00ff88;font-weight:800;font-size:15px;">60₽</span></div>
-        <button class="btn btn-outline-teal" onclick="topUpBalance()">💳 Пополнить</button>
+    <div class="card card-accent" style="text-align:center;">
+        <p style="font-size:11px;color:#999;">Введи сумму (50₽ — 2500₽):</p>
+        <input type="number" class="custom-input" id="customAmount" placeholder="Например: 100" min="50" max="2500" value="100">
+        <p class="custom-hint">Твой баланс: <span id="balDisplay" style="color:#00ff88;">0₽</span></p>
+        <button class="btn btn-outline-teal" onclick="topUpCustom()">💳 Пополнить</button>
     </div>
 </div>
 
@@ -215,6 +165,25 @@
     </div>
 </div>
 
+<div id="page-profile" class="page">
+    <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Кабинет</div></div>
+    <div class="card card-neon" style="text-align:center;">
+        <p style="font-size:32px;">👤</p><p style="font-weight:700;" id="profileName">Юзер</p>
+        <p style="font-size:10px;color:#888;">Баланс: <span id="profBal" style="color:#00ff88;">0₽</span> · Дней: <span id="profDays">0</span></p>
+        <p style="font-size:9px;color:#666;">Ключ: <span id="profKey">—</span></p>
+    </div>
+    <button class="btn btn-outline" onclick="changeKey()">🔑 Заменить ключ</button>
+    <button class="btn btn-ghost" onclick="showDevices()">📱 Устройство: <span id="profDeviceShort">—</span></button>
+    <button class="btn btn-ghost" onclick="switchPage('ref')">💎 Друзья: <span id="profRef">0</span></button>
+</div>
+
+<div id="page-ref" class="page">
+    <div class="top-bar"><span class="icon-btn" onclick="switchPage('home')">←</span><div class="logo">Друзья</div></div>
+    <div class="card card-neon" style="text-align:center;"><p style="font-size:36px;">💎</p><h3>Дарим месяц</h3><p style="font-size:10px;color:#999;margin:3px 0 6px;">Оплатил — получил +30 дней</p><div class="ref-link-box" id="refLink">...</div><button class="btn btn-blue" onclick="copyRef()">📋 Копировать</button>
+        <div style="display:flex;justify-content:space-around;margin-top:8px;"><div><span style="color:#00ff88;font-weight:700;font-size:18px;" id="refCount">0</span><br><small style="color:#666;">друзей</small></div><div><span style="color:#00ff88;font-weight:700;font-size:18px;" id="bonusDays">0</span><br><small style="color:#666;">бонус дней</small></div></div>
+    </div>
+</div>
+
 <div class="bottom-nav">
     <div class="nav-item active" onclick="switchPage('home')" id="nav-home"><span>⚡</span><small>Главная</small></div>
     <div class="nav-item" onclick="switchPage('balance')" id="nav-balance"><span>💳</span><small>Баланс</small></div>
@@ -231,82 +200,54 @@
     const user=tg.initDataUnsafe?.user,userId=user?.id||'guest',username=user?.username||user?.first_name||'Юзер';
     document.getElementById('refLink').innerText=`https://t.me/${BOT_USERNAME}?start=ref${userId}`;
 
+    let userData=null,selectedPlan='elite',selectedMonths=1,selectedPrice=249,deviceModel='Неизвестно',userBalance=0;
+
     const ANYPAY_LINKS = {
-        'base_1':'https://anypay.io/merchant?merchant_id=17833&pay_id=1&amount=120&currency=RUB&desc=%F0%9F%9B%A1%20BASE%201%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=00425a6d4598ef3d100551a4052d05ea',
-        'base_3':'https://anypay.io/merchant?merchant_id=17833&pay_id=2&amount=299&currency=RUB&desc=%F0%9F%9B%A1%20BASE%203%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=2eb0469f36d4cef58a6947e97e836c72',
-        'base_6':'https://anypay.io/merchant?merchant_id=17833&pay_id=3&amount=550&currency=RUB&desc=%F0%9F%9B%A1%20BASE%206%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=eb4a754ee10a9c51bac7bf0340e69493',
-        'elite_1':'https://anypay.io/merchant?merchant_id=17833&pay_id=4&amount=249&currency=RUB&desc=%F0%9F%91%91%20ELITE%201%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=3f24a54545f34e16c1d4ea6c06c4ce9b',
-        'elite_3':'https://anypay.io/merchant?merchant_id=17833&pay_id=5&amount=649&currency=RUB&desc=%F0%9F%91%91%20ELITE%203%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=4fe33c6a1abd2d2bc1c893747fe49a1d',
-        'elite_6':'https://anypay.io/merchant?merchant_id=17833&pay_id=6&amount=1190&currency=RUB&desc=%F0%9F%91%91%20ELITE%206%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=acb19c3c664b8df6c55fbbcbaa72bd34',
-        'premium_1':'https://anypay.io/merchant?merchant_id=17833&pay_id=7&amount=449&currency=RUB&desc=%F0%9F%92%9C%20PREMIUM%201%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=b453b564fb48526ad108f130cc18d022',
-        'premium_3':'https://anypay.io/merchant?merchant_id=17833&pay_id=8&amount=1199&currency=RUB&desc=%F0%9F%92%9C%20PREMIUM%203%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=d4f50b1590b3e77efd77092cac0a9f77',
-        'premium_6':'https://anypay.io/merchant?merchant_id=17833&pay_id=9&amount=2199&currency=RUB&desc=%F0%9F%92%9C%20PREMIUM%206%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86&sign=fd4d521c5feb47c9b9cecb2ea9f34c7b'
+        'base_1':'https://anypay.io/merchant?merchant_id=17833&pay_id=1&amount=120&currency=RUB&desc=BASE%201%D0%BC&sign=00425a6d4598ef3d100551a4052d05ea',
+        'base_3':'https://anypay.io/merchant?merchant_id=17833&pay_id=2&amount=299&currency=RUB&desc=BASE%203%D0%BC&sign=2eb0469f36d4cef58a6947e97e836c72',
+        'base_6':'https://anypay.io/merchant?merchant_id=17833&pay_id=3&amount=550&currency=RUB&desc=BASE%206%D0%BC&sign=eb4a754ee10a9c51bac7bf0340e69493',
+        'elite_1':'https://anypay.io/merchant?merchant_id=17833&pay_id=4&amount=249&currency=RUB&desc=ELITE%201%D0%BC&sign=3f24a54545f34e16c1d4ea6c06c4ce9b',
+        'elite_3':'https://anypay.io/merchant?merchant_id=17833&pay_id=5&amount=649&currency=RUB&desc=ELITE%203%D0%BC&sign=4fe33c6a1abd2d2bc1c893747fe49a1d',
+        'elite_6':'https://anypay.io/merchant?merchant_id=17833&pay_id=6&amount=1190&currency=RUB&desc=ELITE%206%D0%BC&sign=acb19c3c664b8df6c55fbbcbaa72bd34',
+        'premium_1':'https://anypay.io/merchant?merchant_id=17833&pay_id=7&amount=449&currency=RUB&desc=PREMIUM%201%D0%BC&sign=b453b564fb48526ad108f130cc18d022',
+        'premium_3':'https://anypay.io/merchant?merchant_id=17833&pay_id=8&amount=1199&currency=RUB&desc=PREMIUM%203%D0%BC&sign=d4f50b1590b3e77efd77092cac0a9f77',
+        'premium_6':'https://anypay.io/merchant?merchant_id=17833&pay_id=9&amount=2199&currency=RUB&desc=PREMIUM%206%D0%BC&sign=fd4d521c5feb47c9b9cecb2ea9f34c7b'
     };
 
-    let userData=null,selectedPlan='elite',selectedMonths=1,selectedPrice=249,selectedTopUp=50,promoApplied=false,deviceModel='Неизвестно';
-    const PROMO_CODES={'WEX20':true,'VPNBONUS':true,'START20':true,'TAMIR':true,'PANICA':true};
-    
     (function detectDevice(){
         const ua=navigator.userAgent;
-        if(/iPhone/.test(ua)){const m=ua.match(/iPhone(\d+,\d+)/);if(m){const map={'17,1':'iPhone 16 Pro','17,2':'iPhone 16 Pro Max','16,1':'iPhone 15 Pro','16,2':'iPhone 15 Pro Max'};deviceModel=map[m[1]]||'iPhone';}else deviceModel='iPhone';}
-        else if(/Android/.test(ua)){const m=ua.match(/Android\s([^;]+)/);deviceModel=m?'Android '+m[1]:'Android';}
-        else if(/Windows/.test(ua))deviceModel='Windows';
-        else if(/Macintosh/.test(ua))deviceModel='Mac';
+        if(/iPhone/.test(ua))deviceModel='iPhone';else if(/Android/.test(ua))deviceModel='Android';else if(/Windows/.test(ua))deviceModel='Windows';else deviceModel='Устройство';
     })();
 
     async function loadUser(){
         const res=await fetch(`${SUPABASE_URL}/rest/v1/users?user_id=eq.${userId}`,{headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}});
         const data=await res.json();
-        if(data.length>0){userData=data[0];checkPendingPayment();}else{userData={plan:null,balance_days:0,key:null,ref_count:0,bonus_days:0};}
+        if(data.length>0){userData=data[0];userBalance=userData.balance_rub||0;}else{userData={plan:null,balance_days:0,key:null,ref_count:0,bonus_days:0,balance_rub:0};}
         updateUI();
     }
     function updateUI(){
-        const plan=userData.plan,days=userData.balance_days||0,key=userData.key,active=plan&&days>0;
-        document.getElementById('topBalance').innerText=(days||0)+' дн';
+        userBalance=userData.balance_rub||0;
+        document.getElementById('headerBalance').innerText=userBalance+'₽';
+        document.getElementById('balDisplay').innerText=userBalance+'₽';
         document.getElementById('profileName').innerText=username;
-        const ps=document.getElementById('profileStatus');
-        if(active){ps.className='profile-status active';ps.innerText=plan.toUpperCase()+' · '+days+' дн';}
-        else{ps.className='profile-status inactive';ps.innerText='Не активирован';}
-        document.getElementById('statDays').innerText=days;
-        document.getElementById('statKey').innerText=key?key.slice(-4):'—';
-        document.getElementById('statRef').innerText=userData.ref_count||0;
-        document.getElementById('statBonus').innerText=userData.bonus_days||0;
+        document.getElementById('profBal').innerText=userBalance+'₽';
+        document.getElementById('profDays').innerText=userData.balance_days||0;
+        document.getElementById('profKey').innerText=userData.key?userData.key.slice(-4):'—';
+        document.getElementById('profDeviceShort').innerText=deviceModel;
+        document.getElementById('profRef').innerText=userData.ref_count||0;
         document.getElementById('refCount').innerText=userData.ref_count||0;
         document.getElementById('bonusDays').innerText=userData.bonus_days||0;
-        document.getElementById('profDeviceShort').innerText=deviceModel;
     }
-    async function activateTrial(){
-        if(!userData.plan){
-            await fetch(`${SUPABASE_URL}/rest/v1/users`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({user_id:userId,username,plan:'trial',trial_end:new Date(Date.now()+7*86400000).toISOString(),key:'WEX-TRIAL-'+userId.toString().slice(-6),balance_days:7,ref_code:'ref'+userId,ref_count:0,bonus_days:0,device:deviceModel})});
-            userData={plan:'trial',balance_days:7,key:'WEX-TRIAL-'+userId.toString().slice(-6),ref_count:0,bonus_days:0};updateUI();tg.showPopup({title:'✅',message:'Пробный на 7 дней!'});
-        }else{tg.showPopup({title:'ℹ️',message:'Уже активирован.'});}
-    }
-    async function checkPendingPayment(){
-        const res=await fetch(`${SUPABASE_URL}/rest/v1/payments?user_id=eq.${userId}&status=eq.approved&order=created_at.desc&limit=1`,{headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}});
-        if(res.ok){const data=await res.json();if(data.length>0){const p=data[0],nb=(userData.balance_days||0)+p.months*30,nk='WEX-'+p.plan.toUpperCase()+'-'+userId.toString().slice(-6);
-            await fetch(`${SUPABASE_URL}/rest/v1/users?user_id=eq.${userId}`,{method:'PATCH',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({plan:p.plan,balance_days:nb,key:nk})});
-            userData.plan=p.plan;userData.balance_days=nb;userData.key=nk;updateUI();tg.showPopup({title:'🎉',message:'Оплата подтверждена!'});}}
-    }
-    function switchPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));const nav=document.getElementById('nav-'+id);if(nav)nav.classList.add('active');}
-    function selectAmount(a){selectedTopUp=a;document.querySelectorAll('.amount-btn').forEach(b=>b.classList.remove('sel'));event.target.classList.add('sel');updatePromo();}
-    function updatePromo(){document.getElementById('baseAmount').innerText=selectedTopUp+'₽';const p=document.getElementById('promoInput').value.toUpperCase().trim(),s=document.getElementById('promoStatus'),a=document.getElementById('promoArrow'),f=document.getElementById('finalAmount');if(p&&PROMO_CODES[p]){const b=Math.floor(selectedTopUp*0.2);s.innerHTML='<span style="color:#0cc;">✅ Верно! +20%</span>';a.style.display='inline';f.style.display='inline';f.innerText=(selectedTopUp+b)+'₽';promoApplied=true;}else if(p){s.innerHTML='<span style="color:#FF4D4D;">❌ Неверно</span>';a.style.display='none';f.style.display='none';promoApplied=false;}else{s.innerHTML='';a.style.display='none';f.style.display='none';promoApplied=false;}}
-    document.getElementById('promoInput').addEventListener('input',updatePromo);
-    function topUpBalance(){let t=selectedTopUp;if(promoApplied)t+=Math.floor(selectedTopUp*0.2);selectedPrice=t;selectedPlan='balance_topup';selectedMonths=Math.max(1,Math.floor(t/50));document.getElementById('payInfo').innerHTML='Пополнение · <b>'+t+'₽</b>';switchPage('pay');}
+    function switchPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));const pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));const nav=document.getElementById('nav-'+id);if(nav)nav.classList.add('active');}
     function selectPeriod(p,m,pr){selectedPlan=p;selectedMonths=m;selectedPrice=pr;document.getElementById(p+'Price').innerText=pr+'₽';document.querySelectorAll('#'+p+'Periods .period-btn').forEach(b=>b.classList.remove('sel','sel-gold','sel-premium'));event.target.classList.add(p==='elite'?'sel-gold':p==='premium'?'sel-premium':'sel');}
-    function quickBuy(plan,days,price){selectedPlan=plan;selectedMonths=1;selectedPrice=price;selectedDays=days;document.getElementById('payInfo').innerHTML='⚡ '+days+' дн · <b>'+price+'₽</b>';switchPage('pay');}
+    function quickBuy(plan,days,price,limit){selectedPlan=plan;selectedMonths=Math.ceil(days/30)||1;selectedPrice=price;selectedDays=days;document.getElementById('payInfo').innerHTML='⚡ '+days+' дн · <b>'+price+'₽</b> · '+limit+' антизагл.';switchPage('pay');}
     function buyPlan(p){selectedPlan=p;selectedPrice=p==='base'?120:p==='elite'?249:449;document.getElementById('payInfo').innerHTML='<b>'+p.toUpperCase()+'</b> · '+selectedMonths+' мес · <b>'+selectedPrice+'₽</b>';switchPage('pay');}
+    function topUpCustom(){let v=parseInt(document.getElementById('customAmount').value);if(isNaN(v)||v<50)v=50;if(v>2500)v=2500;selectedPrice=v;selectedPlan='balance_topup';selectedMonths=1;document.getElementById('payInfo').innerHTML='Пополнение · <b>'+v+'₽</b>';switchPage('pay');}
     function openSupport(){tg.openTelegramLink('https://t.me/pan1ca7');}
     function changeKey(){tg.showPopup({title:'⚠️',message:'Ключ аннулируется.',buttons:[{id:'yes',text:'✅ Да'},{id:'no',text:'❌ Нет'}]},(btn)=>{if(btn==='yes')tg.showPopup({title:'✅',message:'Заявка отправлена.'});});}
     function showDevices(){tg.showPopup({title:'📱',message:'🟢 '+deviceModel+'\nПодключено: 1',buttons:[{id:'ok',text:'Ок'}]});}
     function downloadHapp(){const ua=navigator.userAgent;if(/iPhone|iPad|iPod/.test(ua))tg.openLink('https://apps.apple.com/app/happ-vpn/id1587873487');else if(/Android/.test(ua))tg.openLink('https://play.google.com/store/apps/details?id=com.happvpn');else tg.openLink('https://happvpn.com');}
-    
-    function payAnyPay(){
-        const key=selectedPlan+'_'+selectedMonths;
-        const link=ANYPAY_LINKS[key]||ANYPAY_LINKS['elite_1'];
-        tg.openLink(link);
-        tg.showPopup({title:'💳',message:'После оплаты нажми "Я оплатил" в ручном переводе.'});
-    }
-
+    function payAnyPay(){const key=selectedPlan+'_'+selectedMonths;const link=ANYPAY_LINKS[key]||ANYPAY_LINKS['elite_1'];tg.openLink(link);}
     async function payManual(bank){
         const code=Math.random().toString(36).substring(2,10).toUpperCase(),phone=bank==='sber'?'+7 952 843-59-22':'+7 988 080-13-82',bankName=bank==='sber'?'Сбербанк':'Альфа-Банк';
         tg.showPopup({title:'🏦 '+bankName,message:'💰 '+selectedPrice+'₽\n📱 '+phone+'\n🏷 '+code+'\n\n⚠️ Код в комментарии!',buttons:[{id:'done',text:'✅ Оплатил'},{type:'cancel'}]},async(btn)=>{
@@ -319,7 +260,6 @@
     }
     function selectPlatform(p){let l='';if(p==='ios')l='https://apps.apple.com/app/happ-vpn/id1587873487';else if(p==='android')l='https://play.google.com/store/apps/details?id=com.happvpn';else if(p==='windows')l='https://happvpn.com/windows';else l='https://happvpn.com/linux';tg.showPopup({title:'Готово',buttons:[{id:'go',text:'🔗 Продолжить'}]},(b)=>{if(b==='go')tg.openLink(l);});}
     function copyRef(){navigator.clipboard.writeText(document.getElementById('refLink').innerText);tg.showPopup({title:'✅',message:'Скопировано!'});}
-    setInterval(async()=>{if(userData&&!userData.plan)await checkPendingPayment();},15000);
     loadUser();
 </script>
 </body>
